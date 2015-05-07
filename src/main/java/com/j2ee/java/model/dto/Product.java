@@ -3,6 +3,8 @@
  */
 package com.j2ee.java.model.dto;
 
+import java.math.BigDecimal;
+
 import org.springframework.stereotype.Component;
 
 
@@ -34,8 +36,8 @@ public class Product {
 	 * @param photo
 	 */
 	public Product(int productID, String productName, int typeID,
-			int providerID, int manufactureID, int unitID, Double salePrice,
-			Double orgPrice, String description, int minStock, int maxStock,
+			int providerID, int manufactureID, int unitID, BigDecimal salePrice,
+			BigDecimal orgPrice, String description, int minStock, int maxStock,
 			String photo) {
 		super();
 		this.productID = productID;
@@ -127,25 +129,25 @@ public class Product {
 	/**
 	 * @return the salePrice
 	 */
-	public Double getSalePrice() {
+	public BigDecimal getSalePrice() {
 		return salePrice;
 	}
 	/**
 	 * @param salePrice the salePrice to set
 	 */
-	public void setSalePrice(Double salePrice) {
+	public void setSalePrice(BigDecimal salePrice) {
 		this.salePrice = salePrice;
 	}
 	/**
 	 * @return the orgPrice
 	 */
-	public Double getOrgPrice() {
+	public BigDecimal getOrgPrice() {
 		return orgPrice;
 	}
 	/**
 	 * @param orgPrice the orgPrice to set
 	 */
-	public void setOrgPrice(Double orgPrice) {
+	public void setOrgPrice(BigDecimal orgPrice) {
 		this.orgPrice = orgPrice;
 	}
 	/**
@@ -203,8 +205,8 @@ public class Product {
 	private int providerID;
 	private int manufactureID;
 	private int unitID;
-	private Double salePrice;
-	private Double orgPrice;
+	private BigDecimal salePrice;
+	private BigDecimal orgPrice;
 	private String description;
 	private int minStock;
 	private int maxStock;
