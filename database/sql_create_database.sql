@@ -18,7 +18,7 @@ USE `j2ee_erp`;
 -- Dumping structure for table j2ee_erp.adjustment
 CREATE TABLE IF NOT EXISTS `adjustment` (
   `ID` int(11) NOT NULL AUTO_INCREMENT,
-  `Date` int(11) NOT NULL DEFAULT '0',
+  `Date` date NOT NULL,
   `AdjustID` varchar(50) NOT NULL DEFAULT '0',
   `RefType` int(11) NOT NULL DEFAULT '0',
   `StockID` int(11) NOT NULL DEFAULT '0',
@@ -29,8 +29,8 @@ CREATE TABLE IF NOT EXISTS `adjustment` (
   PRIMARY KEY (`ID`),
   KEY `FK_adjustment_stock` (`StockID`),
   KEY `FK_adjustment_staff` (`StaffID`),
-  CONSTRAINT `FK_adjustment_stock` FOREIGN KEY (`StockID`) REFERENCES `stock` (`StockID`),
-  CONSTRAINT `FK_adjustment_staff` FOREIGN KEY (`StaffID`) REFERENCES `staff` (`StaffID`)
+  CONSTRAINT `FK_adjustment_staff` FOREIGN KEY (`StaffID`) REFERENCES `staff` (`StaffID`),
+  CONSTRAINT `FK_adjustment_stock` FOREIGN KEY (`StockID`) REFERENCES `stock` (`StockID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Kiểm kê hàng hóa';
 
 -- Dumping data for table j2ee_erp.adjustment: ~0 rows (approximately)
@@ -58,9 +58,11 @@ CREATE TABLE IF NOT EXISTS `asset_adjustment` (
   `AssetNumber` int(11) NOT NULL DEFAULT '0',
   `AssetID` int(11) NOT NULL DEFAULT '0',
   `State` varchar(50) NOT NULL DEFAULT '0',
-  `Date` decimal(10,0) NOT NULL DEFAULT '0',
+  `Date` date NOT NULL,
   `IsValid` bit(1) NOT NULL DEFAULT b'0',
-  PRIMARY KEY (`AssetAdjustID`)
+  PRIMARY KEY (`AssetAdjustID`),
+  KEY `FK_asset_adjustment_asset` (`AssetID`),
+  CONSTRAINT `FK_asset_adjustment_asset` FOREIGN KEY (`AssetID`) REFERENCES `asset` (`AssetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='Kiem ke tai san co dinh';
 
 -- Dumping data for table j2ee_erp.asset_adjustment: ~0 rows (approximately)
@@ -98,8 +100,8 @@ CREATE TABLE IF NOT EXISTS `asset_liquidation_detail` (
   PRIMARY KEY (`LiDetailID`),
   KEY `FK__asset_liquidation` (`LiquidID`),
   KEY `FK__asset` (`AssetID`),
-  CONSTRAINT `FK__asset_liquidation` FOREIGN KEY (`LiquidID`) REFERENCES `asset_liquidation` (`LiquidID`),
-  CONSTRAINT `FK__asset` FOREIGN KEY (`AssetID`) REFERENCES `asset` (`AssetID`)
+  CONSTRAINT `FK__asset` FOREIGN KEY (`AssetID`) REFERENCES `asset` (`AssetID`),
+  CONSTRAINT `FK__asset_liquidation` FOREIGN KEY (`LiquidID`) REFERENCES `asset_liquidation` (`LiquidID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table j2ee_erp.asset_liquidation_detail: ~0 rows (approximately)
@@ -127,7 +129,11 @@ CREATE TABLE IF NOT EXISTS `asset_report_detail` (
   `AssetReportID` int(11) DEFAULT NULL,
   `AssetID` int(11) DEFAULT NULL,
   `Number` int(11) DEFAULT NULL,
-  `UseState` varchar(50) DEFAULT NULL
+  `UseState` varchar(50) DEFAULT NULL,
+  KEY `FK_asset_report_detail_asset_report` (`AssetReportID`),
+  KEY `FK_asset_report_detail_asset` (`AssetID`),
+  CONSTRAINT `FK_asset_report_detail_asset_report` FOREIGN KEY (`AssetReportID`) REFERENCES `asset_report` (`AssetReportID`),
+  CONSTRAINT `FK_asset_report_detail_asset` FOREIGN KEY (`AssetID`) REFERENCES `asset` (`AssetID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table j2ee_erp.asset_report_detail: ~0 rows (approximately)
@@ -148,6 +154,34 @@ CREATE TABLE IF NOT EXISTS `contract` (
 -- Dumping data for table j2ee_erp.contract: ~0 rows (approximately)
 /*!40000 ALTER TABLE `contract` DISABLE KEYS */;
 /*!40000 ALTER TABLE `contract` ENABLE KEYS */;
+
+
+-- Dumping structure for table j2ee_erp.inventory_report
+CREATE TABLE IF NOT EXISTS `inventory_report` (
+  `ReportID` int(11) NOT NULL AUTO_INCREMENT,
+  `StaffID` int(11) DEFAULT NULL,
+  `Date` date DEFAULT NULL,
+  `Reason` varchar(50) DEFAULT NULL,
+  PRIMARY KEY (`ReportID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table j2ee_erp.inventory_report: ~0 rows (approximately)
+/*!40000 ALTER TABLE `inventory_report` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inventory_report` ENABLE KEYS */;
+
+
+-- Dumping structure for table j2ee_erp.inventory_report_detail
+CREATE TABLE IF NOT EXISTS `inventory_report_detail` (
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `Date` date NOT NULL,
+  `ProductID` int(11) NOT NULL,
+  `Number` int(11) NOT NULL,
+  PRIMARY KEY (`ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- Dumping data for table j2ee_erp.inventory_report_detail: ~0 rows (approximately)
+/*!40000 ALTER TABLE `inventory_report_detail` DISABLE KEYS */;
+/*!40000 ALTER TABLE `inventory_report_detail` ENABLE KEYS */;
 
 
 -- Dumping structure for table j2ee_erp.manufacture
@@ -223,7 +257,7 @@ CREATE TABLE IF NOT EXISTS `product_component` (
 -- Dumping structure for table j2ee_erp.product_group
 CREATE TABLE IF NOT EXISTS `product_group` (
   `GroupID` int(11) NOT NULL AUTO_INCREMENT,
-  `GroupName` int(11) DEFAULT NULL,
+  `GroupName` varchar(50) DEFAULT NULL,
   `Description` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`GroupID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
@@ -290,38 +324,24 @@ CREATE TABLE IF NOT EXISTS `reference_type` (
   `RefTypeID` int(11) NOT NULL AUTO_INCREMENT,
   `Name` varchar(50) DEFAULT NULL,
   PRIMARY KEY (`RefTypeID`)
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8 COMMENT='lưu loại tháo dỡ/ đóng gói';
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8 COMMENT='lưu loại tháo dỡ/ đóng gói';
 
--- Dumping data for table j2ee_erp.reference_type: ~3 rows (approximately)
+-- Dumping data for table j2ee_erp.reference_type: ~0 rows (approximately)
 /*!40000 ALTER TABLE `reference_type` DISABLE KEYS */;
-INSERT INTO `reference_type` (`RefTypeID`, `Name`) VALUES
-	(1, 'Đóng gói hàng hóa'),
-	(2, 'Tháo dỡ hàng hóa'),
-	(3, 'Nhập kho');
 /*!40000 ALTER TABLE `reference_type` ENABLE KEYS */;
 
 
 -- Dumping structure for table j2ee_erp.regulation
 CREATE TABLE IF NOT EXISTS `regulation` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `ID` int(11) NOT NULL AUTO_INCREMENT,
   `Key` varchar(50) NOT NULL DEFAULT '0',
   `Value` varchar(100) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`id`)
+  PRIMARY KEY (`ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- Dumping data for table j2ee_erp.regulation: ~0 rows (approximately)
 /*!40000 ALTER TABLE `regulation` DISABLE KEYS */;
 /*!40000 ALTER TABLE `regulation` ENABLE KEYS */;
-
-
--- Dumping structure for table j2ee_erp.report_inventory
-CREATE TABLE IF NOT EXISTS `report_inventory` (
-  `product_id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table j2ee_erp.report_inventory: ~0 rows (approximately)
-/*!40000 ALTER TABLE `report_inventory` DISABLE KEYS */;
-/*!40000 ALTER TABLE `report_inventory` ENABLE KEYS */;
 
 
 -- Dumping structure for table j2ee_erp.staff
@@ -330,7 +350,7 @@ CREATE TABLE IF NOT EXISTS `staff` (
   `StaffName` varchar(50) DEFAULT NULL,
   `Birthday` date DEFAULT NULL,
   `Email` varchar(50) DEFAULT NULL,
-  `IndentifyNum` int(11) DEFAULT NULL,
+  `IdentifyNum` int(11) DEFAULT NULL,
   `Tel` varchar(50) DEFAULT NULL,
   `Address` varchar(100) DEFAULT NULL,
   PRIMARY KEY (`StaffID`)
@@ -503,16 +523,6 @@ CREATE TABLE IF NOT EXISTS `stock_outward_detail` (
 /*!40000 ALTER TABLE `stock_outward_detail` ENABLE KEYS */;
 
 
--- Dumping structure for table j2ee_erp.stock_report
-CREATE TABLE IF NOT EXISTS `stock_report` (
-  `id` int(11) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
-
--- Dumping data for table j2ee_erp.stock_report: ~0 rows (approximately)
-/*!40000 ALTER TABLE `stock_report` DISABLE KEYS */;
-/*!40000 ALTER TABLE `stock_report` ENABLE KEYS */;
-
-
 -- Dumping structure for table j2ee_erp.stock_transfer
 CREATE TABLE IF NOT EXISTS `stock_transfer` (
   `TransferID` int(11) NOT NULL AUTO_INCREMENT,
@@ -533,14 +543,14 @@ CREATE TABLE IF NOT EXISTS `stock_transfer` (
 
 -- Dumping structure for table j2ee_erp.stock_transfer_detail
 CREATE TABLE IF NOT EXISTS `stock_transfer_detail` (
-  `ID` int(11) NOT NULL AUTO_INCREMENT,
+  `StockTrDetailID` int(11) NOT NULL AUTO_INCREMENT,
   `ProductID` int(11) NOT NULL DEFAULT '0',
   `FromStock` int(11) NOT NULL DEFAULT '0',
   `ToStock` int(11) NOT NULL DEFAULT '0',
   `Number` int(11) NOT NULL DEFAULT '0',
   `Price` decimal(10,0) NOT NULL DEFAULT '0',
   `Amount` decimal(10,0) NOT NULL DEFAULT '0',
-  PRIMARY KEY (`ID`),
+  PRIMARY KEY (`StockTrDetailID`),
   KEY `FK_stock_transfer_detail_stock` (`FromStock`),
   KEY `FK_stock_transfer_detail_stock_2` (`ToStock`),
   CONSTRAINT `FK_stock_transfer_detail_stock` FOREIGN KEY (`FromStock`) REFERENCES `stock` (`StockID`),
