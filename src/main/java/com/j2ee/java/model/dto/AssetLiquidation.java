@@ -5,6 +5,18 @@ package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
@@ -13,13 +25,33 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="asset_liquidation")
 public class AssetLiquidation {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="LiquidID")
 	private int liquidID;
+	
+	@Column(name="Date")
 	private Date date;
-	private int staffID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StaffID")  
+	private Staff staffID;
+	
+	@Column(name="TotalNumber")
 	private int totalNumber;
+	
+	@Column(name="TotalAmount")
 	private BigDecimal totalAmount;
+	
+	@Column(name="Reason")
 	private String reason;
+	
+	@OneToMany(mappedBy = "liquidID")
+	private Set<AssetLiquidationDetail> assetliquiAssetLiquiDetail = new HashSet<AssetLiquidationDetail>();
 	/**
 	 * 
 	 */
@@ -30,17 +62,17 @@ public class AssetLiquidation {
 	/**
 	 * @param liquidID
 	 * @param date
-	 * @param staffID
+	 * @param staff
 	 * @param totalNumber
 	 * @param totalAmount
 	 * @param reason
 	 */
-	public AssetLiquidation(int liquidID, Date date, int staffID,
+	public AssetLiquidation(int liquidID, Date date, Staff staff,
 			int totalNumber, BigDecimal totalAmount, String reason) {
 		super();
 		this.liquidID = liquidID;
 		this.date = date;
-		this.staffID = staffID;
+		this.staffID = staff;
 		this.totalNumber = totalNumber;
 		this.totalAmount = totalAmount;
 		this.reason = reason;
@@ -72,14 +104,14 @@ public class AssetLiquidation {
 	/**
 	 * @return the staffID
 	 */
-	public int getStaffID() {
+	public Staff getStaffID() {
 		return staffID;
 	}
 	/**
 	 * @param staffID the staffID to set
 	 */
-	public void setStaffID(int staffID) {
-		this.staffID = staffID;
+	public void setStaffID(Staff staff) {
+		this.staffID = staff;
 	}
 	/**
 	 * @return the totalNumber
@@ -117,4 +149,13 @@ public class AssetLiquidation {
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+	public Set<AssetLiquidationDetail> getAssetliquiAssetLiquiDetail() {
+		return assetliquiAssetLiquiDetail;
+	}
+	
+	public void setAssetliquiAssetLiquiDetail(
+			Set<AssetLiquidationDetail> assetliquiAssetLiquiDetail) {
+		this.assetliquiAssetLiquiDetail = assetliquiAssetLiquiDetail;
+	}
+	
 }

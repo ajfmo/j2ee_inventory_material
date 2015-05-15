@@ -5,6 +5,18 @@ package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
@@ -13,14 +25,36 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name = "stock_outward")
 public class StockOutward {
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "OutwardID")
 	private int outwardID;
+
+	@Column(name = "Date")
 	private Date date;
+
+	@Column(name = "Reason")
 	private String reason;
+
+	@Column(name = "CustomerID")
 	private int customerID;
-	private int staffID;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StaffID")  
+	private Staff staffID;
+
+	@Column(name = "TotalQuantity")
 	private int totalQuantity;
+
+	@Column(name = "TotalAmount")
 	private BigDecimal totalAmount;
+	
+	@OneToMany(mappedBy = "outwardID")
+	private Set<StockOutwardDetail> stockOutStockOutDetail = new HashSet<StockOutwardDetail>();
 	/**
 	 * 
 	 */
@@ -38,7 +72,7 @@ public class StockOutward {
 	 * @param totalAmount
 	 */
 	public StockOutward(int outwardID, Date date, String reason,
-			int customerID, int staffID, int totalQuantity,
+			int customerID, Staff staffID, int totalQuantity,
 			BigDecimal totalAmount) {
 		super();
 		this.outwardID = outwardID;
@@ -100,13 +134,13 @@ public class StockOutward {
 	/**
 	 * @return the staffID
 	 */
-	public int getStaffID() {
+	public Staff getStaffID() {
 		return staffID;
 	}
 	/**
 	 * @param staffID the staffID to set
 	 */
-	public void setStaffID(int staffID) {
+	public void setStaffID(Staff staffID) {
 		this.staffID = staffID;
 	}
 	/**
@@ -133,5 +167,14 @@ public class StockOutward {
 	public void setTotalAmount(BigDecimal totalAmount) {
 		this.totalAmount = totalAmount;
 	}
+	public Set<StockOutwardDetail> getStockOutStockOutDetail() {
+		return stockOutStockOutDetail;
+	}
+	
+	public void setStockOutStockOutDetail(
+			Set<StockOutwardDetail> stockOutStockOutDetail) {
+		this.stockOutStockOutDetail = stockOutStockOutDetail;
+	}
+	
 	
 }

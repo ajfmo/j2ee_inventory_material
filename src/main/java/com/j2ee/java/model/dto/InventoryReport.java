@@ -2,13 +2,31 @@ package com.j2ee.java.model.dto;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
-@Component
+//@Component
+//@Entity
+//@Table(name="InventoryReport")
 public class InventoryReport {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="ReportID")
 	private int reportID;
+	
+	@Column(name="StaffID")
 	private int staffID;
+	
+	@Column(name="Date")
 	private Date date;
+	
+	@Column(name="Reason")
 	private String reason;
 	/**
 	 * 

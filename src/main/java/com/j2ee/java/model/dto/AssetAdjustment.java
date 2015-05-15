@@ -5,6 +5,15 @@ package com.j2ee.java.model.dto;
 
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 
@@ -13,12 +22,29 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="asset_adjustment")
 public class AssetAdjustment {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="AssetAdjustID")
 	private int assetAdjustID;
+	
+	@Column(name="AssetNumber")
 	private int assetNumber;
-	private int assetID;
+	
+	@ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "AssetID")
+	private Asset assetID;
+	
+	@Column(name="State")
 	private String state;
+	
+	@Column(name="Date")
 	private Date date;
+	
+	@Column(name="IsValid")
 	private boolean isValid;
 	/**
 	 * 
@@ -35,7 +61,7 @@ public class AssetAdjustment {
 	 * @param date
 	 * @param isValid
 	 */
-	public AssetAdjustment(int assetAdjustID, int assetNumber, int assetID,
+	public AssetAdjustment(int assetAdjustID, int assetNumber, Asset assetID,
 			String state, java.sql.Date date, boolean isValid) {
 		super();
 		this.assetAdjustID = assetAdjustID;
@@ -72,13 +98,13 @@ public class AssetAdjustment {
 	/**
 	 * @return the assetID
 	 */
-	public int getAssetID() {
+	public Asset getAssetID() {
 		return assetID;
 	}
 	/**
 	 * @param assetID the assetID to set
 	 */
-	public void setAssetID(int assetID) {
+	public void setAssetID(Asset assetID) {
 		this.assetID = assetID;
 	}
 	/**

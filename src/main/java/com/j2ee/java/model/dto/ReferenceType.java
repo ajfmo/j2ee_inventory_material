@@ -3,6 +3,16 @@
  */
 package com.j2ee.java.model.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,9 +20,20 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="reference_type")
 public class ReferenceType {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="RefTypeID")
 	private int refTypeID;
+	
+	@Column(name="Name")
 	private String name;
+	
+	@OneToMany(mappedBy = "refID")
+	private Set<StockInventory> refTypeStockInven = new HashSet<StockInventory>();
 	/**
 	 * 
 	 */
@@ -53,4 +74,11 @@ public class ReferenceType {
 	public void setName(String name) {
 		this.name = name;
 	}
+	public Set<StockInventory> getRefTypeStockInven() {
+		return refTypeStockInven;
+	}
+	public void setRefTypeStockInven(Set<StockInventory> refTypeStockInven) {
+		this.refTypeStockInven = refTypeStockInven;
+	}
+	
 }

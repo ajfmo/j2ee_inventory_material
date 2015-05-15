@@ -6,6 +6,15 @@ package com.j2ee.java.model.dto;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,14 +22,37 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="stock_inventory")
 public class StockInventory {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="InventoryID")
 	private int inventoryID;
-	private int refID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "RefID")  
+	private ReferenceType refID;
+	
+	@Column(name="Date")
 	private Date date;
-	private int productID;
-	private int stockID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ProductID")  
+	private Product productID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StockID") 
+	private Stock stockID;
+	
+	@Column(name="Quantity")
 	private int quantity;
+	
+	@Column(name="Price")
 	private BigDecimal price;
+	
+	@Column(name="Amount")
 	private BigDecimal amount;
 	/**
 	 * 
@@ -39,8 +71,8 @@ public class StockInventory {
 	 * @param price
 	 * @param amount
 	 */
-	public StockInventory(int inventoryID, int refID, Date date, int productID,
-			int stockID, int quantity, BigDecimal price, BigDecimal amount) {
+	public StockInventory(int inventoryID, ReferenceType refID, Date date, Product productID,
+			Stock stockID, int quantity, BigDecimal price, BigDecimal amount) {
 		super();
 		this.inventoryID = inventoryID;
 		this.refID = refID;
@@ -66,13 +98,13 @@ public class StockInventory {
 	/**
 	 * @return the refID
 	 */
-	public int getRefID() {
+	public ReferenceType getRefID() {
 		return refID;
 	}
 	/**
 	 * @param refID the refID to set
 	 */
-	public void setRefID(int refID) {
+	public void setRefID(ReferenceType refID) {
 		this.refID = refID;
 	}
 	/**
@@ -90,25 +122,25 @@ public class StockInventory {
 	/**
 	 * @return the productID
 	 */
-	public int getProductID() {
+	public Product getProductID() {
 		return productID;
 	}
 	/**
 	 * @param productID the productID to set
 	 */
-	public void setProductID(int productID) {
+	public void setProductID(Product productID) {
 		this.productID = productID;
 	}
 	/**
 	 * @return the stockID
 	 */
-	public int getStockID() {
+	public Stock getStockID() {
 		return stockID;
 	}
 	/**
 	 * @param stockID the stockID to set
 	 */
-	public void setStockID(int stockID) {
+	public void setStockID(Stock stockID) {
 		this.stockID = stockID;
 	}
 	/**

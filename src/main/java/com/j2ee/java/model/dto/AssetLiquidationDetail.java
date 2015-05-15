@@ -5,6 +5,15 @@ package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,13 +21,33 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="asset_liquidation_detail")
 public class AssetLiquidationDetail {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="LiDetailID")
 	private int liDetailID;
-	private int liquidID;
-	private int assetID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "LiquidID")  
+	private AssetLiquidation liquidID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "AssetID")
+	private Asset assetID;
+	
+	@Column(name="Number")
 	private int number;
+	
+	@Column(name="Price")
 	private BigDecimal price;
+	
+	@Column(name="Amount")
 	private BigDecimal amount;
+	
+	@Column(name="Customer")
 	private String customer;
 	/**
 	 * 
@@ -36,7 +65,7 @@ public class AssetLiquidationDetail {
 	 * @param amount
 	 * @param customer
 	 */
-	public AssetLiquidationDetail(int liDetailID, int liquidID, int assetID,
+	public AssetLiquidationDetail(int liDetailID, AssetLiquidation liquidID, Asset assetID,
 			int number, BigDecimal price, BigDecimal amount, String customer) {
 		super();
 		this.liDetailID = liDetailID;
@@ -62,25 +91,25 @@ public class AssetLiquidationDetail {
 	/**
 	 * @return the liquidID
 	 */
-	public int getLiquidID() {
+	public AssetLiquidation getLiquidID() {
 		return liquidID;
 	}
 	/**
 	 * @param liquidID the liquidID to set
 	 */
-	public void setLiquidID(int liquidID) {
+	public void setLiquidID(AssetLiquidation liquidID) {
 		this.liquidID = liquidID;
 	}
 	/**
 	 * @return the assetID
 	 */
-	public int getAssetID() {
+	public Asset getAssetID() {
 		return assetID;
 	}
 	/**
 	 * @param assetID the assetID to set
 	 */
-	public void setAssetID(int assetID) {
+	public void setAssetID(Asset assetID) {
 		this.assetID = assetID;
 	}
 	/**

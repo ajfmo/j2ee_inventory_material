@@ -5,6 +5,15 @@ package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,13 +21,34 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name = "stock_inward_detail")
 public class StockInwardDetail {
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "InwardDetailID")
 	private int inwardDetailID;
-	private int inwardID;
-	private int productID;
-	private int stockID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "InwardID")  
+	private StockInward inwardID;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ProductID")  
+	private Product productID;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StockID")
+	private Stock stockID;
+
+	@Column(name = "Number")
 	private int number;
+
+	@Column(name = "Price")
 	private BigDecimal price;
+
+	@Column(name = "Amount")
 	private BigDecimal amount;
 	/**
 	 * 
@@ -36,8 +66,8 @@ public class StockInwardDetail {
 	 * @param price
 	 * @param amount
 	 */
-	public StockInwardDetail(int inwardDetailID, int inwardID, int productID,
-			int stockID, int number, BigDecimal price, BigDecimal amount) {
+	public StockInwardDetail(int inwardDetailID, StockInward inwardID, Product productID,
+			Stock stockID, int number, BigDecimal price, BigDecimal amount) {
 		super();
 		this.inwardDetailID = inwardDetailID;
 		this.inwardID = inwardID;
@@ -62,37 +92,37 @@ public class StockInwardDetail {
 	/**
 	 * @return the inwardID
 	 */
-	public int getInwardID() {
+	public StockInward getInwardID() {
 		return inwardID;
 	}
 	/**
 	 * @param inwardID the inwardID to set
 	 */
-	public void setInwardID(int inwardID) {
+	public void setInwardID(StockInward inwardID) {
 		this.inwardID = inwardID;
 	}
 	/**
 	 * @return the productID
 	 */
-	public int getProductID() {
+	public Product getProductID() {
 		return productID;
 	}
 	/**
 	 * @param productID the productID to set
 	 */
-	public void setProductID(int productID) {
+	public void setProductID(Product productID) {
 		this.productID = productID;
 	}
 	/**
 	 * @return the stockID
 	 */
-	public int getStockID() {
+	public Stock getStockID() {
 		return stockID;
 	}
 	/**
 	 * @param stockID the stockID to set
 	 */
-	public void setStockID(int stockID) {
+	public void setStockID(Stock stockID) {
 		this.stockID = stockID;
 	}
 	/**

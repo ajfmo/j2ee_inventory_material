@@ -3,6 +3,16 @@
  */
 package com.j2ee.java.model.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,8 +20,38 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="provider")
 public class Provider {
 	
+	@Id
+	@GeneratedValue
+	@Column(name="ProviderID")
+	private int providerID;
+	
+	@Column(name="ProviderName")
+	private String providerName;
+	
+	@Column(name="Address")
+	private String address;
+	
+	@Column(name="Tel")
+	private String tel;
+	
+	@Column(name="Email")
+	private String email;
+	
+	@Column(name="Website")
+	private String website;
+	
+	@Column(name="Description")
+	private String description;
+	
+	@OneToMany(mappedBy = "providerID")
+	private Set<StockInward> providerStockInward = new HashSet<StockInward>();
+	
+	@OneToMany(mappedBy = "providerID")
+	private Set<Product> providerProduct = new HashSet<Product>();
 	/**
 	 * 
 	 */
@@ -29,12 +69,11 @@ public class Provider {
 	 * @param website
 	 * @param description
 	 */
-	public Provider(int providerID, String name, String adrress, String tel,
+	public Provider(String name, String adrress, String tel,
 			String email, String website, String description) {
 		super();
-		this.providerID = providerID;
-		this.name = name;
-		this.adrress = adrress;
+		this.providerName = name;
+		this.address = adrress;
 		this.tel = tel;
 		this.email = email;
 		this.website = website;
@@ -57,26 +96,26 @@ public class Provider {
 	/**
 	 * @return the name
 	 */
-	public String getName() {
-		return name;
+	public String getProviderName() {
+		return providerName;
 	}
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setProviderName(String name) {
+		this.providerName = name;
 	}
 	/**
 	 * @return the adrress
 	 */
 	public String getAdrress() {
-		return adrress;
+		return address;
 	}
 	/**
 	 * @param adrress the adrress to set
 	 */
 	public void setAdrress(String adrress) {
-		this.adrress = adrress;
+		this.address = adrress;
 	}
 	/**
 	 * @return the tel
@@ -126,14 +165,25 @@ public class Provider {
 	public void setDescription(String description) {
 		this.description = description;
 	}
+
+
+	public Set<StockInward> getProviderStockInward() {
+		return providerStockInward;
+	}
+
+
+	public void setProviderStockInward(Set<StockInward> providerStockInward) {
+		this.providerStockInward = providerStockInward;
+	}
+
+
+	public Set<Product> getProviderProduct() {
+		return providerProduct;
+	}
+
+
+	public void setProviderProduct(Set<Product> providerProduct) {
+		this.providerProduct = providerProduct;
+	}
 	
-	
-	
-	private int providerID;
-	private String name;
-	private String adrress;
-	private String tel;
-	private String email;
-	private String website;
-	private String description;
 }

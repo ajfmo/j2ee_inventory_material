@@ -3,6 +3,16 @@
  */
 package com.j2ee.java.model.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +20,29 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="manufacture")
 public class Manufacture {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="manufactureID")
+	private int manufactureID;
+	
+	@Column(name="name")
+	private String name;
+	
+	@Column(name="address")
+	private String address;
+	
+	@Column(name="tel")
+	private String tel;
+	
+	@Column(name="description")
+	private String description;
+	
+	@OneToMany(mappedBy = "manufactureID")
+	private Set<Product> manufactureProduct = new HashSet<Product>();
 	
 	/**
 	 * 
@@ -26,10 +58,9 @@ public class Manufacture {
 	 * @param tel
 	 * @param description
 	 */
-	public Manufacture(int manufactureID, String name, String address,
+	public Manufacture(String name, String address,
 			String tel, String description) {
 		super();
-		this.manufactureID = manufactureID;
 		this.name = name;
 		this.address = address;
 		this.tel = tel;
@@ -96,9 +127,14 @@ public class Manufacture {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	private int manufactureID;
-	private String name;
-	private String address;
-	private String tel;
-	private String description;
+
+	public Set<Product> getManufactureProduct() {
+		return manufactureProduct;
+	}
+
+	public void setManufactureProduct(Set<Product> manufactureProduct) {
+		this.manufactureProduct = manufactureProduct;
+	}
+	
+	
 }

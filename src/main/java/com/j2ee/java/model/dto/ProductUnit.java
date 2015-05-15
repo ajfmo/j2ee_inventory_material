@@ -3,6 +3,16 @@
  */
 package com.j2ee.java.model.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,8 +20,23 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="product_unit")
 public class ProductUnit {
 	
+	@Id
+	@GeneratedValue
+	@Column(name="unitID")
+	private int unitID;
+	
+	@Column(name="UnitName")
+	private String unitName;
+	
+	@Column(name="description")
+	private String description;
+	
+	@OneToMany(mappedBy = "unitID")
+	private Set<Product> productUnitProduct = new HashSet<Product>();
 	/**
 	 * 
 	 */
@@ -24,10 +49,9 @@ public class ProductUnit {
 	 * @param name
 	 * @param description
 	 */
-	public ProductUnit(int unitID, String name, String description) {
+	public ProductUnit(String unitName, String description) {
 		super();
-		this.unitID = unitID;
-		this.name = name;
+		this.unitName = unitName;
 		this.description = description;
 	}
 
@@ -46,14 +70,14 @@ public class ProductUnit {
 	/**
 	 * @return the name
 	 */
-	public String getName() {
-		return name;
+	public String getUnitName() {
+		return unitName;
 	}
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setUnitName(String name) {
+		this.unitName = name;
 	}
 	/**
 	 * @return the description
@@ -67,8 +91,14 @@ public class ProductUnit {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	private int unitID;
-	private String name;
-	private String description;
+
+	public Set<Product> getProductUnitProduct() {
+		return productUnitProduct;
+	}
+
+	public void setProductUnitProduct(Set<Product> productUnitProduct) {
+		this.productUnitProduct = productUnitProduct;
+	}
+
 	
 }	

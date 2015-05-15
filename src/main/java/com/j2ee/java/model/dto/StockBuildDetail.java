@@ -5,6 +5,12 @@ package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,12 +18,28 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="stock_build_detail")
 public class StockBuildDetail {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="buildDetailID")
 	private int buildDetailID;
+	
+	@Column(name="buildID")
 	private int buildID;
+	
+	@Column(name="componentID")
 	private int componentID;
+	
+	@Column(name="quantity")
 	private int quantity;
+	
+	@Column(name="price")
 	private BigDecimal price;
+	
+	@Column(name="amount")
 	private BigDecimal amount;
 	/**
 	 * 

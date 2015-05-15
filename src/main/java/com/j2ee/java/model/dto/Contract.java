@@ -5,6 +5,12 @@ package com.j2ee.java.model.dto;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,10 +18,22 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="contract")
 public class Contract {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="ContractID")
 	private int contractID;
+	
+	@Column(name="Customer")
 	private String customer;
+	
+	@Column(name="Date")
 	private Date date;
+	
+	@Column(name="ContractNumber")
 	private int contractNumber;
 	/**
 	 * 

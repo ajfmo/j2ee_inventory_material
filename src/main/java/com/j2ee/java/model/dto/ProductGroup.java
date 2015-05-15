@@ -3,6 +3,12 @@
  */
 package com.j2ee.java.model.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,9 +16,19 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="product_group")
 public class ProductGroup {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="groupID")
 	private int groupID;
+	
+	@Column(name="groupName")
 	private String groupName;
+	
+	@Column(name="description")
 	private String description;
 	/**
 	 * 

@@ -1,10 +1,17 @@
-/**
- * 
- */
+
 package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
@@ -13,15 +20,39 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="adjustment")
 public class Adjustment {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="ID")
 	private int id;
+	
+	@Column(name="Date")
 	private Date date;
+	
+	@Column(name="AdjustID")
 	private String adjustID;
+	
+	@Column(name="RefType")
 	private int refType;
-	private int stockID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StockID")
+    private Stock stockID;
+	
+	@Column(name="TotalDiffAmount")
 	private BigDecimal TotalDiffAmount;
-	private int staffID;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StaffID")
+	private Staff staffID;
+	
+	@Column(name="Accept")
 	private boolean accept;
+	
+	@Column(name="Active")
 	private boolean active;
 	/**
 	 * 
@@ -35,23 +66,23 @@ public class Adjustment {
 	 * @param date
 	 * @param adjustID
 	 * @param refType
-	 * @param stockID
+	 * @param stock
 	 * @param totalDiffAmount
 	 * @param staffID
 	 * @param accept
 	 * @param active
 	 */
 	public Adjustment(int id, Date date, String adjustID, int refType,
-			int stockID, BigDecimal totalDiffAmount, int staffID,
+			Stock stock, BigDecimal totalDiffAmount, Staff staff,
 			boolean accept, boolean active) {
 		super();
 		this.id = id;
 		this.date = date;
 		this.adjustID = adjustID;
 		this.refType = refType;
-		this.stockID = stockID;
+		this.stockID = stock;
 		TotalDiffAmount = totalDiffAmount;
-		this.staffID = staffID;
+		this.staffID = staff;
 		this.accept = accept;
 		this.active = active;
 	}
@@ -103,18 +134,7 @@ public class Adjustment {
 	public void setRefType(int refType) {
 		this.refType = refType;
 	}
-	/**
-	 * @return the stockID
-	 */
-	public int getStockID() {
-		return stockID;
-	}
-	/**
-	 * @param stockID the stockID to set
-	 */
-	public void setStockID(int stockID) {
-		this.stockID = stockID;
-	}
+
 	/**
 	 * @return the totalDiffAmount
 	 */
@@ -130,14 +150,14 @@ public class Adjustment {
 	/**
 	 * @return the staffID
 	 */
-	public int getStaffID() {
+	public Staff getStaffID() {
 		return staffID;
 	}
 	/**
 	 * @param staffID the staffID to set
 	 */
-	public void setStaffID(int staffID) {
-		this.staffID = staffID;
+	public void setStaffID(Staff staff) {
+		this.staffID = staff;
 	}
 	/**
 	 * @return the accept
@@ -162,5 +182,12 @@ public class Adjustment {
 	 */
 	public void setActive(boolean active) {
 		this.active = active;
+	}
+	
+	public Stock getStock() {
+		return stockID;
+	}
+	public void setStock(Stock stock) {
+		this.stockID = stock;
 	}
 }

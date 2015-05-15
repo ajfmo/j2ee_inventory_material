@@ -5,6 +5,15 @@ package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,13 +21,34 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name = "stock_transfer_detail")
 public class StockTransferDetail {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "StockTrDetailID")
 	private int stockTrDetailID;
-	private int productID;
-	private int fromStock;
-	private int toStock;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ProductID")  
+	private Product productID;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "FromStock")  
+	private Stock fromStock;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ToStock")  
+	private Stock toStock;
+
+	@Column(name = "Number")
 	private int number;
+
+	@Column(name = "Price")
 	private BigDecimal price;
+
+	@Column(name = "Amount")
 	private BigDecimal amount;
 	/**
 	 * 
@@ -36,8 +66,8 @@ public class StockTransferDetail {
 	 * @param price
 	 * @param amount
 	 */
-	public StockTransferDetail(int stockTrDetailID, int productID,
-			int fromStock, int toStock, int number, BigDecimal price,
+	public StockTransferDetail(int stockTrDetailID, Product productID,
+			Stock fromStock, Stock toStock, int number, BigDecimal price,
 			BigDecimal amount) {
 		super();
 		this.stockTrDetailID = stockTrDetailID;
@@ -63,37 +93,37 @@ public class StockTransferDetail {
 	/**
 	 * @return the productID
 	 */
-	public int getProductID() {
+	public Product getProductID() {
 		return productID;
 	}
 	/**
 	 * @param productID the productID to set
 	 */
-	public void setProductID(int productID) {
+	public void setProductID(Product productID) {
 		this.productID = productID;
 	}
 	/**
 	 * @return the fromStock
 	 */
-	public int getFromStock() {
+	public Stock getFromStock() {
 		return fromStock;
 	}
 	/**
 	 * @param fromStock the fromStock to set
 	 */
-	public void setFromStock(int fromStock) {
+	public void setFromStock(Stock fromStock) {
 		this.fromStock = fromStock;
 	}
 	/**
 	 * @return the toStock
 	 */
-	public int getToStock() {
+	public Stock getToStock() {
 		return toStock;
 	}
 	/**
 	 * @param toStock the toStock to set
 	 */
-	public void setToStock(int toStock) {
+	public void setToStock(Stock toStock) {
 		this.toStock = toStock;
 	}
 	/**

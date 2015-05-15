@@ -4,6 +4,15 @@
 package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
@@ -12,11 +21,29 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="asset")
 public class Asset {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="AssetID")
 	private int assetID;
+	
+	@Column(name="Name")
 	private String name;
+	
+	@Column(name="OrgPrice")
 	private BigDecimal orgPrice;
+	
+	@Column(name="Number")
 	private int number;
+	
+	@OneToMany(mappedBy = "assetID")
+	private Set<AssetAdjustment> assetAssetAdjustment = new HashSet<AssetAdjustment>();
+	
+	@OneToMany(mappedBy = "assetID")
+	private Set<AssetLiquidationDetail> assetAssetLiquiDetail = new HashSet<AssetLiquidationDetail>();
 	/**
 	 * @param assetID
 	 * @param name
@@ -85,4 +112,21 @@ public class Asset {
 	public void setNumber(int number) {
 		this.number = number;
 	}
+	public Set<AssetAdjustment> getAssetAssetAdjustment() {
+		return assetAssetAdjustment;
+	}
+	
+	public void setAssetAssetAdjustment(Set<AssetAdjustment> assetAssetAdjustment) {
+		this.assetAssetAdjustment = assetAssetAdjustment;
+	}
+	
+	public Set<AssetLiquidationDetail> getAssetAssetLiquiDetail() {
+		return assetAssetLiquiDetail;
+	}
+	
+	public void setAssetAssetLiquiDetail(
+			Set<AssetLiquidationDetail> assetAssetLiquiDetail) {
+		this.assetAssetLiquiDetail = assetAssetLiquiDetail;
+	}
+
 }

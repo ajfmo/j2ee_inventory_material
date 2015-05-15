@@ -3,6 +3,12 @@
  */
 package com.j2ee.java.model.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,11 +16,25 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="asset_report_detail")
 public class AssetReportDetail {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="AssetReportDetailID")
 	private int assetReportDetailID;
+	
+	@Column(name="AssetReportID")
 	private int assetReportID;
+	
+	@Column(name="AssetID")
 	private int assetID;
+	
+	@Column(name="Number")
 	private int number;
+	
+	@Column(name="UseState")
 	private String useState;
 	/**
 	 * 

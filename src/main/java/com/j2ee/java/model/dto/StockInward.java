@@ -2,18 +2,53 @@ package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
+@Table(name = "stock_inward")
 public class StockInward {
+
+	@Id
+	@GeneratedValue
+	@Column(name = "InwardID")
 	private int inwardID;
-	private int providerID;
-	private int staffID;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ProviderID")  
+	private Provider providerID;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StaffID")  
+	private Staff staffID;
+
+	@Column(name = "Date")
 	private Date date;
+
+	@Column(name = "Reason")
 	private String reason;
+
+	@Column(name = "TotalAmount")
 	private BigDecimal totalAmount;
+
+	@Column(name = "TotalNumber")
 	private int totalNumber;
+
+	@OneToMany(mappedBy = "inwardID")
+	private Set<StockInwardDetail> stockInStockInDetail = new HashSet<StockInwardDetail>();
 	/**
 	 * 
 	 */
@@ -21,6 +56,7 @@ public class StockInward {
 		super();
 		// TODO Auto-generated constructor stub
 	}
+
 	/**
 	 * @param inwardID
 	 * @param providerID
@@ -30,7 +66,7 @@ public class StockInward {
 	 * @param totalAmount
 	 * @param totalNumber
 	 */
-	public StockInward(int inwardID, int providerID, int staffID, Date date,
+	public StockInward(int inwardID, Provider providerID, Staff staffID, Date date,
 			String reason, BigDecimal totalAmount, int totalNumber) {
 		super();
 		this.inwardID = inwardID;
@@ -41,89 +77,118 @@ public class StockInward {
 		this.totalAmount = totalAmount;
 		this.totalNumber = totalNumber;
 	}
+
 	/**
 	 * @return the inwardID
 	 */
 	public int getInwardID() {
 		return inwardID;
 	}
+
 	/**
-	 * @param inwardID the inwardID to set
+	 * @param inwardID
+	 *            the inwardID to set
 	 */
 	public void setInwardID(int inwardID) {
 		this.inwardID = inwardID;
 	}
+
 	/**
 	 * @return the providerID
 	 */
-	public int getProviderID() {
+	public Provider getProviderID() {
 		return providerID;
 	}
+
 	/**
-	 * @param providerID the providerID to set
+	 * @param providerID
+	 *            the providerID to set
 	 */
-	public void setProviderID(int providerID) {
+	public void setProviderID(Provider providerID) {
 		this.providerID = providerID;
 	}
+
 	/**
 	 * @return the staffID
 	 */
-	public int getStaffID() {
+	public Staff getStaffID() {
 		return staffID;
 	}
+
 	/**
-	 * @param staffID the staffID to set
+	 * @param staffID
+	 *            the staffID to set
 	 */
-	public void setStaffID(int staffID) {
+	public void setStaffID(Staff staffID) {
 		this.staffID = staffID;
 	}
+
 	/**
 	 * @return the date
 	 */
 	public Date getDate() {
 		return date;
 	}
+
 	/**
-	 * @param date the date to set
+	 * @param date
+	 *            the date to set
 	 */
 	public void setDate(Date date) {
 		this.date = date;
 	}
+
 	/**
 	 * @return the reason
 	 */
 	public String getReason() {
 		return reason;
 	}
+
 	/**
-	 * @param reason the reason to set
+	 * @param reason
+	 *            the reason to set
 	 */
 	public void setReason(String reason) {
 		this.reason = reason;
 	}
+
 	/**
 	 * @return the totalAmount
 	 */
 	public BigDecimal getTotalAmount() {
 		return totalAmount;
 	}
+
 	/**
-	 * @param totalAmount the totalAmount to set
+	 * @param totalAmount
+	 *            the totalAmount to set
 	 */
 	public void setTotalAmount(BigDecimal totalAmount) {
 		this.totalAmount = totalAmount;
 	}
+
 	/**
 	 * @return the totalNumber
 	 */
 	public int getTotalNumber() {
 		return totalNumber;
 	}
+
 	/**
-	 * @param totalNumber the totalNumber to set
+	 * @param totalNumber
+	 *            the totalNumber to set
 	 */
 	public void setTotalNumber(int totalNumber) {
 		this.totalNumber = totalNumber;
+	}
+
+	public Set<StockInwardDetail> getStockInStockInDetail() {
+		return stockInStockInDetail;
+	}
+
+	public void setStockInStockInDetail(Set<StockInwardDetail> stockInStockInDetail) {
+		this.stockInStockInDetail = stockInStockInDetail;
 	}
 	
 }

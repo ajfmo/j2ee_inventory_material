@@ -1,11 +1,27 @@
 package com.j2ee.java.model.dto;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
+@Table(name="regulation")
 public class Regulation {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="id")
 	private int id;
+	
+	@Column(name="key")
 	private String key;
+	
+	@Column(name="value")
 	private String value;
 	/**
 	 * 

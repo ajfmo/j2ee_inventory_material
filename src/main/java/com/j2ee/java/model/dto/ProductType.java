@@ -3,6 +3,16 @@
  */
 package com.j2ee.java.model.dto;
 
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -10,7 +20,20 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="product_type")
 public class ProductType {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="typeID")
+	private int typeID;
+	
+	@Column(name="TypeName")
+	private String typeName;
+	
+	@OneToMany(mappedBy = "typeID")
+	private Set<Product> productTypeProduct = new HashSet<Product>();
 	/**
 	 * 
 	 */
@@ -22,10 +45,9 @@ public class ProductType {
 	 * @param typeID
 	 * @param name
 	 */
-	public ProductType(int typeID, String name) {
+	public ProductType(String typeName) {
 		super();
-		this.typeID = typeID;
-		this.name = name;
+		this.typeName = typeName;
 	}
 	
 	/**
@@ -43,16 +65,23 @@ public class ProductType {
 	/**
 	 * @return the name
 	 */
-	public String getName() {
-		return name;
+	public String getTypName() {
+		return typeName;
 	}
 	/**
 	 * @param name the name to set
 	 */
-	public void setName(String name) {
-		this.name = name;
+	public void setTypeName(String name) {
+		this.typeName = name;
 	}
+
+	public Set<Product> getProductTypeProduct() {
+		return productTypeProduct;
+	}
+
+	public void setProductTypeProduct(Set<Product> productTypeProduct) {
+		this.productTypeProduct = productTypeProduct;
+	}
+
 	
-	private int typeID;
-	private String name;
 }

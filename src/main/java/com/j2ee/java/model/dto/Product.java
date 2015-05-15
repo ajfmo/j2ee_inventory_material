@@ -4,6 +4,18 @@
 package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
@@ -13,8 +25,66 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="product")
 public class Product {
+
+	@Id
+	@GeneratedValue
+	@Column(name="ProductID")
+	private int productID;
 	
+	@Column(name="ProductName")
+	private String productName;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "TypeID")  
+	private ProductType typeID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ProviderID")
+	private Provider providerID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ManufacturerID")
+	private Manufacture manufactureID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "UnitID")
+	private ProductUnit unitID;
+	
+	@Column(name="SalePrice")
+	private BigDecimal salePrice;
+	
+	@Column(name="OrgPrice")
+	private BigDecimal orgPrice;
+	
+	@Column(name="Description")
+	private String description;
+
+	@Column(name="MinStock")
+	private int minStock;
+	
+	@Column(name="MaxStock")
+	private int maxStock;
+	
+	@Column(name="Photo")
+	private String photo;
+	
+	@OneToMany(mappedBy = "componentID")
+	private Set<ProductComponent> productIDProductComponent = new HashSet<ProductComponent>();
+	
+	@OneToMany(mappedBy = "productID")
+	private Set<ProductComponent> componentIDProductComponent = new HashSet<ProductComponent>();
+	
+	@OneToMany(mappedBy = "productID")
+	private Set<StockInventory> productStockInventory = new HashSet<StockInventory>();
+	
+	@OneToMany(mappedBy = "productID")
+	private Set<StockInwardDetail> productStockInwardDetail = new HashSet<StockInwardDetail>();
+	
+	@OneToMany(mappedBy = "productID")
+	private Set<StockOutwardDetail> productStockOutwardDetail = new HashSet<StockOutwardDetail>();
 	/**
 	 * 
 	 */
@@ -35,12 +105,11 @@ public class Product {
 	 * @param maxStock
 	 * @param photo
 	 */
-	public Product(int productID, String productName, int typeID,
-			int providerID, int manufactureID, int unitID, BigDecimal salePrice,
+	public Product(String productName, ProductType typeID,
+			Provider providerID, Manufacture manufactureID, ProductUnit unitID, BigDecimal salePrice,
 			BigDecimal orgPrice, String description, int minStock, int maxStock,
 			String photo) {
 		super();
-		this.productID = productID;
 		this.productName = productName;
 		this.typeID = typeID;
 		this.providerID = providerID;
@@ -81,49 +150,49 @@ public class Product {
 	/**
 	 * @return the typeID
 	 */
-	public int getTypeID() {
+	public ProductType getTypeID() {
 		return typeID;
 	}
 	/**
 	 * @param typeID the typeID to set
 	 */
-	public void setTypeID(int typeID) {
+	public void setTypeID(ProductType typeID) {
 		this.typeID = typeID;
 	}
 	/**
 	 * @return the providerID
 	 */
-	public int getProviderID() {
+	public Provider getProviderID() {
 		return providerID;
 	}
 	/**
 	 * @param providerID the providerID to set
 	 */
-	public void setProviderID(int providerID) {
+	public void setProviderID(Provider providerID) {
 		this.providerID = providerID;
 	}
 	/**
 	 * @return the manufactureID
 	 */
-	public int getManufactureID() {
+	public Manufacture getManufactureID() {
 		return manufactureID;
 	}
 	/**
 	 * @param manufactureID the manufactureID to set
 	 */
-	public void setManufactureID(int manufactureID) {
+	public void setManufactureID(Manufacture manufactureID) {
 		this.manufactureID = manufactureID;
 	}
 	/**
 	 * @return the unitID
 	 */
-	public int getUnitID() {
+	public ProductUnit getUnitID() {
 		return unitID;
 	}
 	/**
 	 * @param unitID the unitID to set
 	 */
-	public void setUnitID(int unitID) {
+	public void setUnitID(ProductUnit unitID) {
 		this.unitID = unitID;
 	}
 	/**
@@ -199,16 +268,49 @@ public class Product {
 		this.photo = photo;
 	}
 	
-	private int productID;
-	private String productName;
-	private int typeID;
-	private int providerID;
-	private int manufactureID;
-	private int unitID;
-	private BigDecimal salePrice;
-	private BigDecimal orgPrice;
-	private String description;
-	private int minStock;
-	private int maxStock;
-	private String photo;
+	public Set<ProductComponent> getProductIDProductComponent() {
+		return productIDProductComponent;
+	}
+	
+	public void setProductIDProductComponent(
+			Set<ProductComponent> productIDProductComponent) {
+		this.productIDProductComponent = productIDProductComponent;
+	}
+	
+	public Set<ProductComponent> getComponentIDProductComponent() {
+		return componentIDProductComponent;
+	}
+	
+	public void setComponentIDProductComponent(
+			Set<ProductComponent> componentIDProductComponent) {
+		this.componentIDProductComponent = componentIDProductComponent;
+	}
+	
+	
+	public Set<StockInventory> getProductStockInventory() {
+		return productStockInventory;
+	}
+	
+	public void setProductStockInventory(Set<StockInventory> productStockInventory) {
+		this.productStockInventory = productStockInventory;
+	}
+	
+	public Set<StockInwardDetail> getProductStockInwardDetail() {
+		return productStockInwardDetail;
+	}
+	
+	public void setProductStockInwardDetail(
+			Set<StockInwardDetail> productStockInwardDetail) {
+		this.productStockInwardDetail = productStockInwardDetail;
+	}
+	
+	public Set<StockOutwardDetail> getProductStockOutwardDetail() {
+		return productStockOutwardDetail;
+	}
+	
+	public void setProductStockOutwardDetail(
+			Set<StockOutwardDetail> productStockOutwardDetail) {
+		this.productStockOutwardDetail = productStockOutwardDetail;
+	}
+	
 }

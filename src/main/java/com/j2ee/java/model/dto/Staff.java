@@ -1,18 +1,57 @@
 package com.j2ee.java.model.dto;
 
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
 @Component
+@Entity
+@Table(name="staff")
 public class Staff {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="StaffID")
 	private int staffID;
+	
+	@Column(name="StaffName")
 	private String staffName;
+	
+	@Column(name="Birthday")
 	private Date birthday;
+	
+	@Column(name="Email")
 	private String email;
+	
+	@Column(name="IndentifyNum")
 	private int identifyNum;
+	
+	@Column(name="Tel")
 	private String Tel;
+	
+	@Column(name="Address")
 	private String address;
+	
+	@OneToMany(mappedBy = "managerID")
+	private Set<Stock> staffStock = new HashSet<Stock>();
+	
+	@OneToMany(mappedBy = "staffID")
+	private Set<Adjustment> staffAdjusment = new HashSet<Adjustment>();
+	
+	@OneToMany(mappedBy = "staffID")
+	private Set<AssetLiquidation> staffAssetLiquidation = new HashSet<AssetLiquidation>();
+	
+	@OneToMany(mappedBy = "staffID")
+	private Set<StockOutward> staffStockOuward = new HashSet<StockOutward>();
 	/**
 	 * 
 	 */
@@ -124,4 +163,32 @@ public class Staff {
 	public void setAddress(String address) {
 		this.address = address;
 	}
+	
+	public Set<Stock> getStaffStock() {
+		return staffStock;
+	}
+	
+	public void setStaffStock(Set<Stock> staffStock) {
+		this.staffStock = staffStock;
+	}
+	
+	public Set<Adjustment> getStaffAdjusment() {
+		return staffAdjusment;
+	}
+	public void setStaffAdjusment(Set<Adjustment> staffAdjusment) {
+		this.staffAdjusment = staffAdjusment;
+	}
+	public Set<AssetLiquidation> getStaffAssetLiquidation() {
+		return staffAssetLiquidation;
+	}
+	public void setStaffAssetLiquidation(Set<AssetLiquidation> staffAssetLiquidation) {
+		this.staffAssetLiquidation = staffAssetLiquidation;
+	}
+	public Set<StockOutward> getStaffStockOuward() {
+		return staffStockOuward;
+	}
+	public void setStaffStockOuward(Set<StockOutward> staffStockOuward) {
+		this.staffStockOuward = staffStockOuward;
+	}
+	
 }

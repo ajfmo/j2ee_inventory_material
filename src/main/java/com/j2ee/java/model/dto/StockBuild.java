@@ -5,6 +5,18 @@ package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
 import java.sql.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
@@ -13,15 +25,41 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name="stock_build")
 public class StockBuild {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="BuildID")
 	private int buildID;
-	private int productID;
-	private int refTypeID;
-	private int staffID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "ProductID")
+	private Product productID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "RefTypeID")
+	private ReferenceType refTypeID;
+	
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StaffID")
+	private Staff staffID;
+	
+	@Column(name="TotalAmount")
 	private BigDecimal totalAmount;
+	
+	@Column(name="TotalQuantity")
 	private int totalQuantity;
+	
+	@Column(name="Reason")
 	private String reason;
+	
+	@Column(name="BuildDate")
 	private Date buildDate;
+	
+	@OneToMany(mappedBy = "buildID")
+	private Set<StockBuildDetail> stockBuildStockBuilDetail = new HashSet<StockBuildDetail>();
 	/**
 	 * 
 	 */
@@ -39,7 +77,7 @@ public class StockBuild {
 	 * @param reason
 	 * @param buildDate
 	 */
-	public StockBuild(int buildID, int productID, int refTypeID, int staffID,
+	public StockBuild(int buildID, Product productID, ReferenceType refTypeID, Staff staffID,
 			BigDecimal totalAmount, int totalQuantity, String reason,
 			Date buildDate) {
 		super();
@@ -67,37 +105,37 @@ public class StockBuild {
 	/**
 	 * @return the productID
 	 */
-	public int getProductID() {
+	public Product getProductID() {
 		return productID;
 	}
 	/**
 	 * @param productID the productID to set
 	 */
-	public void setProductID(int productID) {
+	public void setProductID(Product productID) {
 		this.productID = productID;
 	}
 	/**
 	 * @return the refTypeID
 	 */
-	public int getRefTypeID() {
+	public ReferenceType getRefTypeID() {
 		return refTypeID;
 	}
 	/**
 	 * @param refTypeID the refTypeID to set
 	 */
-	public void setRefTypeID(int refTypeID) {
+	public void setRefTypeID(ReferenceType refTypeID) {
 		this.refTypeID = refTypeID;
 	}
 	/**
 	 * @return the staffID
 	 */
-	public int getStaffID() {
+	public Staff getStaffID() {
 		return staffID;
 	}
 	/**
 	 * @param staffID the staffID to set
 	 */
-	public void setStaffID(int staffID) {
+	public void setStaffID(Staff staffID) {
 		this.staffID = staffID;
 	}
 	/**
@@ -147,6 +185,15 @@ public class StockBuild {
 	 */
 	public void setBuildDate(Date buildDate) {
 		this.buildDate = buildDate;
+	}
+	
+	public Set<StockBuildDetail> getStockBuildStockBuilDetail() {
+		return stockBuildStockBuilDetail;
+	}
+	
+	public void setStockBuildStockBuilDetail(
+			Set<StockBuildDetail> stockBuildStockBuilDetail) {
+		this.stockBuildStockBuilDetail = stockBuildStockBuilDetail;
 	}
 	
 }		

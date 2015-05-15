@@ -5,17 +5,35 @@ package com.j2ee.java.model.dto;
 
 import java.sql.Date;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
  * @author John Tran
  *
  */
-@Component
+//@Component
+//@Entity
+//@Table(name="InventoryReportDetail")
 public class InventoryReportDetail {
+	
+	@Id
+	@GeneratedValue
+	@Column(name="id")
 	private int id;
+	
+	@Column(name="date")
 	private Date date;
+	
+	@Column(name="productID")
 	private int productID;
+	
+	@Column(name="number")
 	private int number;
 	/**
 	 * 

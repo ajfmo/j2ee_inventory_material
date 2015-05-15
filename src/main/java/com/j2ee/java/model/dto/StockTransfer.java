@@ -6,6 +6,15 @@ package com.j2ee.java.model.dto;
 import java.math.BigDecimal;
 import java.sql.Date;
 
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,12 +22,29 @@ import org.springframework.stereotype.Component;
  *
  */
 @Component
+@Entity
+@Table(name = "stock_transfer")
 public class StockTransfer {
+	
+	@Id
+	@GeneratedValue
+	@Column(name = "TransferID")
 	private int transferID;
-	private int staffID;
+
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "StaffID")  
+	private Staff staffID;
+
+	@Column(name = "Date")
 	private Date date;
+
+	@Column(name = "IsTransfered")
 	private boolean isTransfered;
+
+	@Column(name = "TotalNumber")
 	private int totalNumber;
+
+	@Column(name = "TotalAmount")
 	private BigDecimal totalAmount;
 	/**
 	 * 
@@ -35,7 +61,7 @@ public class StockTransfer {
 	 * @param totalNumber
 	 * @param totalAmount
 	 */
-	public StockTransfer(int transferID, int staffID, Date date,
+	public StockTransfer(int transferID, Staff staffID, Date date,
 			boolean isTransfered, int totalNumber, BigDecimal totalAmount) {
 		super();
 		this.transferID = transferID;
@@ -60,13 +86,13 @@ public class StockTransfer {
 	/**
 	 * @return the staffID
 	 */
-	public int getStaffID() {
+	public Staff getStaffID() {
 		return staffID;
 	}
 	/**
 	 * @param staffID the staffID to set
 	 */
-	public void setStaffID(int staffID) {
+	public void setStaffID(Staff staffID) {
 		this.staffID = staffID;
 	}
 	/**
