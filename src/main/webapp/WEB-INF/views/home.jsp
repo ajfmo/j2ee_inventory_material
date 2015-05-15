@@ -2,7 +2,7 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Inventory & Material Management</title>
+	<title>Inventory Material Management</title>
 </head>
 <body>
 <h1>

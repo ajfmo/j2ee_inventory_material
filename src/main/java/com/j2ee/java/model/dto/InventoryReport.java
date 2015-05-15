@@ -12,7 +12,7 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name="InventoryReport")
+@Table(name="Inventory_Report")
 public class InventoryReport {
 	
 	@Id

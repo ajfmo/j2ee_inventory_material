@@ -19,21 +19,21 @@ import org.springframework.stereotype.Component;
  */
 @Component
 @Entity
-@Table(name="InventoryReportDetail")
+@Table(name="Inventory_Report_Detail")
 public class InventoryReportDetail {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="id")
+	@Column(name="ID")
 	private int id;
 	
-	@Column(name="date")
+	@Column(name="Date")
 	private Date date;
 	
-	@Column(name="productID")
+	@Column(name="ProductID")
 	private int productID;
 	
-	@Column(name="number")
+	@Column(name="Number")
 	private int number;
 	/**
 	 * 
