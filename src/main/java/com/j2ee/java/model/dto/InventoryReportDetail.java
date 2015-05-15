@@ -17,9 +17,9 @@ import org.springframework.stereotype.Component;
  * @author John Tran
  *
  */
-//@Component
-//@Entity
-//@Table(name="InventoryReportDetail")
+@Component
+@Entity
+@Table(name="InventoryReportDetail")
 public class InventoryReportDetail {
 	
 	@Id

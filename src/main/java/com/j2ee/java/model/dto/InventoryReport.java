@@ -10,9 +10,9 @@ import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
 
-//@Component
-//@Entity
-//@Table(name="InventoryReport")
+@Component
+@Entity
+@Table(name="InventoryReport")
 public class InventoryReport {
 	
 	@Id
