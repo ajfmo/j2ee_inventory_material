@@ -58,5 +58,6 @@ public class ProductDAO {
 		session.save(proCompo2);
 		session.getTransaction().commit();
 		session.close();
+		//InsertProduct();
 	}
 }
