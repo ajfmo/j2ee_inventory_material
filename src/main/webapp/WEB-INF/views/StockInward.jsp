@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -30,9 +30,8 @@
 	href="<c:url value="/resources/css/prettify.css" />" type="text/css">
 
 <!-- Load JavaScript Libraries -->
-<!--  <script src="<c:url value="/resources/js/jquery/jquery.min.js" />" type="text/javascript"></script> -->
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+<script src="<c:url value="/resources/js/jquery/jquery.min.js" />"
+	type="text/javascript"></script>
 <script
 	src="<c:url value="/resources/js/jquery/jquery.widget.min.js" />"
 	type="text/javascript"></script>
@@ -46,8 +45,6 @@
 	type="text/javascript"></script>
 
 <!-- Metro UI CSS JavaScript plugins -->
-<script src="<c:url value="/resources/js/load-metro.js" />"
-	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/metro.min.js" />"
 	type="text/javascript"></script>
 
@@ -56,21 +53,19 @@
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/github.info.js" />"
 	type="text/javascript"></script>
-<script src="<c:url value="/resources/js/hitua.js" />"
-	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/StockInward.js" />"
 	type="text/javascript"></script>
 
-<header class="bg-dark"
-	data-load="<c:url value="/resources/navbar.html" />"></header>
 
 </head>
 <body class="metro">
-	<header class="bg-dark" data-load="navbar.html"></header>
+	<header class="bg-dark">
+		<jsp:include page="../views/navbar.jsp"></jsp:include>
+	</header>
 	<div class="openERP container shadow">
 		<form>
 			<fieldset>
-				<label><b><center>Thông tin phiếu nhập</center></b> </label>
+				<label><b>Thông tin phiếu nhập</b> </label>
 				<div class="row information">
 					<div id="col6" class="col-sm-6">
 						<table class="table no-border striped3n table-resize">
@@ -78,8 +73,7 @@
 								<tr class="">
 									<td><span> Tên: </span></td>
 									<td class="td-resize">
-										<div class="input-control select info-state"
-											data-role="input-control">
+										<div class="input-control select info-state">
 											<select id="select_oneline">
 												<option>Đại Phát</option>
 												<option>Tân Thành</option>
@@ -88,8 +82,7 @@
 									</td>
 									<td><span> Mã: </span></td>
 									<td class="td-resize">
-										<div class="input-control select info-state"
-											data-role="input-control">
+										<div class="input-control select info-state">
 											<select id="select_oneline">
 												<option>00001</option>
 												<option>00002</option>
@@ -241,7 +234,7 @@
 			</fieldset>
 		</form>
 	</div>
-	<script src="js/hitua.js"></script>
+
 
 </body>
 </html>

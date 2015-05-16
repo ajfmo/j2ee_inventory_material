@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<!DOCTYPE html>
 <html>
 <head>
 <meta charset="utf-8">
@@ -46,8 +46,9 @@
 			<form>
 				<fieldset>
 					<div class="container_parent">
-						<label><b><center>
-							Thông tin phiếu xuất</center></b>
+						<label><b>
+							Thông tin phiếu xuất
+							</b>
 						</label>
 						<div class="row information">
 							<div id="col6" class="col-sm-6">
@@ -153,7 +154,7 @@
 												</div>
 											</td>
 										</tr>
-										</tr>
+										<tr>
 											<td>
 											Ngày:
 											</td>
@@ -222,6 +223,7 @@
 						<div class="status-bar-resize">
 							<table class="table no-border dock-right">
 								<tbody>
+								<tr>
 									<td>
 										<button class="default" id="button_oneline" >
 											Lưu và thêm
@@ -237,11 +239,12 @@
 											Hủy
 										</button>
 									</td>
+									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
-				<fieldset>
+				</fieldset>
 			</form>
         </div>
     </div>
