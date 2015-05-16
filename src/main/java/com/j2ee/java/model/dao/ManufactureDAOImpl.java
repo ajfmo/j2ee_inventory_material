@@ -8,26 +8,21 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.j2ee.java.model.dto.Product;
+import com.j2ee.java.model.dto.Manufacture;
 
-public class ProductDAO {
+public class ManufactureDAOImpl implements ManufactureDAO {
 
-	static Logger logger = Logger.getLogger(ProductDAO.class.getName());
-
-	/**
-	 * get Product by ID
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public Product getByID(int id) {
-		Product product = new Product();
+	static Logger logger = Logger.getLogger(ManufactureDAOImpl.class.getName());
+	@Override
+	public Manufacture getByID(int id) {
+		// TODO Auto-generated method stub
+		Manufacture result = new Manufacture();
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			product = (Product) session.get(Product.class, id);
+			result = (Manufacture) session.get(Manufacture.class, id);
 
 			session.getTransaction().commit();
 			session.close();
@@ -35,22 +30,20 @@ public class ProductDAO {
 			// TODO: handle exception
 			logger.info("Can't save Product");
 		}
-		return product;
+		return result;
 	}
 
-	/**
-	 * 
-	 * @return list products
-	 */
 	@SuppressWarnings("unchecked")
-	public List<Product> getAllProducts() {
-		List<Product> list = new ArrayList<Product>();
+	@Override
+	public List<Manufacture> getAllManufacture() {
+		// TODO Auto-generated method stub
+		List<Manufacture> list = new ArrayList<Manufacture>();
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(Product.class);
+			Criteria criteria = session.createCriteria(Manufacture.class);
 			list = criteria.list();
 			session.close();
 		} catch (Exception e) {
@@ -60,78 +53,67 @@ public class ProductDAO {
 		return list;
 	}
 
-	/**
-	 * save a new Product
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean insertProduct(Product product) {
+	@Override
+	public boolean insertManufacture(Manufacture manufacture) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.save(product);
+			session.save(manufacture);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't save Product");
+			logger.info("Can't save Manufacture");
 		}
 		return result;
 	}
 
-	/**
-	 * update data for available Product.
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean updataProduct(Product product) {
+	@Override
+	public boolean updateManufacture(Manufacture manufacture) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.update(product);
+			session.update(manufacture);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't update Product");
+			logger.info("Can't update Manufacture");
 		}
 		return result;
 	}
 
-	/**
-	 * delete Product
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean deleteProduct(Product product) {
+	@Override
+	public boolean deleteManufacture(Manufacture manufacture) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.delete(product);
+			session.delete(manufacture);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't delete Product");
+			logger.info("Can't delete Manufacture");
 		}
 		return result;
 	}
+
 }

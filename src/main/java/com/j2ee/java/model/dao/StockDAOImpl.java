@@ -8,26 +8,22 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.j2ee.java.model.dto.Product;
+import com.j2ee.java.model.dto.Stock;
 
-public class ProductDAO {
+public class StockDAOImpl implements StockDAO {
 
-	static Logger logger = Logger.getLogger(ProductDAO.class.getName());
+	static Logger logger = Logger.getLogger(StockDAOImpl.class.getName());
 
-	/**
-	 * get Product by ID
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public Product getByID(int id) {
-		Product product = new Product();
+	@Override
+	public Stock getByID(int id) {
+		// TODO Auto-generated method stub
+		Stock result = new Stock();
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			product = (Product) session.get(Product.class, id);
+			result = (Stock) session.get(Stock.class, id);
 
 			session.getTransaction().commit();
 			session.close();
@@ -35,22 +31,20 @@ public class ProductDAO {
 			// TODO: handle exception
 			logger.info("Can't save Product");
 		}
-		return product;
+		return result;
 	}
 
-	/**
-	 * 
-	 * @return list products
-	 */
 	@SuppressWarnings("unchecked")
-	public List<Product> getAllProducts() {
-		List<Product> list = new ArrayList<Product>();
+	@Override
+	public List<Stock> getAllStock() {
+		// TODO Auto-generated method stub
+		List<Stock> list = new ArrayList<Stock>();
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(Product.class);
+			Criteria criteria = session.createCriteria(Stock.class);
 			list = criteria.list();
 			session.close();
 		} catch (Exception e) {
@@ -60,78 +54,68 @@ public class ProductDAO {
 		return list;
 	}
 
-	/**
-	 * save a new Product
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean insertProduct(Product product) {
+	@Override
+	public boolean insertStock(Stock Stock) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.save(product);
+			session.save(Stock);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't save Product");
+			logger.info("Can't save Stock");
 		}
 		return result;
 	}
 
-	/**
-	 * update data for available Product.
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean updataProduct(Product product) {
+	@Override
+	public boolean updateStock(Stock Stock) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.update(product);
+			session.update(Stock);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't update Product");
+			logger.info("Can't update Stock");
 		}
 		return result;
 	}
 
-	/**
-	 * delete Product
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean deleteProduct(Product product) {
+	@Override
+	public boolean deleteStock(Stock Stock) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.delete(product);
+			session.delete(Stock);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't delete Product");
+			logger.info("Can't delete Stock");
 		}
 		return result;
 	}
+	
+	
 }

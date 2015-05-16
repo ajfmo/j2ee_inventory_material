@@ -8,26 +8,21 @@ import org.hibernate.Criteria;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
-import com.j2ee.java.model.dto.Product;
+import com.j2ee.java.model.dto.ProductComponent;
 
-public class ProductDAO {
+public class ProductComponentDAOImpl implements ProductComponentDAO {
 
-	static Logger logger = Logger.getLogger(ProductDAO.class.getName());
-
-	/**
-	 * get Product by ID
-	 * 
-	 * @param id
-	 * @return
-	 */
-	public Product getByID(int id) {
-		Product product = new Product();
+	static Logger logger = Logger.getLogger(ProductComponentDAOImpl.class.getName());
+	@Override
+	public ProductComponent getByID(int id) {
+		// TODO Auto-generated method stub
+		ProductComponent result = new ProductComponent();
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			product = (Product) session.get(Product.class, id);
+			result = (ProductComponent) session.get(ProductComponent.class, id);
 
 			session.getTransaction().commit();
 			session.close();
@@ -35,22 +30,20 @@ public class ProductDAO {
 			// TODO: handle exception
 			logger.info("Can't save Product");
 		}
-		return product;
+		return result;
 	}
 
-	/**
-	 * 
-	 * @return list products
-	 */
 	@SuppressWarnings("unchecked")
-	public List<Product> getAllProducts() {
-		List<Product> list = new ArrayList<Product>();
+	@Override
+	public List<ProductComponent> getAllProductComponent() {
+		// TODO Auto-generated method stub
+		List<ProductComponent> list = new ArrayList<ProductComponent>();
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			Criteria criteria = session.createCriteria(Product.class);
+			Criteria criteria = session.createCriteria(ProductComponent.class);
 			list = criteria.list();
 			session.close();
 		} catch (Exception e) {
@@ -60,77 +53,65 @@ public class ProductDAO {
 		return list;
 	}
 
-	/**
-	 * save a new Product
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean insertProduct(Product product) {
+	@Override
+	public boolean insertProductComponent(ProductComponent ProductComponent) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.save(product);
+			session.save(ProductComponent);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't save Product");
+			logger.info("Can't save ProductComponent");
 		}
 		return result;
 	}
 
-	/**
-	 * update data for available Product.
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean updataProduct(Product product) {
+	@Override
+	public boolean updateProductComponent(ProductComponent ProductComponent) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.update(product);
+			session.update(ProductComponent);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't update Product");
+			logger.info("Can't update ProductComponent");
 		}
 		return result;
 	}
 
-	/**
-	 * delete Product
-	 * 
-	 * @param product
-	 * @return result of transaction
-	 */
-	public boolean deleteProduct(Product product) {
+	@Override
+	public boolean deleteProductComponent(ProductComponent ProductComponent) {
+		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			SessionFactory sf = HibernateUtil.getSessionFactory();
 			Session session = sf.openSession();
 			session.beginTransaction();
 
-			session.delete(product);
+			session.delete(ProductComponent);
 
 			session.getTransaction().commit();
 			session.close();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't delete Product");
+			logger.info("Can't delete ProductComponent");
 		}
 		return result;
 	}
