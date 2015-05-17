@@ -87,4 +87,5 @@ $(document).ready(function() {
         ((''+day).length<2 ? '0' : '') + day;
     
     $('#ngayNhap').val(output);
+    });
 });
