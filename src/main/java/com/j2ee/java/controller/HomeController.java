@@ -2,6 +2,7 @@ package com.j2ee.java.controller;
 
 import java.text.DateFormat;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -12,7 +13,10 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
+import com.j2ee.java.model.bo.ProviderBO;
+import com.j2ee.java.model.bo.ProviderBOImpl;
 import com.j2ee.java.model.dto.Product;
+import com.j2ee.java.model.dto.Provider;
 
 /**
  * Handles requests for the application home page.
@@ -25,6 +29,7 @@ public class HomeController {
 	@Autowired
 	private Product product;
 	
+	private ProviderBO providerBO = new ProviderBOImpl();
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -42,8 +47,11 @@ public class HomeController {
 		///
 		product.setProductID(11);
 		model.addAttribute("product1", product );
+		
+		List<Provider> listProvider = providerBO.getAllProvider();
+		model.addAttribute("listProvider", listProvider );
 		///
-		return "StockOutward";
+		return "StockInward";
 		//return "DemoJqWidget";
 	}
 	

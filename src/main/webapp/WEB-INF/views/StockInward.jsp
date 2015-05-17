@@ -56,7 +56,6 @@
 <script src="<c:url value="/resources/js/StockInward.js" />"
 	type="text/javascript"></script>
 
-
 </head>
 <body class="metro">
 	<header class="bg-dark">
@@ -64,73 +63,72 @@
 	</header>
 	<div class="openERP container shadow">
 		<form>
-			<fieldset>
 				<label><b>Thông tin phiếu nhập</b> </label>
 				<div class="row information">
 					<div id="col6" class="col-sm-6">
 						<table class="table no-border striped3n table-resize">
 							<tbody>
-								<tr class="">
-									<td><span> Tên: </span></td>
+								<tr class="row_1">
+									<td><label>Tên:</label>
 									<td class="td-resize">
 										<div class="input-control select info-state">
-											<select id="select_oneline">
-												<option>Đại Phát</option>
-												<option>Tân Thành</option>
+											<select id="select_providerN" class="form-control">
+											<c:forEach var="item" items="${listProvider}">
+												<option data-id="
+													<c:out value="${item.providerID}">
+													</c:out>">
+													<c:out value="${item.providerName}">
+													</c:out>
+												</option>
+											</c:forEach>
 											</select>
 										</div>
 									</td>
-									<td><span> Mã: </span></td>
+									<td><label>Mã:</label></td>
 									<td class="td-resize">
 										<div class="input-control select info-state">
-											<select id="select_oneline">
-												<option>00001</option>
-												<option>00002</option>
+											<select id="select_providerID" class="form-control">
+											<c:forEach var="item" items="${listProvider}">
+												<option data-value="
+													<c:out value="${item.providerName}">
+													</c:out>">
+													<c:out value="${item.providerID}">
+													</c:out>
+												</option>
+											</c:forEach>
 											</select>
 										</div>
 									</td>
-									<td><span> Người nhận: </span></td>
+									<td><label>Người nhận:</label></td>
 									<td class="td-resize">
-										<div class="input-control text info-state"
-											data-role="input-control">
-											<span> <input type="text" id="text-resize1">
-											</span>
-										</div>
+										<input type="text" class="form-control" placeholder="Người nhận">
 									</td>
 								</tr>
 								<tr>
-									<td>Địa chỉ:</td>
+									<td><label>Địa chỉ:</label></td>
 									<td>
-										<div class="input-control text  info-state"
-											data-role="input-control">
-											<span> <input id="text-resize1" type="text">
-											</span>
+										<div class="input-control text  info-state">
+											<input type="text" class="form-control" placeholder="Địa chỉ">
 										</div>
 									</td>
-									<td>Điện thoại:</td>
+									<td><label>Điện thoại:</label></td>
 									<td>
-										<div class="input-control text  info-state"
-											data-role="input-control">
-											<span> <input id="text-resize1" type="text">
-											</span>
+										<div class="input-control text  info-state">
+											<input type="text" class="form-control" placeholder="Điện thoại">
 										</div>
-									</td>
+									</td>	
 								</tr>
 								<tr>
-									<td>Lý do nhập:</td>
+									<td><label>Lý do nhập:</label></td>
 									<td>
-										<div class="input-control text  info-state"
-											data-role="input-control">
-											<span> <input id="text-resize1" type="text">
-											</span>
+										<div class="input-control text  info-state">
+											<input type="text" class="form-control" placeholder="Lý do nhập">
 										</div>
 									</td>
-									<td>Ghi chú:</td>
+									<td><label>Ghi chú:</label></td>
 									<td>
-										<div class="input-control text  info-state"
-											data-role="input-control">
-											<span> <input id="text-resize1" type="text">
-											</span>
+										<div class="input-control text  info-state">
+											<input type="text" class="form-control" placeholder="Ghi chú">
 										</div>
 									</td>
 								</tr>
@@ -141,20 +139,18 @@
 						<table class="table no-border">
 							<tbody>
 								<tr>
-									<td>Mã phiếu:</td>
+									<td><label>Mã phiếu:</label></td>
 									<td>
-										<div class="input-control text info-state"
-											data-role="input-control">
-											<input id="text_oneline" type="text">
+										<div class="input-control text info-state">
+											<input type="text" class="form-control" disabled="disabled">
 										</div>
 									</td>
 								</tr>
 								<tr>
-									<td>Ngày:</td>
+									<td><label>Ngày:</label></td>
 									<td>
-										<div class="input-control text info-state"
-											data-role="input-control">
-											<input id="text_oneline" type="text">
+										<div class="input-control text info-state">
+											<input id="ngayNhap" type="datetime" class="form-control" disabled="disabled">
 										</div>
 									</td>
 								</tr>
@@ -195,16 +191,17 @@
 						<tbody>
 							<tr>
 								<td>
-									<div class="input-control text info-state"
-										data-role="input-control">
-										<span> Tổng số: <input type="text" id="text-resize3">
+									<div class="input-control text info-state">
+										<span> Tổng số: 
+											<input type="number" class="form-control" placeholder="Tổng số">
 										</span>
 									</div>
 								</td>
 								<td>
 									<div class="input-control text info-state"
 										data-role="input-control">
-										<span> Tổng tiền: <input type="text" id="text-resize3">
+										<span> Tổng tiền: 
+											<input type="number" class="form-control" placeholder="Tổng tiền">
 										</span>
 									</div>
 								</td>
@@ -218,20 +215,18 @@
 						<tbody>
 							<tr>
 								<td>
-									<button class="default" id="button_oneline">Lưu và
-										thêm</button>
+									<button type="submit" class="btn btn-primary">Lưu và thêm</button>
 								</td>
 								<td>
-									<button class="default" id="button_oneline">Tạo mới</button>
+									<button type="submit" class="btn btn-success">Tạo mới</button>
 								</td>
 								<td>
-									<button class="default" id="button_oneline">Hủy</button>
+									<button type="submit" class="btn btn-danger">Hủy</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-			</fieldset>
 		</form>
 	</div>
 
