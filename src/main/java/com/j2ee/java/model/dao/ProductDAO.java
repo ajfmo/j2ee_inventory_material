@@ -134,5 +134,6 @@ public class ProductDAO {
 		}
 		return result;
 		//InsertProduct();
+		//InsertProduct();
 	}
 }

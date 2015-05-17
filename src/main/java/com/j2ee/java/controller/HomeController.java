@@ -43,8 +43,8 @@ public class HomeController {
 		product.setProductID(11);
 		model.addAttribute("product1", product );
 		///
-		
-		return "home";
+//		return "StockOutward";
+		return "StockInward";
 	}
 	
 }

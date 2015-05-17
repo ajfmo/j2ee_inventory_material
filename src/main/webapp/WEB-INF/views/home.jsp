@@ -2,7 +2,8 @@
 <%@ page session="false" %>
 <html>
 <head>
-	<title>Inventory Material Management</title>
+	<title>Inventory And Material Management</title>
+	<link rel="stylesheet" href="<c:url value="/resources/css/bootstrap.min.css" />" type="text/css">
 </head>
 <body>
 <h1>
