@@ -6,6 +6,12 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Open ERP</title>
+<style type="text/css">
+	.metro .bg-darker {
+		background-color: #333333 !important;
+	}
+</style>
+
 </head>
 <body class="metro">
 	<div class="bg-darker fixed-top shadow">
@@ -20,15 +26,15 @@
 						<a class="pull-menu" href="#"></a>
 						<ul class="element-menu">
 							<li><a class="dropdown-toggle" href="#">Danh mục</a>
-								<ul class="dropdown-menu dark" data-role="dropdown">
+								<ul class="dropdown-menu " data-role="dropdown">
 									<li><a href="#" class="dropdown-toggle">Đối tác</a>
-										<ul class="dropdown-menu dark" data-role="dropdown">
+										<ul class="dropdown-menu " data-role="dropdown">
 											<li><a href="#">Nhà phân phối</a></li>
 											<li><a href="#">Khách hàng</a></li>
 										</ul></li>
 									<li class="divider" />
 									<li><a href="#" class="dropdown-toggle">Kho hàng</a>
-										<ul class="dropdown-menu dark" data-role="dropdown">
+										<ul class="dropdown-menu " data-role="dropdown">
 											<li><a href="#">Kho</a></li>
 											<li><a href="#">Đơn vị tính</a></li>
 											<li><a href="#">Loại mặt hàng</a></li>
@@ -37,22 +43,22 @@
 										</ul></li>
 									<li class="divider" />
 									<li><a href="#" class="dropdown-toggle">Tổ chức</a>
-										<ul class="dropdown-menu dark" data-role="dropdown">
+										<ul class="dropdown-menu " data-role="dropdown">
 											<li><a href="#">Bộ phận</a></li>
 											<li><a href="#">Nhân viên</a></li>
 										</ul></li>
 								</ul></li>
 							<li><a class="dropdown-toggle" href="#">Kho hàng</a>
-								<ul class="dropdown-menu dark" data-role="dropdown">
+								<ul class="dropdown-menu " data-role="dropdown">
 									<li><a href="#" class="dropdown-toggle">Quản lý kho</a>
-										<ul class="dropdown-menu dark" data-role="dropdown">
+										<ul class="dropdown-menu " data-role="dropdown">
 											<li class="disabled"><a href="#">Nhập kho</a></li>
 											<li><a href="#">Xuất kho</a></li>
 											<li><a href="#">Tồn kho</a></li>
 										</ul></li>
 									<li class="divider"></li>
 									<li><a href="#" class="dropdown-toggle">Tiện ích</a>
-										<ul class="dropdown-menu dark" data-role="dropdown">
+										<ul class="dropdown-menu " data-role="dropdown">
 											<li><a href="#">Chuyển kho</a></li>
 											<li><a href="#">Đóng gói</a></li>
 											<li><a href="#">Tháo gỡ</a></li>
@@ -62,7 +68,7 @@
 									<li><a href="#">Lịch sử hàng hóa</a></li>
 								</ul></li>
 							<li><a class="dropdown-toggle" href="#">Trợ giúp</a>
-								<ul class="dropdown-menu dark" data-role="dropdown">
+								<ul class="dropdown-menu " data-role="dropdown">
 									<li><a href="#">Hướng dẫn sử dụng</a></li>
 								</ul></li>
 						</ul>

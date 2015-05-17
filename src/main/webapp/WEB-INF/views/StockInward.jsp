@@ -30,7 +30,7 @@
 	href="<c:url value="/resources/css/prettify.css" />" type="text/css">
 
 <!-- Load JavaScript Libraries -->
-<script src="<c:url value="/resources/js/jquery/jquery.min.js" />"
+<script src="<c:url value="/resources/js/jquery/jquery-1.11.3.min.js" />"
 	type="text/javascript"></script>
 <script
 	src="<c:url value="/resources/js/jquery/jquery.widget.min.js" />"
