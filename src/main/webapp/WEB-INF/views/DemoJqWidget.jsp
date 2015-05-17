@@ -2,7 +2,8 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
-<html>
+<html lang="vi">
+
 <head>
 <meta charset="utf-8">
 <meta name="viewport"
@@ -31,7 +32,7 @@
 	
 	<!-- add one of the jQWidgets styles -->
     <link rel="stylesheet"
-	href="<c:url value="/resources/jqwidgets/styles/jqx.darkblue.css" />" type="text/css">
+	href="<c:url value="/resources/jqwidgets/styles/jqx.office.css" />" type="text/css">
 	<!-- add one of the jQWidgets styles -->
     <link rel="stylesheet"
 	href="<c:url value="/resources/jqwidgets/styles/jqx.base.css" />" type="text/css">
@@ -60,6 +61,13 @@
 	<!-- add one or more widgets -->
     <script src="<c:url value="/resources/jqwidgets/globalization/globalize.js" />"
 	type="text/javascript"></script>
+	<!-- add one or more widgets -->
+    <script src="<c:url value="/resources/jqwidgets/globalization/globalize.culture.vi.js" />"
+	type="text/javascript"></script>
+	<!-- add one or more widgets -->
+    <script src="<c:url value="/resources/jqwidgets/globalization/globalize.culture.vi-VNs.js" />"
+	type="text/javascript"></script>
+	
 	<!-- add one or more widgets -->
     <script src="<c:url value="/resources/js/demos.js" />"
 	type="text/javascript"></script>
