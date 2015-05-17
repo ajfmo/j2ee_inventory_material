@@ -185,5 +185,15 @@ public class Provider {
 	public void setProviderProduct(Set<Product> providerProduct) {
 		this.providerProduct = providerProduct;
 	}
+
+	@Override
+	public String toString() {
+		return "Provider [providerID=" + providerID + ", providerName="
+				+ providerName + ", address=" + address + ", tel=" + tel
+				+ ", email=" + email + ", website=" + website
+				+ ", description=" + description + ", providerStockInward="
+				+ providerStockInward + ", providerProduct=" + providerProduct
+				+ "]";
+	}
 	
 }
