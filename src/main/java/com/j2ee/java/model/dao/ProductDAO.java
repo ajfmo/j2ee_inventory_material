@@ -133,7 +133,5 @@ public class ProductDAO {
 			logger.info("Can't delete Product");
 		}
 		return result;
-		//InsertProduct();
-		//InsertProduct();
 	}
 }
