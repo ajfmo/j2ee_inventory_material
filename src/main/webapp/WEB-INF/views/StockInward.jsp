@@ -32,14 +32,13 @@
 <!-- Load JavaScript Libraries -->
 <script src="<c:url value="/resources/js/jquery/jquery-1.11.3.min.js" />"
 	type="text/javascript"></script>
+<script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"
+	type="text/javascript"></script>
 <script
 	src="<c:url value="/resources/js/jquery/jquery.widget.min.js" />"
 	type="text/javascript"></script>
 <script
 	src="<c:url value="/resources/js/jquery/jquery.mousewheel.js" />"
-	type="text/javascript"></script>
-<script
-	src="<c:url value="/resources/js/jquery/jquery.dataTables.js" />"
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/prettify/prettify.js" />"
 	type="text/javascript"></script>
@@ -55,6 +54,7 @@
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/StockInward.js" />"
 	type="text/javascript"></script>
+
 
 </head>
 <body class="metro">
@@ -166,7 +166,7 @@
 								<th class="text-left">Tên Hàng</th>
 								<th class="text-left">Kho Hàng</th>
 								<th class="text-left">Đơn Vị</th>
-								<th class="text-left">Số lượng</th>
+								<th class="sum">Số lượng</th>
 								<th class="text-left">Đơn giá</th>
 								<th class="text-left">Thành tiền</th>
 							</tr>
@@ -193,7 +193,7 @@
 								<td>
 									<div class="input-control text info-state">
 										<span> Tổng số: 
-											<input type="number" class="form-control" placeholder="Tổng số">
+											<input type="text" id="sumAmount" class="form-control" placeholder="Tổng số">
 										</span>
 									</div>
 								</td>
@@ -201,7 +201,7 @@
 									<div class="input-control text info-state"
 										data-role="input-control">
 										<span> Tổng tiền: 
-											<input type="number" class="form-control" placeholder="Tổng tiền">
+											<input type="number" id="sumMoney" class="form-control" placeholder="Tổng tiền">
 										</span>
 									</div>
 								</td>
