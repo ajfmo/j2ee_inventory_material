@@ -53,7 +53,13 @@ public class HomeController {
 		model.addAttribute("listProvider", listProvider );
 		///
 		return "StockInward";
-		//return "DemoJqWidget";
+	}
+	
+	@RequestMapping(value = "/demowidget", method = RequestMethod.GET)
+	public String DemoWidget(Locale locale, Model model) {
+		logger.info("Demo Widget");
+		
+		return "DemoJqWidget";
 	}
 	
 }

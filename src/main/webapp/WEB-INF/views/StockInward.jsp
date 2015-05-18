@@ -21,43 +21,69 @@
 	href="<c:url value="/resources/css/metro-bootstrap-responsive.css" />"
 	type="text/css">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/iconFont.css" />" type="text/css">
-<link rel="stylesheet" href="<c:url value="/resources/css/docs.css" />"
+	href="<c:url value="/resources/css/iconFont.css" />" 
+	type="text/css">
+<link rel="stylesheet" 
+	href="<c:url value="/resources/css/docs.css" />" 
 	type="text/css">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/stockInward.css" />" type="text/css">
+	href="<c:url value="/resources/css/stockInward.css" />" 
+	type="text/css">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/prettify.css" />" type="text/css">
+	href="<c:url value="/resources/css/prettify.css" />" 
+	type="text/css">
+<link rel="stylesheet"
+	href="<c:url value="/resources/jqwidgets/styles/jqx.office.css" />" 
+	type="text/css">
+<link rel="stylesheet"
+	href="<c:url value="/resources/jqwidgets/styles/jqx.base.css" />" 
+	type="text/css">
+<link rel="stylesheet"
+	href="<c:url value="/resources/jqwidgets/styles/jqx.bootstrap.css" />" 
+	type="text/css">
 
 <!-- Load JavaScript Libraries -->
 <script src="<c:url value="/resources/js/jquery/jquery-1.11.3.min.js" />"
 	type="text/javascript"></script>
-<script
-	src="<c:url value="/resources/js/jquery/jquery.widget.min.js" />"
+<script src="<c:url value="/resources/js/jquery/jquery.widget.min.js" />"
 	type="text/javascript"></script>
-<script
-	src="<c:url value="/resources/js/jquery/jquery.mousewheel.js" />"
+<script src="<c:url value="/resources/js/jquery/jquery.mousewheel.js" />"
 	type="text/javascript"></script>
-<script
-	src="<c:url value="/resources/js/jquery/jquery.dataTables.js" />"
+<script src="<c:url value="/resources/js/jquery/jquery.dataTables.js" />"
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/prettify/prettify.js" />"
 	type="text/javascript"></script>
-
-<!-- Metro UI CSS JavaScript plugins -->
 <script src="<c:url value="/resources/js/metro.min.js" />"
 	type="text/javascript"></script>
-
-<!-- Local JavaScript -->
 <script src="<c:url value="/resources/js/docs.js" />"
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/github.info.js" />"
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/StockInward.js" />"
 	type="text/javascript"></script>
-
+<script src="<c:url value="/resources/jqwidgets/jqxcore.js" />"
+	type="text/javascript"></script>
+<script src="<c:url value="/resources/jqwidgets/jqx-all.js" />"
+	type="text/javascript"></script>
+<script src="<c:url value="/resources/jqwidgets/globalization/globalize.js" />"
+	type="text/javascript"></script>
+<script src="<c:url value="/resources/jqwidgets/globalization/globalize.culture.vi.js" />"
+	type="text/javascript"></script>
+<script src="<c:url value="/resources/jqwidgets/globalization/globalize.culture.vi-VNs.js" />"
+	type="text/javascript"></script>
+<script src="<c:url value="/resources/js/generatedata.js" />"
+	type="text/javascript"></script>
+<script src="<c:url value="/resources/js/demos.js" />"
+	type="text/javascript"></script>
+	
+<!-- Inline code -->
+<style type="text/css">
+	.jqx-icon {
+    position: absolute;
+}
+</style>
 </head>
-<body class="metro">
+<body class="metro default">
 	<header class="bg-dark">
 		<jsp:include page="../views/navbar.jsp"></jsp:include>
 	</header>
@@ -66,6 +92,7 @@
 				<label><b>Thông tin phiếu nhập</b> </label>
 				<div class="row information">
 					<div id="col6" class="col-sm-6">
+<!-- Thông tin nhập -->
 						<table class="table no-border striped3n table-resize">
 							<tbody>
 								<tr class="row_1">
@@ -136,6 +163,7 @@
 						</table>
 					</div>
 					<div id="col4" class="col-sm-4">
+<!-- Mã phiếu, ngày -->
 						<table class="table no-border">
 							<tbody>
 								<tr>
@@ -159,34 +187,15 @@
 					</div>
 				</div>
 				<div class="content-resize">
-					<table class="table striped hovered dataTable" id="stock_table">
-						<thead>
-							<tr>
-								<th class="text-left">Mã Hàng</th>
-								<th class="text-left">Tên Hàng</th>
-								<th class="text-left">Kho Hàng</th>
-								<th class="text-left">Đơn Vị</th>
-								<th class="text-left">Số lượng</th>
-								<th class="text-left">Đơn giá</th>
-								<th class="text-left">Thành tiền</th>
-							</tr>
-						</thead>
-
-						<tbody>
-						</tbody>
-
-						<tfoot>
-							<tr>
-								<th class="text-left">Mã Hàng</th>
-								<th class="text-left">Tên Hàng</th>
-								<th class="text-left">Kho Hàng</th>
-								<th class="text-left">Đơn Vị</th>
-								<th class="text-left">Số lượng</th>
-								<th class="text-left">Đơn giá</th>
-								<th class="text-left">Thành tiền</th>
-							</tr>
-						</tfoot>
-					</table>
+<!-- Bảng dữ liệu -->
+				<div id='jqxWidget'>
+					<div id='jqxgrid'></div>
+					<div style="font-size: 12px; font-family: Verdana, Geneva, 'DejaVu Sans', sans-serif; margin-top: 30px;">
+			            <div id="cellbegineditevent"></div>
+			            <div style="margin-top: 10px;" id="cellendeditevent"></div>
+			       </div>
+			  	</div>
+<!-- Tổng số, tổng tiền -->
 					<table class="table no-border dock-right">
 						<tbody>
 							<tr>
@@ -210,6 +219,7 @@
 					</table>
 
 				</div>
+<!-- Nút bấm lưu -->
 				<div class="status-bar-resize">
 					<table class="table no-border dock-right">
 						<tbody>
@@ -229,7 +239,5 @@
 				</div>
 		</form>
 	</div>
-
-
 </body>
 </html>
