@@ -48,7 +48,7 @@ public class StockInward {
 	private int totalNumber;
 
 	@OneToMany(mappedBy = "inwardID")
-	private Set<StockInwardDetail> stockInStockInDetail = new HashSet<StockInwardDetail>();
+	private transient Set<StockInwardDetail> stockInStockInDetail = new HashSet<StockInwardDetail>();
 	/**
 	 * 
 	 */

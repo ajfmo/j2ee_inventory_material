@@ -3,68 +3,72 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import com.j2ee.java.model.dto.Staff;
 
-public class StaffDAOImpl implements StaffDAO {
+import com.j2ee.java.model.dto.Product;
 
-	static Logger logger = Logger.getLogger(StaffDAOImpl.class.getName());
+public class ProductDAOImpl implements ProductDAO{
+
+	static Logger logger = Logger.getLogger(ProductDAOImpl.class.getName());
+
 	@Override
-	public Staff getByID(int id) {
+	public Product getByID(int id) {
 		// TODO Auto-generated method stub
-		return (Staff) HibernateUtil.getSessionFactory().getCurrentSession()
-				.get(Staff.class, id);
+		return (Product) HibernateUtil.getSessionFactory().getCurrentSession()
+				.get(Product.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<Staff> getAllStaff() {
+	public List<Product> getAllProduct() {
 		// TODO Auto-generated method stub
 		return HibernateUtil.getSessionFactory().getCurrentSession()
-				.createQuery("from Staff").list();
+				.createQuery("from Product").list();
 	}
 
 	@Override
-	public boolean insertStaff(Staff Staff) {
+	public boolean insertProduct(Product Product) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			HibernateUtil.getSessionFactory().getCurrentSession()
-					.save(Staff);
+					.save(Product);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't save Staff");
+			logger.info("Can't save Product");
 		}
 		return result;
 	}
 
 	@Override
-	public boolean updateStaff(Staff Staff) {
+	public boolean updateProduct(Product Product) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			HibernateUtil.getSessionFactory().getCurrentSession()
-					.update(Staff);
+					.update(Product);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't update Staff");
+			logger.info("Can't update Product");
 		}
 		return result;
 	}
 
 	@Override
-	public boolean deleteStaff(Staff Staff) {
+	public boolean deleteProduct(Product Product) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
 			HibernateUtil.getSessionFactory().getCurrentSession()
-					.delete(Staff);
+					.delete(Product);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't delete Staff");
+			logger.info("Can't delete Product");
 		}
 		return result;
 	}
+
+
 }

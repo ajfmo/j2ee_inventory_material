@@ -8,26 +8,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.ProviderDAO;
-import com.j2ee.java.model.dao.ProviderDAOImpl;
-import com.j2ee.java.model.dto.Provider;
+import com.j2ee.java.model.dao.ProductComponentDAO;
+import com.j2ee.java.model.dao.ProductComponentDAOImpl;
+import com.j2ee.java.model.dto.ProductComponent;
 
-public class ProviderBOImpl implements ProviderBO {
+public class ProductComponentBOImpl implements ProductComponentBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProviderBOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductComponentBOImpl.class);
 	
-	private static ProviderDAO providerDAO = new ProviderDAOImpl();
-
+	private static ProductComponentDAO ProductComponentDAO = new ProductComponentDAOImpl();
+	
 	@Override
-	public Provider getByID(int id) {
+	public ProductComponent getByID(int id) {
 		// TODO Auto-generated method stub
-		Provider provider = null;
+		ProductComponent ProductComponent = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			provider = providerDAO.getByID(id);
+			ProductComponent = ProductComponentDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -37,19 +37,19 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return provider;
+		return ProductComponent;
 	}
 
 	@Override
-	public List<Provider> getAllProvider() {
+	public List<ProductComponent> getAllProductComponent() {
 		// TODO Auto-generated method stub
-		List<Provider> listProvider = new ArrayList<Provider>();
+		List<ProductComponent> listProductComponent = new ArrayList<ProductComponent>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listProvider = providerDAO.getAllProvider();
+			listProductComponent = ProductComponentDAO.getAllProductComponent();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -59,11 +59,11 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listProvider;
+		return listProductComponent;
 	}
 
 	@Override
-	public boolean insertProvider(Provider Provider) {
+	public boolean insertProductComponent(ProductComponent productComponent) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -71,7 +71,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.insertProvider(Provider);
+			result = ProductComponentDAO.insertProductComponent(productComponent);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -85,7 +85,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean updateProvider(Provider Provider) {
+	public boolean updateProductComponent(ProductComponent productComponent) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -93,7 +93,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.updateProvider(Provider);
+			result = ProductComponentDAO.updateProductComponent(productComponent);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -107,7 +107,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean deleteProvider(Provider Provider) {
+	public boolean deleteProductComponent(ProductComponent productComponent) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -115,7 +115,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.deleteProvider(Provider);
+			result = ProductComponentDAO.deleteProductComponent(productComponent);
 			
 			tx.commit();
 		} catch (Exception ex) {

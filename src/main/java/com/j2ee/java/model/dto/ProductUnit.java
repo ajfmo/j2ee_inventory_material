@@ -36,7 +36,7 @@ public class ProductUnit {
 	private String description;
 	
 	@OneToMany(mappedBy = "unitID")
-	private Set<Product> productUnitProduct = new HashSet<Product>();
+	private transient Set<Product> productUnitProduct = new HashSet<Product>();
 	/**
 	 * 
 	 */

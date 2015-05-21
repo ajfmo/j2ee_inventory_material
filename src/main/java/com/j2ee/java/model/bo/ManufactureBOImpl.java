@@ -8,26 +8,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.ProviderDAO;
-import com.j2ee.java.model.dao.ProviderDAOImpl;
-import com.j2ee.java.model.dto.Provider;
+import com.j2ee.java.model.dao.ManufactureDAO;
+import com.j2ee.java.model.dao.ManufactureDAOImpl;
+import com.j2ee.java.model.dto.Manufacture;
 
-public class ProviderBOImpl implements ProviderBO {
+public class ManufactureBOImpl implements ManufactureBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProviderBOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ManufactureBOImpl.class);
 	
-	private static ProviderDAO providerDAO = new ProviderDAOImpl();
-
+	private static ManufactureDAO ManufactureDAO = new ManufactureDAOImpl();
+	
 	@Override
-	public Provider getByID(int id) {
+	public Manufacture getByID(int id) {
 		// TODO Auto-generated method stub
-		Provider provider = null;
+		Manufacture Manufacture = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			provider = providerDAO.getByID(id);
+			Manufacture = ManufactureDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -37,19 +37,19 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return provider;
+		return Manufacture;
 	}
 
 	@Override
-	public List<Provider> getAllProvider() {
+	public List<Manufacture> getAllManufacture() {
 		// TODO Auto-generated method stub
-		List<Provider> listProvider = new ArrayList<Provider>();
+		List<Manufacture> listManufacture = new ArrayList<Manufacture>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listProvider = providerDAO.getAllProvider();
+			listManufacture = ManufactureDAO.getAllManufacture();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -59,11 +59,11 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listProvider;
+		return listManufacture;
 	}
 
 	@Override
-	public boolean insertProvider(Provider Provider) {
+	public boolean insertManufacture(Manufacture manufacture) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -71,7 +71,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.insertProvider(Provider);
+			result = ManufactureDAO.insertManufacture(manufacture);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -85,7 +85,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean updateProvider(Provider Provider) {
+	public boolean updateManufacture(Manufacture manufacture) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -93,7 +93,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.updateProvider(Provider);
+			result = ManufactureDAO.updateManufacture(manufacture);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -107,7 +107,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean deleteProvider(Provider Provider) {
+	public boolean deleteManufacture(Manufacture manufacture) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -115,7 +115,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.deleteProvider(Provider);
+			result = ManufactureDAO.deleteManufacture(manufacture);
 			
 			tx.commit();
 		} catch (Exception ex) {

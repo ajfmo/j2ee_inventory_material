@@ -59,7 +59,7 @@ public class StockBuild {
 	private Date buildDate;
 	
 	@OneToMany(mappedBy = "buildID")
-	private Set<StockBuildDetail> stockBuildStockBuilDetail = new HashSet<StockBuildDetail>();
+	private transient Set<StockBuildDetail> stockBuildStockBuilDetail = new HashSet<StockBuildDetail>();
 	/**
 	 * 
 	 */

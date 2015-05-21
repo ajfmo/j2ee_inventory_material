@@ -8,26 +8,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.ProviderDAO;
-import com.j2ee.java.model.dao.ProviderDAOImpl;
-import com.j2ee.java.model.dto.Provider;
+import com.j2ee.java.model.dao.StockDAO;
+import com.j2ee.java.model.dao.StockDAOImpl;
+import com.j2ee.java.model.dto.Stock;
 
-public class ProviderBOImpl implements ProviderBO {
+public class StockBOImpl implements StockBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProviderBOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(StockBOImpl.class);
 	
-	private static ProviderDAO providerDAO = new ProviderDAOImpl();
-
+	private static StockDAO stockDAO = new StockDAOImpl();
+	
 	@Override
-	public Provider getByID(int id) {
+	public Stock getByID(int id) {
 		// TODO Auto-generated method stub
-		Provider provider = null;
+		Stock Stock = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			provider = providerDAO.getByID(id);
+			Stock = stockDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -37,19 +37,19 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return provider;
+		return Stock;
 	}
 
 	@Override
-	public List<Provider> getAllProvider() {
+	public List<Stock> getAllStock() {
 		// TODO Auto-generated method stub
-		List<Provider> listProvider = new ArrayList<Provider>();
+		List<Stock> listStock = new ArrayList<Stock>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listProvider = providerDAO.getAllProvider();
+			listStock = stockDAO.getAllStock();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -59,11 +59,11 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listProvider;
+		return listStock;
 	}
 
 	@Override
-	public boolean insertProvider(Provider Provider) {
+	public boolean insertStock(Stock stock) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -71,7 +71,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.insertProvider(Provider);
+			result = stockDAO.insertStock(stock);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -85,7 +85,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean updateProvider(Provider Provider) {
+	public boolean updateStock(Stock stock) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -93,7 +93,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.updateProvider(Provider);
+			result = stockDAO.updateStock(stock);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -107,7 +107,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean deleteProvider(Provider Provider) {
+	public boolean deleteStock(Stock stock) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -115,7 +115,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.deleteProvider(Provider);
+			result = stockDAO.deleteStock(stock);
 			
 			tx.commit();
 		} catch (Exception ex) {

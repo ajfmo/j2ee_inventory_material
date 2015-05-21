@@ -40,10 +40,10 @@ public class Asset {
 	private int number;
 	
 	@OneToMany(mappedBy = "assetID")
-	private Set<AssetAdjustment> assetAssetAdjustment = new HashSet<AssetAdjustment>();
+	private transient Set<AssetAdjustment> assetAssetAdjustment = new HashSet<AssetAdjustment>();
 	
 	@OneToMany(mappedBy = "assetID")
-	private Set<AssetLiquidationDetail> assetAssetLiquiDetail = new HashSet<AssetLiquidationDetail>();
+	private transient Set<AssetLiquidationDetail> assetAssetLiquiDetail = new HashSet<AssetLiquidationDetail>();
 	/**
 	 * @param assetID
 	 * @param name

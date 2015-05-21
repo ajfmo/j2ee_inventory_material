@@ -51,7 +51,7 @@ public class AssetLiquidation {
 	private String reason;
 	
 	@OneToMany(mappedBy = "liquidID")
-	private Set<AssetLiquidationDetail> assetliquiAssetLiquiDetail = new HashSet<AssetLiquidationDetail>();
+	private transient Set<AssetLiquidationDetail> assetliquiAssetLiquiDetail = new HashSet<AssetLiquidationDetail>();
 	/**
 	 * 
 	 */

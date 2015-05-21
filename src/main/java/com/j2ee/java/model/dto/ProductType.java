@@ -33,7 +33,7 @@ public class ProductType {
 	private String typeName;
 	
 	@OneToMany(mappedBy = "typeID")
-	private Set<Product> productTypeProduct = new HashSet<Product>();
+	private transient Set<Product> productTypeProduct = new HashSet<Product>();
 	/**
 	 * 
 	 */

@@ -1,13 +1,8 @@
 package com.j2ee.java.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.j2ee.java.model.dto.Adjustment;
 
 public class AdjustmentDAOImpl implements AdjustmentDAO {
@@ -16,41 +11,16 @@ public class AdjustmentDAOImpl implements AdjustmentDAO {
 	@Override
 	public Adjustment getByID(int id) {
 		// TODO Auto-generated method stub
-		Adjustment result = new Adjustment();
-		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			result = (Adjustment) session.get(Adjustment.class, id);
-
-			session.getTransaction().commit();
-			session.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info("Can't save Product");
-		}
-		return result;
+		return (Adjustment) HibernateUtil.getSessionFactory().getCurrentSession()
+				.get(Adjustment.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Adjustment> getAllAdjustment() {
 		// TODO Auto-generated method stub
-		List<Adjustment> list = new ArrayList<Adjustment>();
-		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(Adjustment.class);
-			list = criteria.list();
-			session.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info("Can't save Product");
-		}
-		return list;
+		return HibernateUtil.getSessionFactory().getCurrentSession()
+				.createQuery("from Product").list();
 	}
 
 	@Override
@@ -58,18 +28,12 @@ public class AdjustmentDAOImpl implements AdjustmentDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.save(adjustment);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.save(adjustment);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't save adjustment");
+			logger.info("Can't save Adjustment");
 		}
 		return result;
 	}
@@ -79,18 +43,12 @@ public class AdjustmentDAOImpl implements AdjustmentDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.update(adjustment);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.update(adjustment);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't update adjustment");
+			logger.info("Can't update Adjustment");
 		}
 		return result;
 	}
@@ -100,20 +58,13 @@ public class AdjustmentDAOImpl implements AdjustmentDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.delete(adjustment);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.delete(adjustment);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't delete adjustment");
+			logger.info("Can't delete Adjustment");
 		}
 		return result;
 	}
-
 }

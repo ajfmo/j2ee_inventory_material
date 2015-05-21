@@ -1,13 +1,8 @@
 package com.j2ee.java.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.j2ee.java.model.dto.Stock;
 
 public class StockDAOImpl implements StockDAO {
@@ -17,41 +12,16 @@ public class StockDAOImpl implements StockDAO {
 	@Override
 	public Stock getByID(int id) {
 		// TODO Auto-generated method stub
-		Stock result = new Stock();
-		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			result = (Stock) session.get(Stock.class, id);
-
-			session.getTransaction().commit();
-			session.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info("Can't save Product");
-		}
-		return result;
+		return (Stock) HibernateUtil.getSessionFactory().getCurrentSession()
+				.get(Stock.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Stock> getAllStock() {
 		// TODO Auto-generated method stub
-		List<Stock> list = new ArrayList<Stock>();
-		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(Stock.class);
-			list = criteria.list();
-			session.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info("Can't save Product");
-		}
-		return list;
+		return HibernateUtil.getSessionFactory().getCurrentSession()
+				.createQuery("from Stock").list();
 	}
 
 	@Override
@@ -59,14 +29,8 @@ public class StockDAOImpl implements StockDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.save(Stock);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.save(Stock);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -80,14 +44,8 @@ public class StockDAOImpl implements StockDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.update(Stock);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.update(Stock);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -101,14 +59,8 @@ public class StockDAOImpl implements StockDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.delete(Stock);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.delete(Stock);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -116,6 +68,4 @@ public class StockDAOImpl implements StockDAO {
 		}
 		return result;
 	}
-	
-	
 }

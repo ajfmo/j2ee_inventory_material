@@ -72,19 +72,19 @@ public class Product {
 	private String photo;
 	
 	@OneToMany(mappedBy = "componentID")
-	private Set<ProductComponent> productIDProductComponent = new HashSet<ProductComponent>();
+	private transient Set<ProductComponent> productIDProductComponent = new HashSet<ProductComponent>();
 	
 	@OneToMany(mappedBy = "productID")
-	private Set<ProductComponent> componentIDProductComponent = new HashSet<ProductComponent>();
+	private transient Set<ProductComponent> componentIDProductComponent = new HashSet<ProductComponent>();
 	
 	@OneToMany(mappedBy = "productID")
-	private Set<StockInventory> productStockInventory = new HashSet<StockInventory>();
+	private transient Set<StockInventory> productStockInventory = new HashSet<StockInventory>();
 	
 	@OneToMany(mappedBy = "productID")
-	private Set<StockInwardDetail> productStockInwardDetail = new HashSet<StockInwardDetail>();
+	private transient Set<StockInwardDetail> productStockInwardDetail = new HashSet<StockInwardDetail>();
 	
 	@OneToMany(mappedBy = "productID")
-	private Set<StockOutwardDetail> productStockOutwardDetail = new HashSet<StockOutwardDetail>();
+	private transient Set<StockOutwardDetail> productStockOutwardDetail = new HashSet<StockOutwardDetail>();
 	/**
 	 * 
 	 */

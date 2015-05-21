@@ -7,27 +7,27 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import com.j2ee.java.model.dao.AssetLiquidationDAOImpl;
+import com.j2ee.java.model.dao.AssetLiquidationDAO;
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.ProviderDAO;
-import com.j2ee.java.model.dao.ProviderDAOImpl;
-import com.j2ee.java.model.dto.Provider;
+import com.j2ee.java.model.dto.AssetLiquidation;
 
-public class ProviderBOImpl implements ProviderBO {
+public class AssetLiquidationBOImpl implements AssetLiquidationBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProviderBOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(AssetLiquidationBOImpl.class);
 	
-	private static ProviderDAO providerDAO = new ProviderDAOImpl();
-
+	private static AssetLiquidationDAO assetLiquidationDAO = new AssetLiquidationDAOImpl();
+	
 	@Override
-	public Provider getByID(int id) {
+	public AssetLiquidation getByID(int id) {
 		// TODO Auto-generated method stub
-		Provider provider = null;
+		AssetLiquidation AssetLiquidation = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			provider = providerDAO.getByID(id);
+			AssetLiquidation = assetLiquidationDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -37,19 +37,19 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return provider;
+		return AssetLiquidation;
 	}
 
 	@Override
-	public List<Provider> getAllProvider() {
+	public List<AssetLiquidation> getAllAssetLiquidation() {
 		// TODO Auto-generated method stub
-		List<Provider> listProvider = new ArrayList<Provider>();
+		List<AssetLiquidation> listAssetLiquidation = new ArrayList<AssetLiquidation>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listProvider = providerDAO.getAllProvider();
+			listAssetLiquidation = assetLiquidationDAO.getAllAssetLiquidation();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -59,11 +59,11 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listProvider;
+		return listAssetLiquidation;
 	}
 
 	@Override
-	public boolean insertProvider(Provider Provider) {
+	public boolean insertAssetLiquidation(AssetLiquidation assetLiquidation) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -71,7 +71,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.insertProvider(Provider);
+			result = assetLiquidationDAO.insertAssetLiquidation(assetLiquidation);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -85,7 +85,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean updateProvider(Provider Provider) {
+	public boolean updateAssetLiquidation(AssetLiquidation assetLiquidation) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -93,7 +93,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.updateProvider(Provider);
+			result = assetLiquidationDAO.updateAssetLiquidation(assetLiquidation);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -107,7 +107,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean deleteProvider(Provider Provider) {
+	public boolean deleteAssetLiquidation(AssetLiquidation assetLiquidation) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -115,7 +115,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.deleteProvider(Provider);
+			result = assetLiquidationDAO.deleteAssetLiquidation(assetLiquidation);
 			
 			tx.commit();
 		} catch (Exception ex) {

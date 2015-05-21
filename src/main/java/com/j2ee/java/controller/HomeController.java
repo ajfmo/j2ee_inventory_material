@@ -1,6 +1,7 @@
 
 package com.j2ee.java.controller;
 
+import java.lang.reflect.Type;
 import java.text.DateFormat;
 import java.util.Date;
 import java.util.List;
@@ -11,9 +12,14 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.reflect.TypeToken;
 import com.j2ee.java.model.bo.ProviderBO;
 import com.j2ee.java.model.bo.ProviderBOImpl;
 import com.j2ee.java.model.dto.Product;
@@ -27,10 +33,7 @@ import com.j2ee.java.model.dto.Provider;
 public class HomeController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(HomeController.class);
-	@Autowired
-	private Product product;
 	
-	private ProviderBO providerBO = new ProviderBOImpl();
 	
 	/**
 	 * Simply selects the home view to render by returning its name.
@@ -46,11 +49,12 @@ public class HomeController {
 		
 		model.addAttribute("serverTime", formattedDate );
 		///
-		product.setProductID(11);
-		model.addAttribute("product1", product );
+//		product.setProductID(11);
+//		model.addAttribute("product1", product );
 		
-		List<Provider> listProvider = providerBO.getAllProvider();
-		model.addAttribute("listProvider", listProvider );
+//		ProviderBO providerBO = new ProviderBOImpl();
+//		List<Provider> listProvider = providerBO.getAllProvider();
+//		model.addAttribute("listProvider", listProvider );
 		///
 		return "StockInward";
 	}
@@ -61,5 +65,25 @@ public class HomeController {
 		
 		return "DemoJqWidget";
 	}
+	@RequestMapping(value = "/getProvider", method = RequestMethod.GET)
+	public @ResponseBody String getProvide() {
+		Gson gson = new Gson(); 
+		
+		ProviderBO providerBO = new ProviderBOImpl();
+		Provider listProvider = providerBO.getByID(1);
+		
+		Type type = new TypeToken<Provider>(){}.getType();
+		
+		String jsonS = gson.toJson(listProvider, type);
+		logger.info(jsonS);
+		return jsonS;
+	}
 	
+	@RequestMapping(value = "/getProvider", method = RequestMethod.GET)
+	public @ResponseBody String getProduct() {
+		Gson gson = new Gson();
+		return null; 
+		
+		
+	}
 }

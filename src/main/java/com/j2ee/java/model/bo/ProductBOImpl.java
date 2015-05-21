@@ -8,26 +8,26 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.ProviderDAO;
-import com.j2ee.java.model.dao.ProviderDAOImpl;
-import com.j2ee.java.model.dto.Provider;
+import com.j2ee.java.model.dao.ProductDAO;
+import com.j2ee.java.model.dao.ProductDAOImpl;
+import com.j2ee.java.model.dto.Product;
 
-public class ProviderBOImpl implements ProviderBO {
+public class ProductBOImpl implements ProductBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProviderBOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductBOImpl.class);
 	
-	private static ProviderDAO providerDAO = new ProviderDAOImpl();
-
+	private static ProductDAO ProductDAO = new ProductDAOImpl();
+	
 	@Override
-	public Provider getByID(int id) {
+	public Product getByID(int id) {
 		// TODO Auto-generated method stub
-		Provider provider = null;
+		Product Product = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			provider = providerDAO.getByID(id);
+			Product = ProductDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -37,19 +37,19 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return provider;
+		return Product;
 	}
 
 	@Override
-	public List<Provider> getAllProvider() {
+	public List<Product> getAllProduct() {
 		// TODO Auto-generated method stub
-		List<Provider> listProvider = new ArrayList<Provider>();
+		List<Product> listProduct = new ArrayList<Product>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listProvider = providerDAO.getAllProvider();
+			listProduct = ProductDAO.getAllProduct();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -59,11 +59,11 @@ public class ProviderBOImpl implements ProviderBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listProvider;
+		return listProduct;
 	}
 
 	@Override
-	public boolean insertProvider(Provider Provider) {
+	public boolean insertProduct(Product product) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -71,7 +71,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.insertProvider(Provider);
+			result = ProductDAO.insertProduct(product);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -85,7 +85,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean updateProvider(Provider Provider) {
+	public boolean updateProduct(Product product) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -93,7 +93,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.updateProvider(Provider);
+			result = ProductDAO.updateProduct(product);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -107,7 +107,7 @@ public class ProviderBOImpl implements ProviderBO {
 	}
 
 	@Override
-	public boolean deleteProvider(Provider Provider) {
+	public boolean deleteProduct(Product product) {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		Transaction tx = null;
@@ -115,7 +115,7 @@ public class ProviderBOImpl implements ProviderBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = providerDAO.deleteProvider(Provider);
+			result = ProductDAO.deleteProduct(product);
 			
 			tx.commit();
 		} catch (Exception ex) {

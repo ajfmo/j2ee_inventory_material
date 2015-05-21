@@ -42,7 +42,7 @@ public class Manufacture {
 	private String description;
 	
 	@OneToMany(mappedBy = "manufactureID")
-	private Set<Product> manufactureProduct = new HashSet<Product>();
+	private transient Set<Product> manufactureProduct = new HashSet<Product>();
 	
 	/**
 	 * 

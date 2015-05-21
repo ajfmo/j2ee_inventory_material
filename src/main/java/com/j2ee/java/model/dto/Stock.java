@@ -45,16 +45,16 @@ public class Stock {
 	private String desciption;
 	
 	@OneToMany(mappedBy = "stockID")
-	private Set<Adjustment> stockAdjustment = new HashSet<Adjustment>();
+	private transient Set<Adjustment> stockAdjustment = new HashSet<Adjustment>();
 	
 	@OneToMany(mappedBy = "stockID")
-	private Set<StockInventory> stockStockInventory = new HashSet<StockInventory>();
+	private transient Set<StockInventory> stockStockInventory = new HashSet<StockInventory>();
 	
 	@OneToMany(mappedBy = "stockID")
-	private Set<StockInwardDetail> stockStockInwardDetail = new HashSet<StockInwardDetail>();
+	private transient Set<StockInwardDetail> stockStockInwardDetail = new HashSet<StockInwardDetail>();
 	
 	@OneToMany(mappedBy = "stockID")
-	private Set<StockOutwardDetail> stockStockOutwardDetail = new HashSet<StockOutwardDetail>();
+	private transient Set<StockOutwardDetail> stockStockOutwardDetail = new HashSet<StockOutwardDetail>();
 	/**
 	 * 
 	 */

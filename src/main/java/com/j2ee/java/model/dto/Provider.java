@@ -48,10 +48,10 @@ public class Provider {
 	private String description;
 	
 	@OneToMany(mappedBy = "providerID")
-	private Set<StockInward> providerStockInward = new HashSet<StockInward>();
+	private transient Set<StockInward> providerStockInward = new HashSet<StockInward>();
 	
 	@OneToMany(mappedBy = "providerID")
-	private Set<Product> providerProduct = new HashSet<Product>();
+	private transient Set<Product> providerProduct = new HashSet<Product>();
 	/**
 	 * 
 	 */
@@ -166,34 +166,20 @@ public class Provider {
 		this.description = description;
 	}
 
-
 	public Set<StockInward> getProviderStockInward() {
 		return providerStockInward;
 	}
-
 
 	public void setProviderStockInward(Set<StockInward> providerStockInward) {
 		this.providerStockInward = providerStockInward;
 	}
 
-
 	public Set<Product> getProviderProduct() {
 		return providerProduct;
 	}
 
-
 	public void setProviderProduct(Set<Product> providerProduct) {
 		this.providerProduct = providerProduct;
-	}
-
-	@Override
-	public String toString() {
-		return "Provider [providerID=" + providerID + ", providerName="
-				+ providerName + ", address=" + address + ", tel=" + tel
-				+ ", email=" + email + ", website=" + website
-				+ ", description=" + description + ", providerStockInward="
-				+ providerStockInward + ", providerProduct=" + providerProduct
-				+ "]";
 	}
 	
 }

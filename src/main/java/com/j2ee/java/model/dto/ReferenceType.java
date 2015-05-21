@@ -33,7 +33,7 @@ public class ReferenceType {
 	private String name;
 	
 	@OneToMany(mappedBy = "refID")
-	private Set<StockInventory> refTypeStockInven = new HashSet<StockInventory>();
+	private transient Set<StockInventory> refTypeStockInven = new HashSet<StockInventory>();
 	/**
 	 * 
 	 */

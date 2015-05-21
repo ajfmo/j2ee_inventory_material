@@ -1,13 +1,8 @@
 package com.j2ee.java.model.dao;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.Criteria;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-
 import com.j2ee.java.model.dto.AssetLiquidation;
 
 public class AssetLiquidationDAOImpl implements AssetLiquidationDAO {
@@ -16,41 +11,16 @@ public class AssetLiquidationDAOImpl implements AssetLiquidationDAO {
 	@Override
 	public AssetLiquidation getByID(int id) {
 		// TODO Auto-generated method stub
-		AssetLiquidation result = new AssetLiquidation();
-		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			result = (AssetLiquidation) session.get(AssetLiquidation.class, id);
-
-			session.getTransaction().commit();
-			session.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info("Can't save Product");
-		}
-		return result;
+		return (AssetLiquidation) HibernateUtil.getSessionFactory().getCurrentSession()
+				.get(AssetLiquidation.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<AssetLiquidation> getAllAssetLiquidation() {
 		// TODO Auto-generated method stub
-		List<AssetLiquidation> list = new ArrayList<AssetLiquidation>();
-		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			Criteria criteria = session.createCriteria(AssetLiquidation.class);
-			list = criteria.list();
-			session.close();
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info("Can't save Product");
-		}
-		return list;
+		return HibernateUtil.getSessionFactory().getCurrentSession()
+				.createQuery("from AssetLiquidation").list();
 	}
 
 	@Override
@@ -58,14 +28,8 @@ public class AssetLiquidationDAOImpl implements AssetLiquidationDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.save(assetLiquidation);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.save(assetLiquidation);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -79,14 +43,8 @@ public class AssetLiquidationDAOImpl implements AssetLiquidationDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.update(assetLiquidation);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.update(assetLiquidation);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -100,14 +58,8 @@ public class AssetLiquidationDAOImpl implements AssetLiquidationDAO {
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			SessionFactory sf = HibernateUtil.getSessionFactory();
-			Session session = sf.openSession();
-			session.beginTransaction();
-
-			session.delete(assetLiquidation);
-
-			session.getTransaction().commit();
-			session.close();
+			HibernateUtil.getSessionFactory().getCurrentSession()
+					.delete(assetLiquidation);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception

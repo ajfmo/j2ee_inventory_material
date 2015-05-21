@@ -54,7 +54,7 @@ public class StockOutward {
 	private BigDecimal totalAmount;
 	
 	@OneToMany(mappedBy = "outwardID")
-	private Set<StockOutwardDetail> stockOutStockOutDetail = new HashSet<StockOutwardDetail>();
+	private transient Set<StockOutwardDetail> stockOutStockOutDetail = new HashSet<StockOutwardDetail>();
 	/**
 	 * 
 	 */

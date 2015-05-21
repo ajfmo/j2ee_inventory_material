@@ -42,16 +42,16 @@ public class Staff {
 	private String address;
 	
 	@OneToMany(mappedBy = "managerID")
-	private Set<Stock> staffStock = new HashSet<Stock>();
+	private transient Set<Stock> staffStock = new HashSet<Stock>();
 	
 	@OneToMany(mappedBy = "staffID")
-	private Set<Adjustment> staffAdjusment = new HashSet<Adjustment>();
+	private transient Set<Adjustment> staffAdjusment = new HashSet<Adjustment>();
 	
 	@OneToMany(mappedBy = "staffID")
-	private Set<AssetLiquidation> staffAssetLiquidation = new HashSet<AssetLiquidation>();
+	private transient Set<AssetLiquidation> staffAssetLiquidation = new HashSet<AssetLiquidation>();
 	
 	@OneToMany(mappedBy = "staffID")
-	private Set<StockOutward> staffStockOuward = new HashSet<StockOutward>();
+	private transient Set<StockOutward> staffStockOuward = new HashSet<StockOutward>();
 	/**
 	 * 
 	 */
