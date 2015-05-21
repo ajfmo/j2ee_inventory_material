@@ -96,32 +96,9 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-		// prepare the data
-		//var data = generatedata(200);
-		//             var source =
-		//             {
-		//                 url: "./getProvider",
-		//                 datatype: "json",
-		//                 updaterow: function (rowid, rowdata, commit) {
-		//                     // synchronize with the server - send update command
-		//                     // call commit with parameter true if the synchronization with the server is successful 
-		//                     // and with parameter false if the synchronization failder.
-		//                     commit(true);
-		//                 },
-		//                 datafields:
-		//                 [
-		//                     { name: 'ProviderID', type: 'number' },
-		//                     { name: 'ProviderName', type: 'string' },
-		//                     { name: 'Address', type: 'string' },
-		//                     { name: 'Tel', type: 'number' },
-		//                     { name: 'Email', type: 'string' },
-		//                     { name: 'Website', type: 'string' },
-		//                     { name: 'Description', type: 'string' }
-		//                 ]
-		//             };
 		var source =
 		{
-			url: "./getProvider",
+			url: "./getProduct",
 		    datatype: "json",
 		    updaterow: function (rowid, rowdata, commit) {
             // synchronize with the server - send update command
@@ -130,13 +107,13 @@
             commit(true);
                 },
 		    datafields: [
-		        { name: 'providerID' },
-		        { name: 'providerName' },
-		        { name: 'address' },
-		        { name: 'tel' },
-		        { name: 'email' },
-		        { name: 'website' },
-		        { name: 'description' }
+		        { name: 'productID' },
+		        { name: 'productName' },
+		        { name: 'typeName', map: 'typeID>typeName' },
+		        { name: 'minStock'},
+		        { name: 'maxStock'},
+		        { name: 'salePrice' },
+		        { name: 'orgPrice' }
 		    ]
 		};
 		var dataAdapter = new $.jqx.dataAdapter(source);
@@ -148,32 +125,32 @@
  			selectionmode : 'singlerow',
  			editmode : 'selectedrow',
 			columns : [ {
-				text : 'providerID',
-				datafield : 'providerID',
+				text : 'productID',
+				datafield : 'productID',
 				width : 250
 			}, {
-				text : 'ProviderName',
-				datafield : 'providerName',
+				text : 'productName',
+				datafield : 'productName',
 				width : 250
 			}, {
-				text : 'Address',
-				datafield : 'address',
+				text : 'typeName',
+				datafield : 'typeName',
 				width : 180
 			}, {
-				text : 'Tel',
-				datafield : 'tel',
+				text : 'minStock',
+				datafield : 'minStock',
 				width : 120
 			}, {
-				text : 'Email',
-				datafield : 'email',
+				text : 'maxStock',
+				datafield : 'maxStock',
 				minwidth : 120
 			}, {
-				text : 'Website',
-				datafield : 'website',
+				text : 'salePrice',
+				datafield : 'salePrice',
 				width : 250
 			}, {
-				text : 'Description',
-				datafield : 'description',
+				text : 'orgPrice',
+				datafield : 'orgPrice',
 				width : 250
 			} ]
 

@@ -20,6 +20,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
+import com.j2ee.java.model.bo.ProductBO;
+import com.j2ee.java.model.bo.ProductBOImpl;
 import com.j2ee.java.model.bo.ProviderBO;
 import com.j2ee.java.model.bo.ProviderBOImpl;
 import com.j2ee.java.model.dto.Product;
@@ -79,10 +81,19 @@ public class HomeController {
 		return jsonS;
 	}
 	
-	@RequestMapping(value = "/getProvider", method = RequestMethod.GET)
+	@RequestMapping(value = "/getProduct", method = RequestMethod.GET, produces="application/x-www-form-urlencoded;charset=UTF-8")
 	public @ResponseBody String getProduct() {
 		Gson gson = new Gson();
-		return null; 
+		
+		ProductBO productBO = new ProductBOImpl();
+		List<Product> product = productBO.getAllProduct();
+		
+		for (Product product2 : product) {
+			logger.info("pro " + product2.getTypeID().getTypName());
+		}
+		String jsonP = gson.toJson(product);
+		
+		return jsonP; 
 		
 		
 	}
