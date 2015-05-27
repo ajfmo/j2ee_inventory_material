@@ -24,8 +24,11 @@ import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.ProductBOImpl;
 import com.j2ee.java.model.bo.ProviderBO;
 import com.j2ee.java.model.bo.ProviderBOImpl;
+import com.j2ee.java.model.bo.StockBO;
+import com.j2ee.java.model.bo.StockBOImpl;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Provider;
+import com.j2ee.java.model.dto.Stock;
 
 /**
  * Handles requests for the application home page.
@@ -50,14 +53,10 @@ public class HomeController {
 		String formattedDate = dateFormat.format(date);
 		
 		model.addAttribute("serverTime", formattedDate );
-		///
-//		product.setProductID(11);
-//		model.addAttribute("product1", product );
 		
-//		ProviderBO providerBO = new ProviderBOImpl();
-//		List<Provider> listProvider = providerBO.getAllProvider();
-//		model.addAttribute("listProvider", listProvider );
-		///
+		StockBO stockBO = new StockBOImpl();
+		List<Stock> listStock = stockBO.getAllStock();
+		model.addAttribute("listStock", listStock );
 		return "StockInward";
 	}
 	
@@ -67,6 +66,17 @@ public class HomeController {
 		
 		return "DemoJqWidget";
 	}
+	
+	// demo auto-complete
+	@RequestMapping(value = "/auto", method = RequestMethod.GET)
+	public String Auto(Locale locale, Model model) {
+		
+		StockBO stockBO = new StockBOImpl();
+		List<Stock> listStock = stockBO.getAllStock();
+		model.addAttribute("listStock", listStock );
+		return "Index";
+	}
+	
 	@RequestMapping(value = "/getProvider", method = RequestMethod.GET)
 	public @ResponseBody String getProvide() {
 		Gson gson = new Gson(); 
@@ -81,8 +91,8 @@ public class HomeController {
 		return jsonS;
 	}
 	
-	@RequestMapping(value = "/getProduct", method = RequestMethod.GET, produces="application/x-www-form-urlencoded;charset=UTF-8")
-	public @ResponseBody String getProduct() {
+	@RequestMapping(value = "/getData", method = RequestMethod.POST, produces="application/x-www-form-urlencoded;charset=UTF-8")
+	public @ResponseBody String getData() {
 		Gson gson = new Gson();
 		
 		ProductBO productBO = new ProductBOImpl();
@@ -93,8 +103,30 @@ public class HomeController {
 		}
 		String jsonP = gson.toJson(product);
 		
-		return jsonP; 
+		return jsonP; 	
+	}
+	
+	@RequestMapping(value = "/getProduct", method = RequestMethod.POST, produces="application/x-www-form-urlencoded;charset=UTF-8")
+	public @ResponseBody String getProduct() {
+		String data = "";
+		ProductBO productBO = new ProductBOImpl();
+		List<Product> product = productBO.getAllProduct();
 		
-		
+		data += "[";
+		for (int i = 0; i < product.size(); i++) {
+			data += "\"";
+			data += product.get(i).getProductID() + "|" 
+					+ product.get(i).getProductName() + "|"
+					+ product.get(i).getUnitID().getUnitName() + "|"
+					+ product.get(i).getSalePrice() + "|" 
+					+ product.get(i).getDescription();
+			data += "\"";
+			if (i < product.size() - 1) {
+				data += ",";
+			}
+		}
+		data += "]";
+			
+		return data; 	
 	}
 }
