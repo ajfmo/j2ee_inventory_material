@@ -2,7 +2,7 @@
 package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -12,6 +12,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -30,6 +32,7 @@ public class Adjustment {
 	private int id;
 	
 	@Column(name="Date")
+	@Temporal(TemporalType.DATE)
 	private Date date;
 	
 	@Column(name="AdjustID")

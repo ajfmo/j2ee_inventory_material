@@ -209,7 +209,7 @@
 							<div class="form-group ">
 								<label>Total Amount: &nbsp;</label>
 								<div class="input-group">
-									<div class="input-group-addon">$</div>
+									<div class="input-group-addon"></div>
 									<input class="form-control" id="amountTotal"
 										placeholder="Total Amount"
 										onkeypress="return IsNumeric(event);" ondrop="return false;"
@@ -220,7 +220,7 @@
 							<div class="form-group">
 								<label>Total Money: &nbsp;</label>
 								<div class="input-group">
-									<div class="input-group-addon"></div>
+									<div class="input-group-addon">$</div>
 									<input class="form-control" id="subTotal"
 										placeholder="Total Money"
 										onkeypress="return IsNumeric(event);" ondrop="return false;"

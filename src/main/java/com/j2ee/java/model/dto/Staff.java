@@ -1,6 +1,6 @@
 package com.j2ee.java.model.dto;
 
-import java.sql.Date;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -10,6 +10,8 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -27,6 +29,7 @@ public class Staff {
 	private String staffName;
 	
 	@Column(name="Birthday")
+	@Temporal(TemporalType.DATE)
 	private Date birthday;
 	
 	@Column(name="Email")

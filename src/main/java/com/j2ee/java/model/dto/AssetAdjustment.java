@@ -3,7 +3,7 @@
  */
 package com.j2ee.java.model.dto;
 
-import java.sql.Date;
+import java.util.Date;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -13,6 +13,8 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
@@ -42,6 +44,7 @@ public class AssetAdjustment {
 	private String state;
 	
 	@Column(name="Date")
+	@Temporal(TemporalType.DATE)
 	private Date date;
 	
 	@Column(name="IsValid")
@@ -62,7 +65,7 @@ public class AssetAdjustment {
 	 * @param isValid
 	 */
 	public AssetAdjustment(int assetAdjustID, int assetNumber, Asset assetID,
-			String state, java.sql.Date date, boolean isValid) {
+			String state, java.util.Date date, boolean isValid) {
 		super();
 		this.assetAdjustID = assetAdjustID;
 		this.assetNumber = assetNumber;
