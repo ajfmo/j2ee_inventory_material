@@ -6,11 +6,6 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>Open ERP</title>
-<style type="text/css">
-	.metro .bg-darker {
-		background-color: #333333 !important;
-	}
-</style>
 
 </head>
 <body class="metro">

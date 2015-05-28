@@ -57,7 +57,7 @@ public class HomeController {
 		StockBO stockBO = new StockBOImpl();
 		List<Stock> listStock = stockBO.getAllStock();
 		model.addAttribute("listStock", listStock );
-		return "Home";
+		return "StockInward";
 	}
 	
 	@RequestMapping(value = "/demowidget", method = RequestMethod.GET)
