@@ -93,7 +93,7 @@
 							class="fa fa-bar-chart-o fa-fw"></i> Quản lý kho<span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
-							<li><a href="StockInward"> Nhập kho</a></li>
+							<li><a href="StockInward">Nhập kho</a></li>
 							<li><a href="morris.html">Xuất kho</a></li>
 							<li><a href="morris.html">Chuyển kho</a></li>
 							<li><a href="morris.html">Kiểm kê</a></li>
@@ -125,8 +125,8 @@
 		<div id="page-wrapper" style="min-height: 346px;">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Nhập kho</h1>
-					<jsp:include page="pages/StockInwardContent.jsp"></jsp:include>
+					<h1 class="page-header">Trang chủ</h1>
+
 					
 				</div>
 

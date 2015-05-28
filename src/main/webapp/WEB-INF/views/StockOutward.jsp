@@ -71,6 +71,7 @@
 				<fieldset>
 					<div class="container_parent">
 						<label><b> Thông tin phiếu xuất </b> </label>
+<!-- Các textField input -->
 						<div class="row information">
 							<div id="col6" class="col-sm-6">
 								<table class="table no-border striped3n table-resize">
@@ -170,34 +171,8 @@
 							</div>
 						</div>
 						<div class="content-resize">
-							<table class="table striped hovered dataTable" id="stock_table">
-								<thead>
-									<tr>
-										<th class="text-left">Mã Hàng</th>
-										<th class="text-left">Tên Hàng</th>
-										<th class="text-left">Kho Hàng</th>
-										<th class="text-left">Đơn Vị</th>
-										<th class="text-left">Số lượng</th>
-										<th class="text-left">Đơn giá</th>
-										<th class="text-left">Thành tiền</th>
-									</tr>
-								</thead>
-
-								<tbody>
-								</tbody>
-
-								<tfoot>
-									<tr>
-										<th class="text-left">Mã Hàng</th>
-										<th class="text-left">Tên Hàng</th>
-										<th class="text-left">Kho Hàng</th>
-										<th class="text-left">Đơn Vị</th>
-										<th class="text-left">Số lượng</th>
-										<th class="text-left">Đơn giá</th>
-										<th class="text-left">Thành tiền</th>
-									</tr>
-								</tfoot>
-							</table>
+							
+							
 							<table class="table no-border dock-right">
 								<tbody>
 									<tr>
