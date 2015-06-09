@@ -5,7 +5,6 @@
 <html lang="en">
 <head>
 
-<meta charset="utf-8">
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="description" content="">
@@ -93,7 +92,7 @@
 							class="fa fa-bar-chart-o fa-fw"></i> Quản lý kho<span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
-							<li><a href="StockInward">Nhập kho</a></li>
+							<li><a href="StockInward"> Nhập kho</a></li>
 							<li><a href="morris.html">Xuất kho</a></li>
 							<li><a href="morris.html">Chuyển kho</a></li>
 							<li><a href="morris.html">Kiểm kê</a></li>
@@ -125,8 +124,8 @@
 		<div id="page-wrapper" style="min-height: 346px;">
 			<div class="row">
 				<div class="col-lg-12">
-					<h1 class="page-header">Trang chủ</h1>
-
+					<%-- <jsp:include page="pages/StockInwardContent.jsp"></jsp:include> --%>
+					<h2>Đây là nội dung trang jsp được include</h2>
 					
 				</div>
 
@@ -161,6 +160,8 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="../dist/js/sb-admin-2.js"></script>
 	<script src="<c:url value="/resources/js/sb-admin-2.js" />"
+		type="text/javascript"></script>
+	<script src="<c:url value="/resources/js/StockInwardTable.js" />"
 		type="text/javascript"></script>
 
 </body>

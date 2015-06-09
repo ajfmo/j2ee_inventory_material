@@ -9,16 +9,13 @@ import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.google.gson.reflect.TypeToken;
 import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.ProductBOImpl;
@@ -57,7 +54,7 @@ public class HomeController {
 		StockBO stockBO = new StockBOImpl();
 		List<Stock> listStock = stockBO.getAllStock();
 		model.addAttribute("listStock", listStock );
-		return "StockInward";
+		return "Home";
 	}
 	
 	@RequestMapping(value = "/demowidget", method = RequestMethod.GET)
