@@ -20,7 +20,7 @@ public class AdjustmentDAOImpl implements AdjustmentDAO {
 	public List<Adjustment> getAllAdjustment() {
 		// TODO Auto-generated method stub
 		return HibernateUtil.getSessionFactory().getCurrentSession()
-				.createQuery("from Product").list();
+				.createQuery("from Adjustment").list();
 	}
 
 	@Override
