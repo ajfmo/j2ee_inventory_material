@@ -94,7 +94,7 @@
 						<ul class="nav nav-second-level collapse">
 							<li><a href="StockInward"> Nhập kho</a></li>
 							<li><a href="morris.html">Xuất kho</a></li>
-							<li><a href="morris.html">Chuyển kho</a></li>
+							<li><a href="StockMove">Chuyển kho</a></li>
 							<li><a href="morris.html">Kiểm kê</a></li>
 						</ul> <!-- /.nav-second-level --></li>
 					<!-- Quản lý danh mục -->

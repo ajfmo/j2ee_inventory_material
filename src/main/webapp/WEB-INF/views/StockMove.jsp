@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Nhập kho</title>
+<title>Chuyển kho</title>
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
@@ -31,9 +31,6 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
 	type="text/css">
-
-<!-- <link href="../resources/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
- -->
 
 </head>
 <body>
@@ -91,7 +88,7 @@
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
 							<li><a href="StockInward"> Nhập kho</a></li>
-							<li><a href="morris.html">Xuất kho</a></li>
+							<li><a href="StockOutward">Xuất kho</a></li>
 							<li><a href="StockMove">Chuyển kho</a></li>
 							<li><a href="morris.html">Kiểm kê</a></li>
 						</ul> <!-- /.nav-second-level --></li>
@@ -123,7 +120,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 <!-- Include content of this page  -->
-					 <jsp:include page="pages/StockInwardContent.jsp"></jsp:include>
+					 <jsp:include page="pages/StockMoveContent.jsp"></jsp:include>
 <!-- Include content of this page  -->
 				</div>
 
