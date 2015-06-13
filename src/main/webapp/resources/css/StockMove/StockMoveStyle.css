@@ -7,3 +7,33 @@
 .page-header {
 	margin: 0px 0px 20px;
 }
+
+.my_corner {
+    position: relative;
+    margin: 10px;
+    width: 100px;
+    height: 20px;
+    background-color: #ccc;
+}
+
+.my_corner .tl, .my_corner .tr,
+.my_corner .bl, .my_corner .br {
+    position: absolute;    
+}
+
+.my_corner .tr {
+    top: 0;
+    right: 0;
+    border-top: 25px solid white; 
+    border-left: 25px solid transparent;
+}
+.my_corner .br {
+    bottom: 0;
+    right: 0;
+    border-bottom: 25px solid white; 
+    border-left: 25px solid transparent;
+}
+
+.waiting {
+	float: right;
+}

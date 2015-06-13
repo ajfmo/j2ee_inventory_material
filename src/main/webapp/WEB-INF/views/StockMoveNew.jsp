@@ -153,8 +153,8 @@
 	<script src="../dist/js/sb-admin-2.js"></script>
 	<script src="<c:url value="/resources/js/sb-admin-2.js" />"
 		type="text/javascript"></script>
-	<script src="<c:url value="/resources/js/StockInwardTable.js" />"
-		type="text/javascript"></script>
+	<script src="<c:url value="/resources/js/StockMoveContent.js" />"
+	type="text/javascript"></script>
 
 </body>
 </html>
