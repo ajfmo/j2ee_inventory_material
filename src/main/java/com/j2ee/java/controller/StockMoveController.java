@@ -12,15 +12,21 @@ import org.springframework.web.bind.annotation.RequestMapping;
  */
 @Controller
 public class StockMoveController {
-	
+
 	@RequestMapping(value = "/StockMove")
 	public String stockMove() {
 		return "StockMove";
 	}
-	
-	//NewStockMoveBill
+
+	// NewStockMoveBill
 	@RequestMapping(value = "/NewStockMoveBill")
 	public String newStockMoveBill() {
 		return "StockMoveNew";
+	}
+
+	// processLater
+	@RequestMapping(value = "/processLater")
+	public String processLater() {
+		return "StockMoveWaiting";
 	}
 }

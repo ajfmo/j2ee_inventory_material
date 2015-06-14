@@ -4,7 +4,7 @@
 
 
 <h1 class="page-header">Nhập kho</h1>
-<div class="openERP container shadow">
+<div>
 	<!-- <form> -->
 	<label><b>Thông tin phiếu nhập</b> </label>
 	<div class="row information">

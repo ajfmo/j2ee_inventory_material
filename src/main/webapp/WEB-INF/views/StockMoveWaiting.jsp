@@ -123,7 +123,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 <!-- Include content of this page  -->
-					 <jsp:include page="pages/StockMoveNewContent.jsp"></jsp:include>
+					 <jsp:include page="pages/StockMoveWaitingContent.jsp"></jsp:include>
 <!-- Include content of this page  -->
 				</div>
 
