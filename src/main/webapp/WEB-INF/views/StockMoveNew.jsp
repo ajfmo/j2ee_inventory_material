@@ -31,9 +31,9 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
 	type="text/css">
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/font-awesome/css/datepicker3.css" />"
+	type="text/css">
 
 </head>
 <body>
@@ -122,9 +122,9 @@
 		<div id="page-wrapper" style="min-height: 346px;">
 			<div class="row">
 				<div class="col-lg-12">
-<!-- Include content of this page  -->
-					 <jsp:include page="pages/StockMoveNewContent.jsp"></jsp:include>
-<!-- Include content of this page  -->
+					<!-- Include content of this page  -->
+					<jsp:include page="pages/StockMoveNewContent.jsp"></jsp:include>
+					<!-- Include content of this page  -->
 				</div>
 
 				<!-- /.col-lg-12 -->
@@ -148,6 +148,13 @@
 	<script src="<c:url value="/resources/js/bootstrap.min.js" />"
 		type="text/javascript"></script>
 
+	<script src="<c:url value="/resources/js/moment.min.js" />"
+		type="text/javascript"></script>
+
+	<script
+		src="<c:url value="/resources/js/jquery/bootstrap-datepicker.js" />"
+		type="text/javascript"></script>
+
 	<!-- Metis Menu Plugin JavaScript -->
 	<script src="<c:url value="/resources/js/metisMenu.min.js" />"
 		type="text/javascript"></script>
@@ -157,7 +164,15 @@
 	<script src="<c:url value="/resources/js/sb-admin-2.js" />"
 		type="text/javascript"></script>
 	<script src="<c:url value="/resources/js/StockMoveContent.js" />"
-	type="text/javascript"></script>
+		type="text/javascript"></script>
+
+	<script>
+		$(function() {
+			$('#sandbox-container input').datepicker({
+				format : "dd/mm/yyyy"
+			});
+		});
+	</script>
 
 </body>
 </html>

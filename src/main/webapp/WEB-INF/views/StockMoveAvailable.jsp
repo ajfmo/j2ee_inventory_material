@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Phiếu chuyển kho mới</title>
+<title>Phiếu chuyển kho</title>
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
@@ -31,9 +31,6 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
 	type="text/css">
-
-<link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 </head>
 <body>
@@ -123,7 +120,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 <!-- Include content of this page  -->
-					 <jsp:include page="pages/StockMoveWaitingContent.jsp"></jsp:include>
+					 <jsp:include page="pages/StockMoveAvailableContent.jsp"></jsp:include>
 <!-- Include content of this page  -->
 				</div>
 
@@ -147,6 +144,9 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="<c:url value="/resources/js/bootstrap.min.js" />"
 		type="text/javascript"></script>
+		
+	<script src="<c:url value="/resources/js/moment.min.js" />"
+		type="text/javascript"></script>
 
 	<!-- Metis Menu Plugin JavaScript -->
 	<script src="<c:url value="/resources/js/metisMenu.min.js" />"
@@ -158,6 +158,23 @@
 		type="text/javascript"></script>
 	<script src="<c:url value="/resources/js/StockMoveContent.js" />"
 	type="text/javascript"></script>
+	
+	<script type="text/javascript">
+	$(document).ready(function() {
+		$('.input-info').prop( "disabled", true );
+		$('#btnSave').css('display','none');
+		$("#btnEdit").click(function() {
+			$('.input-info').prop( "disabled", false );
+			$('#btnEdit').css('display','none');
+			$('#btnSave').css('display','inline-block');
+		});
+		$("#btnSave").click(function() {
+			$('.input-info').prop( "disabled", true );
+			$('#btnSave').css('display','none');
+			$('#btnEdit').css('display','inline-block');
+		});
+	});
+	</script>
 
 </body>
 </html>

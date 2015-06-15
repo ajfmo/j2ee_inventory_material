@@ -29,4 +29,16 @@ public class StockMoveController {
 	public String processLater() {
 		return "StockMoveWaiting";
 	}
+	
+	//checkAvailable
+	@RequestMapping(value = "/checkAvailable")
+	public String checkAvailable() {
+		return "StockMoveAvailable";
+	}
+	
+	//processAll
+	@RequestMapping(value = "/processAll")
+	public String processAll() {
+		return "StockMoveDone";
+	}
 }

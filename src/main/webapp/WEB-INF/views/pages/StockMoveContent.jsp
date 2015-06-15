@@ -15,7 +15,7 @@
 	<h1>Chuyển kho</h1>
 	<div class="row">
 		<div class="col-lg-12">
-			<a class="btn btn-primary" name="CreateStockMove" href="NewStockMoveBill">Tạo mới</a>
+			<a class="btn btn-primary" href="NewStockMoveBill">Tạo mới</a>
 		</div>
 	</div>
 </div>

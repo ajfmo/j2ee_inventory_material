@@ -11,10 +11,11 @@
 	<h1>Phiếu chuyển kho</h1>
 	<div class="row">
 		<div class="col-lg-6">
-			<a class="btn btn-primary" name="btnEdit">Chỉnh sửa</a> 
-			<a class="btn btn-primary" name="btnCheckAvailable">Kiểm tra hàng có sẵn</a> 
-			<a class="btn btn-primary" name="btnProcessAll">Thực hiện tất cả</a>
-			<a class="btn btn-danger" name="btnCancel">Hủy Phiếu</a>
+			<a class="btn btn-primary" id="btnEdit">Chỉnh sửa</a> 
+			<a class="btn btn-success" id="btnSave">Lưu lại</a> 
+			<a class="btn btn-primary" href="checkAvailable">Kiểm tra hàng có sẵn</a> 
+			<a class="btn btn-primary" href="processAll">Thực hiện tất cả</a>
+			<a class="btn btn-danger">Hủy Phiếu</a>
 		</div>
 		<div class="col-lg-6">
 			<table>
@@ -60,87 +61,4 @@
 		</div>
 	</div>
 </div>
-<div class="content-resize" id="table-stock-move">
-	<div class="row">
-		<div class="col-lg-6">
-			<div class="col-sm-3">
-				<label>Sản phẩm</label>
-			</div>
-			<div class="col-sm-5">
-				<select class="form-control">
-					<option>...</option>
-					<option>123</option>
-					<option>abc</option>
-				</select>
-			</div>
-		</div>
-		<div class="col-lg-6">
-			<div class="col-sm-3">
-				<label>Ngày chuyển</label>
-			</div>
-			<div class="col-sm-5">
-				<input type="date" id="datepicker" name="moveDay"/>
-			</div>
-		</div>
-	</div>
-	<div class="row" style="padding-top: 20px;">
-		<div class="col-lg-6">
-			<div class="col-sm-3">
-				<label>Số lượng</label>
-			</div>
-			<div class="col-sm-5">
-				<input type="number" class="form-control" />
-			</div>
-		</div>
-		<div class="col-lg-6">
-			<div class="col-sm-3">
-				<label>Ưu tiên</label>
-			</div>
-			<div class="col-sm-5">
-				<select class="form-control">
-					<option>Khẩn cấp</option>
-					<option selected="selected">Không gấp</option>
-					<option>Thấp</option>
-				</select>
-			</div>
-		</div>
-	</div>
-
-	<div class="row" style="padding-top: 20px;">
-		<div class="col-lg-6">
-			<div class="col-sm-3">
-				<label>Từ kho</label>
-			</div>
-			<div class="col-sm-5">
-				<select class="form-control">
-					<option>Kho 1</option>
-					<option>Kho 2</option>
-					<option>Kho 3</option>
-				</select>
-			</div>
-		</div>
-		<div class="col-lg-6">
-			<div class="col-sm-3">
-				<label>Đến kho</label>
-			</div>
-			<div class="col-sm-5">
-				<select class="form-control">
-					<option>Kho 1</option>
-					<option>Kho 2</option>
-					<option>Kho 3</option>
-				</select>
-			</div>
-		</div>
-	</div>
-	<div class="row" style="padding-top: 20px;">
-		<div class="col-lg-6">
-			<div class="col-sm-3">
-				<label>Mô tả</label>
-			</div>
-			<div class="col-sm-9">
-				<textarea rows="3" cols="100" class="form-control">
-				</textarea>
-			</div>
-		</div>
-	</div>
-</div>
+<jsp:include page="StockMoveInputField.jsp"></jsp:include>
