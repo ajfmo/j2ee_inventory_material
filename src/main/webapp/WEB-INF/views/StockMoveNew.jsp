@@ -169,6 +169,18 @@
 			$('#sandbox-container input').datepicker({
 				format : "dd/mm/yyyy"
 			});
+			
+			$('#btnEdit').css('display', 'none');
+			$("#btnEdit").click(function() {
+				$('.input-info').prop("disabled", false);
+				$('#btnEdit').css('display', 'none');
+				$('#btnSave').css('display', 'inline-block');
+			});
+			$("#btnSave").click(function() {
+				$('.input-info').prop("disabled", true);
+				$('#btnSave').css('display', 'none');
+				$('#btnEdit').css('display', 'inline-block');
+			});
 		});
 	</script>
 

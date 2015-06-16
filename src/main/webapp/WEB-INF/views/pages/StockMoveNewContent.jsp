@@ -11,9 +11,11 @@
 	<h1>Create A Stock Move</h1>
 	<div class="row">
 		<div class="col-lg-6">
+			<a class="btn btn-primary" id="btnEdit">Edit</a> 
+			<a class="btn btn-success" id="btnSave">Save</a>
 			<a class="btn btn-primary" href="processLater">Process Later</a>
-			 <a class="btn btn-primary" href="processAll">Process Entirely</a> 
-			 <a class="btn btn-danger">Cancel Move</a>
+			<a class="btn btn-primary" href="processAll">Process Entirely</a> 
+			<a class="btn btn-danger">Cancel Move</a>
 		</div>
 		<div class="col-lg-6">
 			<table>

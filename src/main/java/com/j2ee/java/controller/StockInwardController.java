@@ -111,7 +111,8 @@ public class StockInwardController {
 	}
 
 	// save data
-	@RequestMapping(value = "/saveStockInward", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
+	@RequestMapping(value = "/saveStockInward", method = RequestMethod.POST, 
+			produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public @ResponseBody String saveStockInward(HttpServletRequest request)
 			throws ParseException {
 

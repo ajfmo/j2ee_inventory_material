@@ -10,9 +10,11 @@
 			</div>
 			<div class="col-sm-5">
 				<select class="form-control input-info">
-					<option>...</option>
-					<option>123</option>
-					<option>abc</option>
+					<c:forEach items="${listProducts}" var="product">
+						<option>
+							${product.productName}
+						</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -58,9 +60,11 @@
 			</div>
 			<div class="col-sm-5">
 				<select class="form-control input-info" id="fromStock">
-					<option>Stock 1</option>
-					<option>Stock 2</option>
-					<option>Stock 3</option>
+					<c:forEach items="${listStocks}" var="stock">
+						<option>
+							${stock.stockName}
+						</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
@@ -70,9 +74,11 @@
 			</div>
 			<div class="col-sm-5">
 				<select class="form-control input-info">
-					<option>Stock 1</option>
-					<option>Stock 2</option>
-					<option>Stock 3</option>
+					<c:forEach items="${listStocks}" var="stock">
+						<option>
+							${stock.stockName}
+						</option>
+					</c:forEach>
 				</select>
 			</div>
 		</div>
