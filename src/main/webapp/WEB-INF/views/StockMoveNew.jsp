@@ -32,7 +32,7 @@
 	href="<c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
 	type="text/css">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/font-awesome/css/datepicker3.css" />"
+	href="<c:url value="/resources/css/datepicker3.css" />"
 	type="text/css">
 
 </head>
