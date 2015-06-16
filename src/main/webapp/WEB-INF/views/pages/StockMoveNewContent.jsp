@@ -8,12 +8,12 @@
 	type="text/css">
 
 <div class="content-resize page-header">
-	<h1>Phiếu chuyển kho mới</h1>
+	<h1>Create A Stock Move</h1>
 	<div class="row">
 		<div class="col-lg-6">
-			<a class="btn btn-primary" href="processLater">Lưu
-				và thực hiện sau</a>  <a class="btn btn-primary" href="processAll">Thực
-				hiện tất cả</a> <a class="btn btn-danger">Hủy Phiếu</a>
+			<a class="btn btn-primary" href="processLater">Process Later</a>
+			 <a class="btn btn-primary" href="processAll">Process Entirely</a> 
+			 <a class="btn btn-danger">Cancel Move</a>
 		</div>
 		<div class="col-lg-6">
 			<table>
@@ -24,7 +24,7 @@
 							<div class="br"></div>
 							<div class="tl"></div>
 							<div class="tr"></div>
-							Mới
+							New
 						</div>
 					</td>
 					<td>
@@ -33,25 +33,25 @@
 							<div class="br"></div>
 							<div class="tl"></div>
 							<div class="tr"></div>
-							Chờ có hàng
+							Waiting Availability
 						</div>
 					</td>
 					<td>
-						<div class="my_corner waiting">
+						<div class="my_corner">
 							<div class="bl"></div>
 							<div class="br"></div>
 							<div class="tl"></div>
 							<div class="tr"></div>
-							Sẵn sàng
+							Available
 						</div>
 					</td>
 					<td>
-						<div class="my_corner waiting">
+						<div class="my_corner">
 							<div class="bl"></div>
 							<div class="br"></div>
 							<div class="tl"></div>
 							<div class="tr"></div>
-							Hoàn thành
+							Done
 						</div>
 					</td>
 				</tr>

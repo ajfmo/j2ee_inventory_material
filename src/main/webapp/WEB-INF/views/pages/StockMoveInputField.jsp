@@ -6,7 +6,7 @@
 	<div class="row">
 		<div class="col-lg-6">
 			<div class="col-sm-3">
-				<label>Sản phẩm</label>
+				<label>Product</label>
 			</div>
 			<div class="col-sm-5">
 				<select class="form-control input-info">
@@ -18,11 +18,11 @@
 		</div>
 		<div class="col-lg-6">
 			<div class="col-sm-3">
-				<label>Ngày chuyển</label>
+				<label>Expected Date</label>
 			</div>
 			<div class='col-sm-5'>
 				<div id="sandbox-container">
-					<input class="form-control" type="text">
+					<input class="form-control input-info" type="text">
 				</div>
 			</div>
 		</div>
@@ -30,7 +30,7 @@
 	<div class="row" style="padding-top: 20px;">
 		<div class="col-lg-6">
 			<div class="col-sm-3">
-				<label>Số lượng</label>
+				<label>Quantity</label>
 			</div>
 			<div class="col-sm-5">
 				<input type="number" class="form-control input-info" />
@@ -38,13 +38,14 @@
 		</div>
 		<div class="col-lg-6">
 			<div class="col-sm-3">
-				<label>Ưu tiên</label>
+				<label>Priority</label>
 			</div>
 			<div class="col-sm-5">
 				<select class="form-control input-info" id="priority">
-					<option>Khẩn cấp</option>
-					<option selected="selected">Không gấp</option>
-					<option>Thấp</option>
+					<option>Urgent</option>
+					<option>High</option>
+					<option selected="selected">Normal</option>
+					<option>Low</option>
 				</select>
 			</div>
 		</div>
@@ -53,25 +54,25 @@
 	<div class="row" style="padding-top: 20px;">
 		<div class="col-lg-6">
 			<div class="col-sm-3">
-				<label>Từ kho</label>
+				<label>Source Location</label>
 			</div>
 			<div class="col-sm-5">
 				<select class="form-control input-info" id="fromStock">
-					<option>Kho 1</option>
-					<option>Kho 2</option>
-					<option>Kho 3</option>
+					<option>Stock 1</option>
+					<option>Stock 2</option>
+					<option>Stock 3</option>
 				</select>
 			</div>
 		</div>
 		<div class="col-lg-6">
 			<div class="col-sm-3">
-				<label>Đến kho</label>
+				<label>Destination Location</label>
 			</div>
 			<div class="col-sm-5">
 				<select class="form-control input-info">
-					<option>Kho 1</option>
-					<option>Kho 2</option>
-					<option>Kho 3</option>
+					<option>Stock 1</option>
+					<option>Stock 2</option>
+					<option>Stock 3</option>
 				</select>
 			</div>
 		</div>
@@ -79,7 +80,7 @@
 	<div class="row" style="padding-top: 20px;">
 		<div class="col-lg-6">
 			<div class="col-sm-3">
-				<label>Mô tả</label>
+				<label>Description</label>
 			</div>
 			<div class="col-sm-9">
 				<textarea rows="3" cols="100" class="form-control input-info"

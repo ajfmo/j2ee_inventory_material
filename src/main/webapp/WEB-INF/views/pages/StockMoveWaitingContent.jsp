@@ -8,14 +8,14 @@
 	type="text/css">
 
 <div class="content-resize page-header">
-	<h1>Phiếu chuyển kho</h1>
+	<h1>Stock Move</h1>
 	<div class="row">
 		<div class="col-lg-6">
-			<a class="btn btn-primary" id="btnEdit">Chỉnh sửa</a> 
-			<a class="btn btn-success" id="btnSave">Lưu lại</a> 
-			<a class="btn btn-primary" href="checkAvailable">Kiểm tra hàng có sẵn</a> 
-			<a class="btn btn-primary" href="processAll">Thực hiện tất cả</a>
-			<a class="btn btn-danger">Hủy Phiếu</a>
+			<a class="btn btn-primary" id="btnEdit">Edit</a> 
+			<a class="btn btn-success" id="btnSave">Save</a> 
+			<a class="btn btn-primary" href="checkAvailable">Check available</a> 
+			<a class="btn btn-primary" href="processAll">Process Entirely</a>
+			<a class="btn btn-danger" >Cancel Move</a>
 		</div>
 		<div class="col-lg-6">
 			<table>
@@ -26,25 +26,16 @@
 							<div class="br"></div>
 							<div class="tl"></div>
 							<div class="tr"></div>
-							Mới
+							New
 						</div>
 					</td>
 					<td>
-						<div class="my_corner" style="background-color: #4EFF47;">
+						<div class="my_corner waiting" style="background-color: #4EFF47;">
 							<div class="bl"></div>
 							<div class="br"></div>
 							<div class="tl"></div>
 							<div class="tr"></div>
-							Chờ có hàng
-						</div>
-					</td>
-					<td>
-						<div class="my_corner">
-							<div class="bl"></div>
-							<div class="br"></div>
-							<div class="tl"></div>
-							<div class="tr"></div>
-							Sẵn sàng
+							Waiting Availability
 						</div>
 					</td>
 					<td>
@@ -53,7 +44,16 @@
 							<div class="br"></div>
 							<div class="tl"></div>
 							<div class="tr"></div>
-							Hoàn thành
+							Available
+						</div>
+					</td>
+					<td>
+						<div class="my_corner">
+							<div class="bl"></div>
+							<div class="br"></div>
+							<div class="tl"></div>
+							<div class="tr"></div>
+							Done
 						</div>
 					</td>
 				</tr>

@@ -12,10 +12,10 @@
 
 
 <div class="content-resize page-header">
-	<h1>Chuyển kho</h1>
+	<h1>Stock Move</h1>
 	<div class="row">
 		<div class="col-lg-12">
-			<a class="btn btn-primary" href="NewStockMoveBill">Tạo mới</a>
+			<a class="btn btn-primary" href="NewStockMoveBill">Create</a>
 		</div>
 	</div>
 </div>
@@ -28,14 +28,14 @@
 					<tr>
 						<th width="2%"><input id="check_all" class="formcontrol"
 							type="checkbox"></th>
-						<th width="7%">STT</th>
-						<th width="10%">Mã phiếu</th>
-						<th width="10%">Mã sản phẩm</th>
-						<th width="20%">Tên sản phẩm</th>
-						<th width="7%">Số lượng</th>
-						<th width="15%">Từ kho</th>
-						<th width="15%">Đến kho</th>
-						<th width="8%">Trạng thái</th>
+						<th width="4%">No.</th>
+						<th width="10%">Bill No</th>
+						<th width="12%">Product</th>
+						<th width="7%">Quantity</th>
+						<th width="20%">Source Location</th>
+						<th width="15%">Destination Location</th>
+						<th width="15%">Description</th>
+						<th width="8%">Status</th>
 					</tr>
 				</thead>
 				<tbody>

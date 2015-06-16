@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Phiếu chuyển kho</title>
+<title>Stock Move</title>
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
@@ -31,6 +31,8 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
 	type="text/css">
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/datepicker3.css" />" type="text/css">
 
 </head>
 <body>
@@ -45,7 +47,7 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html">Quản lý tồn kho - TSQ</a>
+			<a class="navbar-brand" href="index.html">Inventory Management - TSQ</a>
 		</div>
 		<!-- /.navbar-header -->
 
@@ -56,12 +58,11 @@
 					class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
 			</a>
 				<ul class="dropdown-menu dropdown-user">
-					<li><a href="#"><i class="fa fa-user fa-fw"></i> Thông tin
-							cá nhân</a></li>
-					<li><a href="#"><i class="fa fa-gear fa-fw"></i> Cài đặt</a></li>
+					<li><a href="#"><i class="fa fa-user fa-fw"></i> Profile</a></li>
+					<li><a href="#"><i class="fa fa-gear fa-fw"></i> Setting</a></li>
 					<li class="divider"></li>
-					<li><a href="login.html"><i class="fa fa-sign-out fa-fw"></i>
-							Đăng xuất</a></li>
+					<li><a href="#"><i class="fa fa-sign-out fa-fw"></i>
+							Logout</a></li>
 				</ul> <!-- /.dropdown-user --></li>
 			<!-- /.dropdown -->
 		</ul>
@@ -80,35 +81,34 @@
 							</span>
 						</div> <!-- /input-group -->
 					</li>
-					<li><a href="index.html"><i class="fa fa-dashboard fa-fw"></i>
-							Trang chủ</a></li>
-					<!-- Quản lý kho -->
+					<li><a href="home"><i class="fa fa-dashboard fa-fw"></i>
+							Home</a></li>
+					<!-- Stock Management -->
 					<li class=""><a href="#"><i
-							class="fa fa-bar-chart-o fa-fw"></i> Quản lý kho<span
+							class="fa fa-bar-chart-o fa-fw"></i> Stock Management<span
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
-							<li><a href="StockInward"> Nhập kho</a></li>
-							<li><a href="StockOutward">Xuất kho</a></li>
-							<li><a href="StockMove">Chuyển kho</a></li>
-							<li><a href="morris.html">Kiểm kê</a></li>
+							<li><a href="StockInward">Stock Inward</a></li>
+							<li><a href="morris.html">Stock Outward</a></li>
+							<li><a href="StockMove">Stock Move</a></li>
+							<li><a href="morris.html">Adjustment</a></li>
 						</ul> <!-- /.nav-second-level --></li>
-					<!-- Quản lý danh mục -->
+					<!-- Category Management -->
 					<li class=""><a href="#"><i class="fa fa-edit fa-fw"></i>
-							Quản lý danh mục<span class="fa arrow"></span></a>
+							Category Management<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
-							<li><a href="panels-wells.html">Sản phẩm</a></li>
-							<li><a href="buttons.html">Kho</a></li>
-							<li><a href="notifications.html">Đơn vị</a></li>
-							<li><a href="typography.html">Nhà phân phối</a></li>
-							<li><a href="icons.html">Nhóm hàng</a></li>
+							<li><a href="#">Product</a></li>
+							<li><a href="#">Stock</a></li>
+							<li><a href="#">Unit</a></li>
+							<li><a href="#">Provider</a></li>
+							<li><a href="#">Product Group</a></li>
 
 						</ul> <!-- /.nav-second-level --></li>
 
-					<li><a href="tables.html"><i class="fa fa-table fa-fw"></i>
-							Báo cáo</a></li>
+					<li><a href="#"><i class="fa fa-table fa-fw"></i> Report</a></li>
 
-					<li><a href="forms.html"><i class="fa fa-wrench fa-fw"></i>
-							Cấu hình</a></li>
+					<li><a href="#"><i class="fa fa-wrench fa-fw"></i>
+							Configuration</a></li>
 
 				</ul>
 			</div>
@@ -119,9 +119,9 @@
 		<div id="page-wrapper" style="min-height: 346px;">
 			<div class="row">
 				<div class="col-lg-12">
-<!-- Include content of this page  -->
-					 <jsp:include page="pages/StockMoveAvailableContent.jsp"></jsp:include>
-<!-- Include content of this page  -->
+					<!-- Include content of this page  -->
+					<jsp:include page="pages/StockMoveAvailableContent.jsp"></jsp:include>
+					<!-- Include content of this page  -->
 				</div>
 
 				<!-- /.col-lg-12 -->
@@ -144,7 +144,7 @@
 	<!-- Bootstrap Core JavaScript -->
 	<script src="<c:url value="/resources/js/bootstrap.min.js" />"
 		type="text/javascript"></script>
-		
+
 	<script src="<c:url value="/resources/js/moment.min.js" />"
 		type="text/javascript"></script>
 
@@ -157,23 +157,29 @@
 	<script src="<c:url value="/resources/js/sb-admin-2.js" />"
 		type="text/javascript"></script>
 	<script src="<c:url value="/resources/js/StockMoveContent.js" />"
-	type="text/javascript"></script>
-	
+		type="text/javascript"></script>
+
+	<script src="<c:url value="/resources/js/bootstrap-datepicker.js" />"
+		type="text/javascript"></script>
+
 	<script type="text/javascript">
-	$(document).ready(function() {
-		$('.input-info').prop( "disabled", true );
-		$('#btnSave').css('display','none');
-		$("#btnEdit").click(function() {
-			$('.input-info').prop( "disabled", false );
-			$('#btnEdit').css('display','none');
-			$('#btnSave').css('display','inline-block');
+		$(document).ready(function() {
+			$('.input-info').prop("disabled", true);
+			$('#btnSave').css('display', 'none');
+			$("#btnEdit").click(function() {
+				$('.input-info').prop("disabled", false);
+				$('#btnEdit').css('display', 'none');
+				$('#btnSave').css('display', 'inline-block');
+			});
+			$("#btnSave").click(function() {
+				$('.input-info').prop("disabled", true);
+				$('#btnSave').css('display', 'none');
+				$('#btnEdit').css('display', 'inline-block');
+			});
+			$('#sandbox-container input').datepicker({
+				format : "dd/mm/yyyy"
+			});
 		});
-		$("#btnSave").click(function() {
-			$('.input-info').prop( "disabled", true );
-			$('#btnSave').css('display','none');
-			$('#btnEdit').css('display','inline-block');
-		});
-	});
 	</script>
 
 </body>

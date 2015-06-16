@@ -3,17 +3,17 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 
-<h1 class="page-header">Nhập kho</h1>
+<h1 class="page-header">Stock Inward</h1>
 <div>
 	<!-- <form> -->
-	<label><b>Thông tin phiếu nhập</b> </label>
+	<label><b>Bill Information</b> </label>
 	<div class="row information">
 		<div id="col6" class="col-lg-9">
 			<!-- Thông tin nhập -->
 			<table class="table no-border striped3n table-resize">
 				<tbody>
 					<tr class="row_1">
-						<td><label>Mã SP:</label></td>
+						<td><label>Product ID</label></td>
 						<td class="td-resize">
 							<div class="input-control select info-state">
 								<select id="select_providerID" class="form-control">
@@ -29,7 +29,7 @@
 								</select>
 							</div>
 						</td>
-						<td><label>Tên SP:</label></td>
+						<td><label>Product Name</label></td>
 						<td class="td-resize">
 							<div class="input-control select info-state">
 								<select id="select_providerN" class="form-control">
@@ -49,37 +49,31 @@
 
 					</tr>
 					<tr>
-						<td><label>Người nhận:</label></td>
+						<td><label>Receiver</label></td>
 						<td class="td-resize"><input type="text" class="form-control"
 							placeholder="Người nhận"></td>
-						<td><label>Địa chỉ:</label></td>
+						<td><label>Address</label></td>
 						<td>
 							<div class="input-control text  info-state">
-								<input type="text" class="form-control" placeholder="Địa chỉ">
+								<input type="text" class="form-control" placeholder="Address">
 							</div>
 						</td>
-						<td><label>Điện thoại:</label></td>
+						<td><label>Phone No</label></td>
 						<td>
 							<div class="input-control text  info-state">
-								<input type="text" class="form-control" placeholder="Điện thoại">
+								<input type="text" class="form-control" placeholder="Phone Number">
 							</div>
 						</td>
-						<!-- <td><label>Lý do nhập:</label></td>
-						<td>
-							<div class="input-control text  info-state">
-								<input type="text" class="form-control" placeholder="Lý do nhập">
-							</div>
-						</td> -->
 					</tr>
 					<tr>
-						<td><label>Lý do nhập:</label></td>
+						<td><label>Reason</label></td>
 						<td><input type="text" class="form-control"
 							placeholder="Lý do nhập"></td>
-						<td><label>Ghi chú:</label></td>
+						<td><label>Note</label></td>
 						<td colspan="3">
 							<div class="input-control text  info-state">
 								<input id="reason" type="text" class="form-control"
-									placeholder="Ghi chú">
+									placeholder="Note">
 							</div>
 						</td>
 					</tr>
@@ -92,7 +86,7 @@
 			<table class="table no-border">
 				<tbody>
 					<tr>
-						<td><label>Mã phiếu</label></td>
+						<td><label>Bill No</label></td>
 						<td>
 							<div class="input-control text info-state">
 								<input type="text" class="form-control" disabled="disabled">
@@ -100,7 +94,7 @@
 						</td>
 					</tr>
 					<tr>
-						<td><label>Ngày:</label></td>
+						<td><label>Date</label></td>
 						<td>
 							<div class="input-control text info-state">
 								<input id="ngayNhap" type="datetime" class="form-control"
@@ -112,22 +106,6 @@
 			</table>
 		</div>
 	</div>
-	<!-- <div class="row">
-		<div class="col-lg-8">
-			<table class="table no-border">
-				<tbody>
-					<tr>
-						<td><label>Lý do nhập:</label></td>
-						<td><input type="text" class="form-control"
-							placeholder="Lý do nhập"></td>
-						<td><label>Ghi chú:</label></td>
-						<td><input id="reason" type="text" class="form-control"
-							placeholder="Ghi chú"></td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
-	</div> -->
 	<!-- Begin page content -->
 	<div class="content-resize">
 		<div class="row">
