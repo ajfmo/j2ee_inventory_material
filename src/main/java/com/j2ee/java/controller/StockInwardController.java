@@ -98,9 +98,6 @@ public class StockInwardController {
 		
 		String jsonS = gson.toJson(product, type);
 		
-		JsonObject jsonObj = new JsonObject();
-		jsonObj.add("Product", new JsonArray());
-		
 		logger.info(jsonS);
 		
 		data += "[";

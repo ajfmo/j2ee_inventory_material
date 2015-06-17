@@ -3,16 +3,22 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
+
 import com.j2ee.java.model.dto.ProductComponent;
 
 public class ProductComponentDAOImpl implements ProductComponentDAO {
 
 	static Logger logger = Logger.getLogger(ProductComponentDAOImpl.class.getName());
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public ProductComponent getByID(int id) {
+	public List<ProductComponent> getByID(int id) {
 		// TODO Auto-generated method stub
-		return (ProductComponent) HibernateUtil.getSessionFactory().getCurrentSession()
-				.get(ProductComponent.class, id);
+		Query query = HibernateUtil.getSessionFactory().getCurrentSession().createQuery("from ProductComponent where ProductID = :productID ");
+		query.setParameter("productID", id);
+		List<ProductComponent> listProductComponent = query.list();
+		return listProductComponent;
 	}
 
 	@SuppressWarnings("unchecked")

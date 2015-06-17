@@ -19,9 +19,9 @@ public class ProductComponentBOImpl implements ProductComponentBO {
 	private static ProductComponentDAO ProductComponentDAO = new ProductComponentDAOImpl();
 	
 	@Override
-	public ProductComponent getByID(int id) {
+	public List<ProductComponent> getByID(int id) {
 		// TODO Auto-generated method stub
-		ProductComponent ProductComponent = null;
+		List<ProductComponent> ProductComponent = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()

@@ -4,6 +4,8 @@ import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Locale;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -14,9 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
-import com.j2ee.java.model.bo.ProviderBO;
-import com.j2ee.java.model.bo.ProviderBOImpl;
-import com.j2ee.java.model.dto.Provider;
+import com.j2ee.java.model.bo.ProductBO;
+import com.j2ee.java.model.bo.ProductBOImpl;
+import com.j2ee.java.model.bo.ProductComponentBO;
+import com.j2ee.java.model.bo.ProductComponentBOImpl;
+import com.j2ee.java.model.dto.Product;
+import com.j2ee.java.model.dto.ProductComponent;
 
 @Controller
 public class ProductBuildController {
@@ -33,23 +38,35 @@ public class ProductBuildController {
 	// build product
 	@RequestMapping(value = "/build", method = RequestMethod.GET)
 	public String build(Locale locale, Model model) {
-		logger.info("Welcome home! The client locale is {}.", locale);
+		
+		ProductBO productBO = new ProductBOImpl();
+		List<Product> listProduct = productBO.getAllProduct();
+		
+		model.addAttribute("listProduct", listProduct);
 		
 		return "ProductBuild";
 	}
 	
 	@RequestMapping(value = "/getProductComponent", method = RequestMethod.POST)
-	public final @ResponseBody String markOrganisation() {
+	public final @ResponseBody String markOrganisation(HttpServletRequest request) {
 		Gson gson = new Gson();
+		
+		String productID = request.getParameter("productID");
 
-		ProviderBO providerBO = new ProviderBOImpl();
-		List<Provider> listProvider = providerBO.getAllProvider();
+		ProductComponentBO proCompoBO = new ProductComponentBOImpl();
+		List<ProductComponent> listProductComponent = proCompoBO.getByID(Integer.valueOf(productID));
 
-		Type type = new TypeToken<List<Provider>>() {
+		Type type = new TypeToken<List<ProductComponent>>() {
 		}.getType();
 
-		String jsonS = gson.toJson(listProvider, type);
+		String jsonListProCompoBO = gson.toJson(listProductComponent, type);
 		
-		return jsonS;
+		if (listProductComponent.size() < 0) {
+			String jsonList = "[" + jsonListProCompoBO + "]";
+			
+			return jsonList;
+		} else {
+			return jsonListProCompoBO;
+		}
 	}
 }

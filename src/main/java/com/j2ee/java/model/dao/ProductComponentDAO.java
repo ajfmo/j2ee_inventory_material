@@ -5,7 +5,7 @@ import java.util.List;
 import com.j2ee.java.model.dto.ProductComponent;
 
 public interface ProductComponentDAO {
-	public ProductComponent getByID(int id);
+	public List<ProductComponent> getByID(int id);
 
 	public List<ProductComponent> getAllProductComponent();
 

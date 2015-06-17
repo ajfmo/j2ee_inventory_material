@@ -6,7 +6,7 @@ import com.j2ee.java.model.dto.ProductComponent;
 
 public interface ProductComponentBO {
 
-	public ProductComponent getByID(int id);
+	public List<ProductComponent> getByID(int id);
 	
 	public List<ProductComponent> getAllProductComponent();
 	

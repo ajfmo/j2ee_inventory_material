@@ -51,7 +51,7 @@
 					<tr>
 						<td><label>Receiver</label></td>
 						<td class="td-resize"><input type="text" class="form-control"
-							placeholder="Người nhận"></td>
+							placeholder="Receiver"></td>
 						<td><label>Address</label></td>
 						<td>
 							<div class="input-control text  info-state">
@@ -68,7 +68,7 @@
 					<tr>
 						<td><label>Reason</label></td>
 						<td><input type="text" class="form-control"
-							placeholder="Lý do nhập"></td>
+							placeholder="Reason"></td>
 						<td><label>Note</label></td>
 						<td colspan="3">
 							<div class="input-control text  info-state">
@@ -131,21 +131,21 @@
 			</div>
 		</div>
 		<div class="row">
-			<div class="col-xs-6 col-md-4">
+			<div class="col-md-8">
 				<button class="btn btn-danger delete" type="button">-
 					Delete</button>
 				<button class="btn btn-success addmore" type="button">+ Add
 					More</button>
 			</div>
-			<div class="col-xs-12 col-sm-6 col-md-8">
-				<form class="form-inline">
+			<div class="col-md-4">
+				<form class="form-horizontal">
 					<div class="form-group ">
 						<label>Total Number: &nbsp;</label>
 						<div class="input-group">
-							<div class="input-group-addon"></div>
+							<div class="input-group-addon">Q</div>
 							<input class="form-control" id="totalNumber"
 								placeholder="Total Amount" onkeypress="return IsNumeric(event);"
-								ondrop="return false;" onpaste="return false;" type="number"
+								ondrop="return false;" type="number"
 								readonly='readonly'>
 						</div>
 					</div>
@@ -155,7 +155,7 @@
 							<div class="input-group-addon">$</div>
 							<input class="form-control" id="totalMoney"
 								placeholder="Total Money" onkeypress="return IsNumeric(event);"
-								ondrop="return false;" onpaste="return false;" type="number"
+								ondrop="return false;" type="number"
 								readonly='readonly'>
 						</div>
 					</div>

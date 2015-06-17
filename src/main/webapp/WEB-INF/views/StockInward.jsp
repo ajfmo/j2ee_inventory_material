@@ -51,7 +51,7 @@
 <script src="../dist/js/sb-admin-2.js"></script>
 <script src="<c:url value="/resources/js/sb-admin-2.js" />"
 	type="text/javascript"></script>
-<script src="<c:url value="/resources/js/StockInward.js" />"
+<script src="<c:url value="/resources/js/StockInward/StockInward.js" />"
 	type="text/javascript"></script>
 </head>
 <body>
@@ -158,7 +158,7 @@
 
 	</div>
 	<!-- /#wrapper -->
-	<script src="<c:url value="/resources/js/StockInwardTable.js" />"
+	<script src="<c:url value="/resources/js/StockInward/StockInwardTable.js" />"
 		type="text/javascript"></script>
 	<script>
 		function loadData(count, i) {

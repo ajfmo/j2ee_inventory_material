@@ -31,19 +31,19 @@
       <div class="packing-detail">
          <div class="col-md-4" id="productInfor">
             <h2>Product Information</h2>
-            <table>
+            <table class="table">
                <tr>
                   <td>Product Name</td>
                   <td>
-                     <select class="form-control">
-				<c:forEach var="item" items="${listProduct}">
-					<option data-value="
-						<c:out value="${item.productName}">
-						</c:out>">
-						<c:out value="${item.productID}">
-						</c:out>
-					</option>
-				</c:forEach>
+                     <select class="form-control" id="select_productN">
+						<c:forEach var="item" items="${listProduct}">
+							<option data-value="
+								<c:out value="${item.productID}">
+								</c:out>">
+								<c:out value="${item.productName}">
+								</c:out>
+							</option>
+						</c:forEach>
                      </select>
                   </td>
                </tr>
@@ -65,9 +65,9 @@
                      <select class="form-control">
 				<c:forEach var="item" items="${listStock}">
 					<option data-value="
-						<c:out value="${item.stockName}">
-						</c:out>">
 						<c:out value="${item.stockID}">
+						</c:out>">
+						<c:out value="${item.stockName}">
 						</c:out>
 					</option>
 				</c:forEach>
@@ -77,7 +77,7 @@
             </table>
          </div>
          <div class="col-md-8">
-            <table id="example" class="table table-striped table-bordered">
+            <table id="tableComponent" class="table table-striped table-bordered">
                <thead>
                   <tr>
                      <th>Product ID</th>
