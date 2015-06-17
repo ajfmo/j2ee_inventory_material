@@ -15,47 +15,13 @@
 			<a class="btn btn-success" id="btnSave">Save</a>
 			<a class="btn btn-primary" href="NewStockMoveBill">Create</a>
 		</div>
-		<div class="col-lg-6">
-			<table>
-				<tr>
-					<td>
-						<div class="my_corner">
-							<div class="bl"></div>
-							<div class="br"></div>
-							<div class="tl"></div>
-							<div class="tr"></div>
-							New
-						</div>
-					</td>
-					<td>
-						<div class="my_corner waiting" >
-							<div class="bl"></div>
-							<div class="br"></div>
-							<div class="tl"></div>
-							<div class="tr"></div>
-							Waiting Availability
-						</div>
-					</td>
-					<td>
-						<div class="my_corner" >
-							<div class="bl"></div>
-							<div class="br"></div>
-							<div class="tl"></div>
-							<div class="tr"></div>
-							Available
-						</div>
-					</td>
-					<td>
-						<div class="my_corner" style="background-color: #4EFF47;">
-							<div class="bl"></div>
-							<div class="br"></div>
-							<div class="tl"></div>
-							<div class="tr"></div>
-							Done
-						</div>
-					</td>
-				</tr>
-			</table>
+		<div class="col-xs-6">
+				<ul class="nav nav-wizard">
+					<li><a href="#">New</a></li>
+					<li><a href="#">Waiting Availability</a></li>
+					<li><a href="#">Available</a></li>
+					<li class="active"><a href="#">Done</a></li>
+				</ul>
 		</div>
 	</div>
 </div>

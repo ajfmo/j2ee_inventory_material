@@ -15,7 +15,8 @@
 	<h1>Stock Move</h1>
 	<div class="row">
 		<div class="col-lg-12">
-			<a class="btn btn-primary" href="NewStockMoveBill">Create</a>
+			<a class="btn btn-success" href="NewStockMoveBill">Create</a>
+			<a class="btn btn-primary" href="NewStockMoveBill">Export</a>
 		</div>
 	</div>
 </div>

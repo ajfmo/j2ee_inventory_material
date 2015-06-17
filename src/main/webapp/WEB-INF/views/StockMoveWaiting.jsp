@@ -34,7 +34,10 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/datepicker3.css" />"
 	type="text/css">
-
+	
+<link rel="stylesheet"
+	href="<c:url value="/resources/wizard-stepbystep/bootstrap-nav-wizard.css" />"
+	type="text/css">
 </head>
 <body>
 	<div id="wrapper">
@@ -182,6 +185,14 @@
 			$('#sandbox-container input').datepicker({
 				format : "dd/mm/yyyy"
 			});
+			
+			var d = new Date();
+			var month = d.getMonth()+1;
+			var day = d.getDate();
+			var output = (day<10 ? '0' : '') + day + '/' +
+			(month<10 ? '0' : '') + month + '/' +
+			d.getFullYear();
+			$("#sandbox-container input").val(output);
 		});
 	</script>
 

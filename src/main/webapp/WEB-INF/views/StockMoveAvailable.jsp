@@ -33,7 +33,10 @@
 	type="text/css">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/datepicker3.css" />" type="text/css">
-
+	
+<link rel="stylesheet"
+	href="<c:url value="/resources/wizard-stepbystep/bootstrap-nav-wizard.css" />"
+	type="text/css">
 </head>
 <body>
 	<div id="wrapper">

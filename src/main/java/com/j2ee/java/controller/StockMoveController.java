@@ -25,10 +25,13 @@ public class StockMoveController {
 
 	@RequestMapping(value = "/StockMove")
 	public String stockMove() {
+		
+		
+		
 		return "StockMove";
 	}
 
-	// NewStockMoveBill
+	// NewStockMoveBill -- StockMoveNew
 	@RequestMapping(value = "/NewStockMoveBill")
 	public String newStockMoveBill(Model model) {
 		
@@ -49,21 +52,66 @@ public class StockMoveController {
 		return "StockMoveNew";
 	}
 
-	// processLater
+	// processLater -- StockMoveWaiting
 	@RequestMapping(value = "/processLater")
-	public String processLater() {
+	public String processLater(Model model) {
+		
+		//get list product
+		ProductBO productBO = new ProductBOImpl();
+		List<Product> listProducts = productBO.getAllProduct();
+		
+		//set to model attribute
+		model.addAttribute("listProducts", listProducts);
+		
+		//get list active stock
+		StockBO stockBO = new StockBOImpl();
+		List<Stock> listStocks = stockBO.getAllStock();
+		
+		//set to model attribute
+		model.addAttribute("listStocks", listStocks);
+
 		return "StockMoveWaiting";
 	}
 	
-	//checkAvailable
+	//checkAvailable -- StockMoveAvailable
 	@RequestMapping(value = "/checkAvailable")
-	public String checkAvailable() {
+	public String checkAvailable(Model model) {
+		
+		//get list product
+		ProductBO productBO = new ProductBOImpl();
+		List<Product> listProducts = productBO.getAllProduct();
+		
+		//set to model attribute
+		model.addAttribute("listProducts", listProducts);
+		
+		//get list active stock
+		StockBO stockBO = new StockBOImpl();
+		List<Stock> listStocks = stockBO.getAllStock();
+		
+		//set to model attribute
+		model.addAttribute("listStocks", listStocks);
+		
 		return "StockMoveAvailable";
 	}
 	
-	//processAll
+	//processAll -- StockMoveDone
 	@RequestMapping(value = "/processAll")
-	public String processAll() {
+	public String processAll(Model model) {
+		
+		//get list product
+		ProductBO productBO = new ProductBOImpl();
+		List<Product> listProducts = productBO.getAllProduct();
+		
+		//set to model attribute
+		model.addAttribute("listProducts", listProducts);
+		
+		//get list active stock
+		StockBO stockBO = new StockBOImpl();
+		List<Stock> listStocks = stockBO.getAllStock();
+		
+		//set to model attribute
+		model.addAttribute("listStocks", listStocks);
+		
 		return "StockMoveDone";
 	}
 }
