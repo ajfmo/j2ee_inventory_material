@@ -88,10 +88,21 @@ public class StockInwardController {
 	// get list of Product
 	@RequestMapping(value = "/getProduct", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public @ResponseBody String getProduct() {
+		Gson gson = new Gson();
 		String data = "";
 		ProductBO productBO = new ProductBOImpl();
 		List<Product> product = productBO.getAllProduct();
-
+		
+		Type type = new TypeToken<List<Product>>() {
+		}.getType();
+		
+		String jsonS = gson.toJson(product, type);
+		
+		JsonObject jsonObj = new JsonObject();
+		jsonObj.add("Product", new JsonArray());
+		
+		logger.info(jsonS);
+		
 		data += "[";
 		for (int i = 0; i < product.size(); i++) {
 			data += "\"";

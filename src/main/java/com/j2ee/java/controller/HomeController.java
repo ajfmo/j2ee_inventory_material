@@ -27,7 +27,6 @@ public class HomeController {
 		
 		return "Home";
 	}
-	
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String homePage() {
 		logger.info("Welcome home!");
