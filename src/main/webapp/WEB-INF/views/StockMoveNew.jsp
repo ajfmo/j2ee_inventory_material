@@ -171,9 +171,7 @@
 	<script>
 		$(function() {
 			$('#sandbox-container input').datepicker({
-				format : "dd/mm/yyyy",
-				"setDate": new Date(),
-		        "autoclose": true
+				format : "dd/mm/yyyy"
 			});
 			
 			var d = new Date();
@@ -183,7 +181,7 @@
 			(month<10 ? '0' : '') + month + '/' +
 			d.getFullYear();
 			$("#sandbox-container input").val(output);
-			
+			 
 			$('#btnEdit').css('display', 'none');
 			$("#btnEdit").click(function() {
 				$('.input-info').prop("disabled", false);
@@ -215,6 +213,9 @@
 				});
 				
 			});
+			
+			
+			
 		});
 	</script>
 

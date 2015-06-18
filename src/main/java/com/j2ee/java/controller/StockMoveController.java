@@ -131,4 +131,13 @@ public class StockMoveController {
 
 		return "StockMoveDone";
 	}
+	
+	//Save new stock move bill
+	@RequestMapping(value="/saveNewStockMove")
+	public @ResponseBody String saveNewStockMove(HttpServletRequest req){
+		String a = req.getParameter("quantity");
+		System.out.println(a);
+		
+		return "";
+	}
 }
