@@ -9,7 +9,7 @@
 				<label>Product</label>
 			</div>
 			<div class="col-sm-5">
-				<select class="form-control input-info">
+				<select class="form-control input-info" id="product">
 					<c:forEach items="${listProducts}" var="product">
 						<option>
 							${product.productName}
@@ -24,7 +24,7 @@
 			</div>
 			<div class='col-sm-5'>
 				<div id="sandbox-container">
-					<input class="form-control input-info" type="text">
+					<input class="form-control input-info" type="text" id="expectedDay">
 				</div>
 			</div>
 		</div>
@@ -35,7 +35,7 @@
 				<label>Quantity</label>
 			</div>
 			<div class="col-sm-5">
-				<input type="number" class="form-control input-info" />
+				<input type="number" class="form-control input-info" id="quantity">
 			</div>
 		</div>
 		<div class="col-lg-6">
@@ -73,7 +73,7 @@
 				<label>Destination Location</label>
 			</div>
 			<div class="col-sm-5">
-				<select class="form-control input-info">
+				<select class="form-control input-info" id="toStock">
 					<c:forEach items="${listStocks}" var="stock">
 						<option>
 							${stock.stockName}

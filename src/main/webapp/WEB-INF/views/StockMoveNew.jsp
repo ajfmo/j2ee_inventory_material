@@ -194,6 +194,26 @@
 				$('.input-info').prop("disabled", true);
 				$('#btnSave').css('display', 'none');
 				$('#btnEdit').css('display', 'inline-block');
+				
+				$.ajax({
+					type : "POST",
+					url : "saveNewStockMove",
+					data : {
+						"product":"John", 
+						"expectedDay": $("#expectedDay").val(),
+						"quantity": $("#quantity").val(),
+						"priority": $("#priority").val(),
+						"fromStock": $("#fromStock").val(),
+						"toStock": $("#toStock").val(),
+						"description": $("#description").val()
+						},
+					dataType : "json",
+					success : function(data) {
+						// Check if response is success.
+						alert("OK");
+					}
+				});
+				
 			});
 		});
 	</script>
