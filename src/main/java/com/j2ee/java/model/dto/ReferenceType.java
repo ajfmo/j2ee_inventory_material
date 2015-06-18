@@ -34,6 +34,9 @@ public class ReferenceType {
 	
 	@OneToMany(mappedBy = "refID")
 	private transient Set<StockInventory> refTypeStockInven = new HashSet<StockInventory>();
+	
+	@OneToMany(mappedBy = "statusID")
+	private transient Set<StockTransfer> refTypeStockTransfer = new HashSet<StockTransfer>();
 	/**
 	 * 
 	 */
@@ -79,6 +82,12 @@ public class ReferenceType {
 	}
 	public void setRefTypeStockInven(Set<StockInventory> refTypeStockInven) {
 		this.refTypeStockInven = refTypeStockInven;
+	}
+	public Set<StockTransfer> getRefTypeStockTransfer() {
+		return refTypeStockTransfer;
+	}
+	public void setRefTypeStockTransfer(Set<StockTransfer> refTypeStockTransfer) {
+		this.refTypeStockTransfer = refTypeStockTransfer;
 	}
 	
 }

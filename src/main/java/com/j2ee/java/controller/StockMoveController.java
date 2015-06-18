@@ -3,10 +3,16 @@
  */
 package com.j2ee.java.controller;
 
+import java.sql.Date;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,8 +22,13 @@ import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.ProductBOImpl;
 import com.j2ee.java.model.bo.StockBO;
 import com.j2ee.java.model.bo.StockBOImpl;
+import com.j2ee.java.model.bo.StockTransferBO;
+import com.j2ee.java.model.bo.StockTransferBOImpl;
 import com.j2ee.java.model.dto.Product;
+import com.j2ee.java.model.dto.ReferenceType;
+import com.j2ee.java.model.dto.Staff;
 import com.j2ee.java.model.dto.Stock;
+import com.j2ee.java.model.dto.StockTransfer;
 
 /**
  * @author John Tran
@@ -26,6 +37,10 @@ import com.j2ee.java.model.dto.Stock;
 @Controller
 public class StockMoveController {
 
+	//@Autowired
+	//@Qualifier("StockTransferBOImpl")
+	private StockTransferBO stockTransferBO = new StockTransferBOImpl();
+	
 	@RequestMapping(value = "/StockMove")
 	public String stockMove() {
 
@@ -118,17 +133,58 @@ public class StockMoveController {
 
 	// saveNewStockMove Bill
 	@RequestMapping(value = "/saveNewStockMove")
-	public @ResponseBody String saveNewStockMove(HttpServletRequest req) {
+	public @ResponseBody String saveNewStockMove(HttpServletRequest req, HttpSession session) {
 		
-		String product = req.getParameter("product");
+		String productID = req.getParameter("product");
 		String expectedDay = req.getParameter("expectedDay");
 		String quantity = req.getParameter("quantity");
 		String priority = req.getParameter("priority");
-		String fromStock = req.getParameter("fromStock");
-		String toStock = req.getParameter("toStock");
+		String fromStockID = req.getParameter("fromStock");
+		String toStockID = req.getParameter("toStock");
 		String description = req.getParameter("description");
-		System.out.println(product + ": " + quantity);
+		
+		StockTransfer stTranfer = new StockTransfer();
+		
+		Staff staff = new Staff();
+		staff.setStaffID((int)session.getAttribute("staffID"));
+		
+		stTranfer.setStaffID(staff);
+		
+		ReferenceType refType = new ReferenceType();
+		refType.setRefTypeID(10); // 10 mean New
+		
+		stTranfer.setStatusID(refType);
+		
+		Product product = new Product();
+		product.setProductID(Integer.parseInt(productID.split(":")[0]));
+		
+		stTranfer.setProductID(product);		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		try {
+			stTranfer.setExpectedDate(sdf.parse(expectedDay));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		stTranfer.setQuantity(Integer.parseInt(quantity));
+		stTranfer.setPriority(stockTransferBO.getPriorityID(priority));
+		
+		Stock fromStock = new Stock();
+		fromStock.setStockID(Integer.parseInt(fromStockID.split(":")[0]));
+		
+		stTranfer.setFromStock(fromStock);
+		
+		Stock toStock = new Stock();
+		toStock.setStockID(Integer.parseInt(toStockID.split(":")[0]));
+		
+		stTranfer.setToStock(toStock);
+		stTranfer.setDescription(description);
+		
+		if(stockTransferBO.insertStockInward(stTranfer)){
+			return "{\"result\" : \"1\"}";
+		}
+		
+		//System.out.println(product + ": " + quantity);
 
-		return "StockMoveDone";
+		return "{\"result\" : \"0\"}";
 	}
 }

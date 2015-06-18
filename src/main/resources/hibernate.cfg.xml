@@ -16,7 +16,7 @@
         <property name="current_session_context_class">thread</property>
         <property name="cache.provider_class">org.hibernate.cache.NoCacheProvider</property>
         <property name="show_sql">true</property>
-        <property name="hbm2ddl.auto">validate</property>
+        <property name="hbm2ddl.auto">update</property>
  
 		<mapping class="com.j2ee.java.model.dto.Adjustment"/>
 		<mapping class="com.j2ee.java.model.dto.Asset"/>
@@ -47,8 +47,6 @@
 		<mapping class="com.j2ee.java.model.dto.StockOutward"/>
 		<mapping class="com.j2ee.java.model.dto.StockOutwardDetail"/>
 		<mapping class="com.j2ee.java.model.dto.StockTransfer"/>
-		<mapping class="com.j2ee.java.model.dto.StockTransferDetail"/>
-
- 		 
+		 		 
     </session-factory>
 </hibernate-configuration>

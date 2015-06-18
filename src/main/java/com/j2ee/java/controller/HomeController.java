@@ -2,6 +2,8 @@
 package com.j2ee.java.controller;
 
 
+import javax.servlet.http.HttpSession;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
@@ -22,8 +24,9 @@ public class HomeController {
 	 * Simply selects the home view to render by returning its name.
 	 */
 	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String home() {
+	public String home(HttpSession session) {
 		logger.info("Welcome home!");
+		session.setAttribute("staffID", 1);
 		
 		return "Home";
 	}

@@ -11,7 +11,7 @@
 			<div class="col-sm-5">
 				<select class="form-control input-info" id="product">
 					<c:forEach items="${listProducts}" var="product">
-						<option>[${product.productID }] ${product.productName}</option>
+						<option>${product.productID }: ${product.productName}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -33,7 +33,7 @@
 				<label>Quantity</label>
 			</div>
 			<div class="col-sm-5">
-				
+
 				<input type="number" class="form-control input-info" id="quantity">
 			</div>
 		</div>
@@ -60,7 +60,7 @@
 			<div class="col-sm-5">
 				<select class="form-control input-info" id="fromStock">
 					<c:forEach items="${listStocks}" var="stock">
-						<option>[${stock.stockID}] ${stock.stockName}</option>
+						<option>${stock.stockID}: ${stock.stockName}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -70,10 +70,10 @@
 				<label>Destination Location</label>
 			</div>
 			<div class="col-sm-5">
-				
+
 				<select class="form-control input-info" id="toStock">
 					<c:forEach items="${listStocks}" var="stock">
-						<option>[${stock.stockID}] ${stock.stockName}</option>
+						<option>${stock.stockID}: ${stock.stockName}</option>
 					</c:forEach>
 				</select>
 			</div>
@@ -86,7 +86,7 @@
 			</div>
 			<div class="col-sm-9">
 				<textarea rows="3" cols="100" class="form-control input-info"
-					id="description"></textarea>
+					id="description" maxlength="200" wrap="hard" style="resize: none;"></textarea>
 			</div>
 		</div>
 	</div>

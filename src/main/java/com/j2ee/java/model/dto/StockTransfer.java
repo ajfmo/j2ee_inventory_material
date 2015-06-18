@@ -3,7 +3,6 @@
  */
 package com.j2ee.java.model.dto;
 
-import java.math.BigDecimal;
 import java.util.Date;
 
 import javax.persistence.CascadeType;
@@ -27,124 +26,159 @@ import org.springframework.stereotype.Component;
 @Entity
 @Table(name = "stock_transfer")
 public class StockTransfer {
-	
+
 	@Id
 	@GeneratedValue
 	@Column(name = "TransferID")
 	private int transferID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "StaffID")  
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "StaffID")
 	private Staff staffID;
 
-	@Column(name = "Date")
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ProductID")
+	private Product productID;
+
+	@Column(name = "ExpectedDate")
 	@Temporal(TemporalType.DATE)
-	private Date date;
+	private Date expectedDate;
 
-	@Column(name = "IsTransfered")
-	private boolean isTransfered;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "StatusID")
+	private ReferenceType statusID;
 
-	@Column(name = "TotalNumber")
-	private int totalNumber;
+	@Column(name = "Quantity")
+	private int quantity;
 
-	@Column(name = "TotalAmount")
-	private BigDecimal totalAmount;
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "FromStockID")
+	private Stock fromStock;
+
+	@ManyToOne(cascade = CascadeType.ALL)
+	@JoinColumn(name = "ToStockID")
+	private Stock toStock;
+
+	@Column(name = "Priority")
+	private int priority;
+
+	@Column(name = "Description")
+	private String description;
+
 	/**
 	 * 
 	 */
 	public StockTransfer() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
-	/**
-	 * @param transferID
-	 * @param staffID
-	 * @param date
-	 * @param isTransfered
-	 * @param totalNumber
-	 * @param totalAmount
-	 */
-	public StockTransfer(int transferID, Staff staffID, Date date,
-			boolean isTransfered, int totalNumber, BigDecimal totalAmount) {
-		super();
-		this.transferID = transferID;
-		this.staffID = staffID;
-		this.date = date;
-		this.isTransfered = isTransfered;
-		this.totalNumber = totalNumber;
-		this.totalAmount = totalAmount;
-	}
+
 	/**
 	 * @return the transferID
 	 */
 	public int getTransferID() {
 		return transferID;
 	}
+
 	/**
-	 * @param transferID the transferID to set
+	 * @param transferID
+	 *            the transferID to set
 	 */
 	public void setTransferID(int transferID) {
 		this.transferID = transferID;
 	}
+
 	/**
 	 * @return the staffID
 	 */
 	public Staff getStaffID() {
 		return staffID;
 	}
+
 	/**
-	 * @param staffID the staffID to set
+	 * @param staffID
+	 *            the staffID to set
 	 */
 	public void setStaffID(Staff staffID) {
 		this.staffID = staffID;
 	}
-	/**
-	 * @return the date
-	 */
-	public Date getDate() {
-		return date;
-	}
-	/**
-	 * @param date the date to set
-	 */
-	public void setDate(Date date) {
-		this.date = date;
-	}
-	/**
-	 * @return the isTransfered
-	 */
-	public boolean isTransfered() {
-		return isTransfered;
-	}
-	/**
-	 * @param isTransfered the isTransfered to set
-	 */
-	public void setTransfered(boolean isTransfered) {
-		this.isTransfered = isTransfered;
-	}
+
 	/**
 	 * @return the totalNumber
 	 */
 	public int getTotalNumber() {
-		return totalNumber;
+		return quantity;
 	}
+
 	/**
-	 * @param totalNumber the totalNumber to set
+	 * @param totalNumber
+	 *            the totalNumber to set
 	 */
 	public void setTotalNumber(int totalNumber) {
-		this.totalNumber = totalNumber;
+		this.quantity = totalNumber;
 	}
-	/**
-	 * @return the totalAmount
-	 */
-	public BigDecimal getTotalAmount() {
-		return totalAmount;
+
+	public Product getProductID() {
+		return productID;
 	}
-	/**
-	 * @param totalAmount the totalAmount to set
-	 */
-	public void setTotalAmount(BigDecimal totalAmount) {
-		this.totalAmount = totalAmount;
+
+	public void setProductID(Product productID) {
+		this.productID = productID;
 	}
-	
+
+	public Date getExpectedDate() {
+		return expectedDate;
+	}
+
+	public void setExpectedDate(Date expectedDate) {
+		this.expectedDate = expectedDate;
+	}
+
+	public ReferenceType getStatusID() {
+		return statusID;
+	}
+
+	public void setStatusID(ReferenceType statusID) {
+		this.statusID = statusID;
+	}
+
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public Stock getFromStock() {
+		return fromStock;
+	}
+
+	public void setFromStock(Stock fromStock) {
+		this.fromStock = fromStock;
+	}
+
+	public Stock getToStock() {
+		return toStock;
+	}
+
+	public void setToStock(Stock toStock) {
+		this.toStock = toStock;
+	}
+
+	public int getPriority() {
+		return priority;
+	}
+
+	public void setPriority(int priority) {
+		this.priority = priority;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
+
 }

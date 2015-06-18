@@ -181,6 +181,7 @@
 			(month<10 ? '0' : '') + month + '/' +
 			d.getFullYear();
 			$("#sandbox-container input").val(output);
+			$("#quantity").val(1);
 			 
 			$('#btnEdit').css('display', 'none');
 			$("#btnEdit").click(function() {
@@ -189,35 +190,43 @@
 				$('#btnSave').css('display', 'inline-block');
 			});
 			$("#btnSave").click(function() {
-				$('.input-info').prop("disabled", true);
-				$('#btnSave').css('display', 'none');
-				$('#btnEdit').css('display', 'inline-block');
 				
-				$.ajax({
-					type : "POST",
-					url : "saveNewStockMove",
-					data : {
-						"product":"John", 
-						"expectedDay": $("#expectedDay").val(),
-						"quantity": $("#quantity").val(),
-						"priority": $("#priority").val(),
-						"fromStock": $("#fromStock").val(),
-						"toStock": $("#toStock").val(),
-						"description": $("#description").val()
-						},
-					dataType : "json",
-					success : function(data) {
-						// Check if response is success.
-						alert("OK");
-					}
-				});
+				if($("#quantity").val() < 1){
+					alert("Quantity must more than 0");
+				}
+				
+				if($("#fromStock").val() != $("#toStock").val()){
+					$('.input-info').prop("disabled", true);
+					$('#btnSave').css('display', 'none');
+					$('#btnEdit').css('display', 'inline-block');
+					$.ajax({
+						type : "POST",
+						url : "saveNewStockMove",
+						data : {
+							"product": $("#product").val(), 
+							"expectedDay": $("#expectedDay").val(),
+							"quantity": $("#quantity").val(),
+							"priority": $("#priority").val(),
+							"fromStock": $("#fromStock").val(),
+							"toStock": $("#toStock").val(),
+							"description": $("#description").val()
+							},
+						dataType : "json",
+						success : function(data) {
+							if(data.result == "1"){
+								alert("Successful!");
+							} else {
+								alert("Failed :( !");
+							}
+						}
+					});
+				} else {
+					alert("Invalid Destination Location");
+					return false;
+				}
 				
 			});
-			
-			
-			
 		});
 	</script>
-
 </body>
 </html>

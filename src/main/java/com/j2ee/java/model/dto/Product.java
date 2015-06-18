@@ -85,6 +85,9 @@ public class Product {
 	
 	@OneToMany(mappedBy = "productID")
 	private transient Set<StockOutwardDetail> productStockOutwardDetail = new HashSet<StockOutwardDetail>();
+	
+	@OneToMany(mappedBy = "productID")
+	private transient Set<StockTransfer> productStockTransfer = new HashSet<StockTransfer>();
 	/**
 	 * 
 	 */
@@ -311,6 +314,18 @@ public class Product {
 	public void setProductStockOutwardDetail(
 			Set<StockOutwardDetail> productStockOutwardDetail) {
 		this.productStockOutwardDetail = productStockOutwardDetail;
+	}
+	/**
+	 * @return the productStockTransfer
+	 */
+	public Set<StockTransfer> getProductStockTransfer() {
+		return productStockTransfer;
+	}
+	/**
+	 * @param productStockTransfer the productStockTransfer to set
+	 */
+	public void setProductStockTransfer(Set<StockTransfer> productStockTransfer) {
+		this.productStockTransfer = productStockTransfer;
 	}
 	
 }
