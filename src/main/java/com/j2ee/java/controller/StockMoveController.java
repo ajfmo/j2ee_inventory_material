@@ -3,7 +3,6 @@
  */
 package com.j2ee.java.controller;
 
-import java.sql.Date;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.List;
@@ -23,7 +22,6 @@ import com.j2ee.java.model.bo.ProductBOImpl;
 import com.j2ee.java.model.bo.StockBO;
 import com.j2ee.java.model.bo.StockBOImpl;
 import com.j2ee.java.model.bo.StockTransferBO;
-import com.j2ee.java.model.bo.StockTransferBOImpl;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.ReferenceType;
 import com.j2ee.java.model.dto.Staff;
@@ -37,9 +35,9 @@ import com.j2ee.java.model.dto.StockTransfer;
 @Controller
 public class StockMoveController {
 
-	//@Autowired
-	//@Qualifier("StockTransferBOImpl")
-	private StockTransferBO stockTransferBO = new StockTransferBOImpl();
+	@Autowired
+	@Qualifier("STransferBOImpl1")
+	private StockTransferBO stockTransferBO;
 	
 	@RequestMapping(value = "/StockMove")
 	public String stockMove() {

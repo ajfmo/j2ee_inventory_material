@@ -10,23 +10,25 @@ import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dao.StockTranferDAO;
-import com.j2ee.java.model.dao.StockTranferDAOImpl;
 import com.j2ee.java.model.dto.StockTransfer;
 
 /**
  * @author John Tran
  *
  */
-@Component
+@Component(value="STransferBOImpl1")
 public class StockTransferBOImpl implements StockTransferBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(StockTransferBOImpl.class);
 	
-	private StockTranferDAO stockTransferDAO = new StockTranferDAOImpl();
+	@Autowired
+	@Qualifier("STransferImpl1")
+	private StockTranferDAO stockTransferDAO;
 	
 	@Override
 	public StockTransfer getByID(int id) {
