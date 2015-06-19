@@ -6,17 +6,21 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dao.ProductDAO;
-import com.j2ee.java.model.dao.ProductDAOImpl;
 import com.j2ee.java.model.dto.Product;
 
+@Component(value="ProductBOImpl")
 public class ProductBOImpl implements ProductBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProductBOImpl.class);
-	
-	private static ProductDAO ProductDAO = new ProductDAOImpl();
+	@Autowired
+	@Qualifier("ProductDAOImpl")
+	private ProductDAO ProductDAO;
 	
 	@Override
 	public Product getByID(int id) {

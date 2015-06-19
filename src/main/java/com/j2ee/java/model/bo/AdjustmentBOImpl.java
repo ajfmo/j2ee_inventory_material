@@ -6,17 +6,20 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dao.AdjustmentDAO;
-import com.j2ee.java.model.dao.AdjustmentDAOImpl;
 import com.j2ee.java.model.dto.Adjustment;
-
+@Component(value="AdjustmentBOImpl")
 public class AdjustmentBOImpl implements AdjustmentBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(AdjustmentBOImpl.class);
-	
-	private static AdjustmentDAO adjustmentDAO = new AdjustmentDAOImpl();
+	@Autowired
+	@Qualifier("AdjustmentDAOImpl")
+	private AdjustmentDAO adjustmentDAO;
 	
 	@Override
 	public Adjustment getByID(int id) {

@@ -3,8 +3,10 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import com.j2ee.java.model.dto.Stock;
+import org.springframework.stereotype.Component;
 
+import com.j2ee.java.model.dto.Stock;
+@Component(value="StockDAOImplCl")
 public class StockDAOImpl implements StockDAO {
 
 	static Logger logger = Logger.getLogger(StockDAOImpl.class.getName());

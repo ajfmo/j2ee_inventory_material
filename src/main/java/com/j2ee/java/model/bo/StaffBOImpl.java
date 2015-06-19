@@ -6,17 +6,20 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dao.StaffDAO;
-import com.j2ee.java.model.dao.StaffDAOImpl;
 import com.j2ee.java.model.dto.Staff;
-
+@Component(value="StaffBOImpl")
 public class StaffBOImpl implements StaffBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(StaffBOImpl.class);
-	
-	private static StaffDAO staffDAO = new StaffDAOImpl();
+	@Autowired
+	@Qualifier("StaffDAOImpl")
+	private StaffDAO staffDAO;
 	
 	@Override
 	public Staff getByID(int id) {

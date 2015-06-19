@@ -3,8 +3,10 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import com.j2ee.java.model.dto.AssetLiquidation;
+import org.springframework.stereotype.Component;
 
+import com.j2ee.java.model.dto.AssetLiquidation;
+@Component(value="AssetLiquidationDAOImpl")
 public class AssetLiquidationDAOImpl implements AssetLiquidationDAO {
 
 	static Logger logger = Logger.getLogger(AssetLiquidationDAOImpl.class.getName());

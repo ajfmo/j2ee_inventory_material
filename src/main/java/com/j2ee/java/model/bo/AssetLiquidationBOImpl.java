@@ -6,17 +6,20 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
-import com.j2ee.java.model.dao.AssetLiquidationDAOImpl;
 import com.j2ee.java.model.dao.AssetLiquidationDAO;
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dto.AssetLiquidation;
-
+@Component(value="AssetLiquidationBOImpl")
 public class AssetLiquidationBOImpl implements AssetLiquidationBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(AssetLiquidationBOImpl.class);
-	
-	private static AssetLiquidationDAO assetLiquidationDAO = new AssetLiquidationDAOImpl();
+	@Autowired
+	@Qualifier("AssetLiquidationDAOImpl")
+	private AssetLiquidationDAO assetLiquidationDAO;
 	
 	@Override
 	public AssetLiquidation getByID(int id) {

@@ -6,17 +6,23 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dao.StockInwardDetailDAO;
-import com.j2ee.java.model.dao.StockInwardDetailDAOImpl;
 import com.j2ee.java.model.dto.StockInwardDetail;
 
+@Component(value = "StockInwardDetailBOImpl")
 public class StockInwardDetailBOImpl implements StockInwardDetailBO {
 
-private static final Logger logger = LoggerFactory.getLogger(StockInwardDetailBOImpl.class);
-	
-	private static StockInwardDetailDAO stockInDetailDAO = new StockInwardDetailDAOImpl();
+	private static final Logger logger = LoggerFactory
+			.getLogger(StockInwardDetailBOImpl.class);
+	@Autowired
+	@Qualifier("StockInwardDetailDAOImpl")
+	private StockInwardDetailDAO stockInDetailDAO;
+
 	@Override
 	public StockInwardDetail getByID(int id) {
 
@@ -71,7 +77,7 @@ private static final Logger logger = LoggerFactory.getLogger(StockInwardDetailBO
 					.beginTransaction();
 
 			result = stockInDetailDAO.insertStockInwardDetail(stockInDetail);
-			
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -93,7 +99,7 @@ private static final Logger logger = LoggerFactory.getLogger(StockInwardDetailBO
 					.beginTransaction();
 
 			result = stockInDetailDAO.updateStockInwardDetail(stockInDetail);
-			
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -115,7 +121,7 @@ private static final Logger logger = LoggerFactory.getLogger(StockInwardDetailBO
 					.beginTransaction();
 
 			result = stockInDetailDAO.deleteStockInwardDetail(stockInDetail);
-			
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception

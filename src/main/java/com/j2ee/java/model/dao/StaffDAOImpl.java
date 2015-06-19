@@ -3,8 +3,10 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import com.j2ee.java.model.dto.Staff;
+import org.springframework.stereotype.Component;
 
+import com.j2ee.java.model.dto.Staff;
+@Component(value="StaffDAOImpl")
 public class StaffDAOImpl implements StaffDAO {
 
 	static Logger logger = Logger.getLogger(StaffDAOImpl.class.getName());

@@ -12,15 +12,14 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.j2ee.java.model.bo.ProductBO;
-import com.j2ee.java.model.bo.ProductBOImpl;
 import com.j2ee.java.model.bo.StockBO;
-import com.j2ee.java.model.bo.StockBOImpl;
 import com.j2ee.java.model.bo.StockTransferBO;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.ReferenceType;
@@ -32,12 +31,21 @@ import com.j2ee.java.model.dto.StockTransfer;
  * @author John Tran
  *
  */
+@Component
 @Controller
 public class StockMoveController {
 
 	@Autowired
-	@Qualifier("STransferBOImpl1")
+	@Qualifier("StTransferBOImpl")
 	private StockTransferBO stockTransferBO;
+	
+	@Autowired
+	@Qualifier("ProductBOImpl")
+	private ProductBO productBO;
+	
+	@Autowired
+	@Qualifier("StockBOImpl")
+	private StockBO stockBO;
 	
 	@RequestMapping(value = "/StockMove")
 	public String stockMove() {
@@ -50,14 +58,12 @@ public class StockMoveController {
 	public String newStockMoveBill(Model model) {
 
 		// get list product
-		ProductBO productBO = new ProductBOImpl();
 		List<Product> listProducts = productBO.getAllProduct();
 
 		// set to model attribute
 		model.addAttribute("listProducts", listProducts);
 
 		// get list active stock
-		StockBO stockBO = new StockBOImpl();
 		List<Stock> listStocks = stockBO.getAllStock();
 
 		// set to model attribute
@@ -71,14 +77,12 @@ public class StockMoveController {
 	public String processLater(Model model) {
 
 		// get list product
-		ProductBO productBO = new ProductBOImpl();
 		List<Product> listProducts = productBO.getAllProduct();
 
 		// set to model attribute
 		model.addAttribute("listProducts", listProducts);
 
 		// get list active stock
-		StockBO stockBO = new StockBOImpl();
 		List<Stock> listStocks = stockBO.getAllStock();
 
 		// set to model attribute
@@ -92,14 +96,12 @@ public class StockMoveController {
 	public String checkAvailable(Model model) {
 
 		// get list product
-		ProductBO productBO = new ProductBOImpl();
 		List<Product> listProducts = productBO.getAllProduct();
 
 		// set to model attribute
 		model.addAttribute("listProducts", listProducts);
 
 		// get list active stock
-		StockBO stockBO = new StockBOImpl();
 		List<Stock> listStocks = stockBO.getAllStock();
 
 		// set to model attribute
@@ -113,14 +115,12 @@ public class StockMoveController {
 	public String processAll(Model model) {
 
 		// get list product
-		ProductBO productBO = new ProductBOImpl();
 		List<Product> listProducts = productBO.getAllProduct();
 
 		// set to model attribute
 		model.addAttribute("listProducts", listProducts);
 
 		// get list active stock
-		StockBO stockBO = new StockBOImpl();
 		List<Stock> listStocks = stockBO.getAllStock();
 
 		// set to model attribute

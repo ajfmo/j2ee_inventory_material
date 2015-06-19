@@ -4,9 +4,10 @@ import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
+import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dto.ProductComponent;
-
+@Component(value="ProductComponentDAOImpl")
 public class ProductComponentDAOImpl implements ProductComponentDAO {
 
 	static Logger logger = Logger.getLogger(ProductComponentDAOImpl.class.getName());

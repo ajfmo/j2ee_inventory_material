@@ -6,17 +6,21 @@ import java.util.List;
 import org.hibernate.Transaction;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dao.StockDAO;
-import com.j2ee.java.model.dao.StockDAOImpl;
 import com.j2ee.java.model.dto.Stock;
 
+@Component(value="StockBOImpl")
 public class StockBOImpl implements StockBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(StockBOImpl.class);
-	
-	private static StockDAO stockDAO = new StockDAOImpl();
+	@Autowired
+	@Qualifier("StockDAOImplCl")
+	private StockDAO stockDAO;
 	
 	@Override
 	public Stock getByID(int id) {

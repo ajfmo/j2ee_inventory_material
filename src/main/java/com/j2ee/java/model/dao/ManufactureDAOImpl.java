@@ -3,8 +3,10 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import com.j2ee.java.model.dto.Manufacture;
+import org.springframework.stereotype.Component;
 
+import com.j2ee.java.model.dto.Manufacture;
+@Component(value="ManufactureDAOImpl")
 public class ManufactureDAOImpl implements ManufactureDAO {
 
 	static Logger logger = Logger.getLogger(ManufactureDAOImpl.class.getName());

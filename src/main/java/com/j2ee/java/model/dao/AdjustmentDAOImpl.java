@@ -3,8 +3,10 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import com.j2ee.java.model.dto.Adjustment;
+import org.springframework.stereotype.Component;
 
+import com.j2ee.java.model.dto.Adjustment;
+@Component(value="AdjustmentDAOImpl")
 public class AdjustmentDAOImpl implements AdjustmentDAO {
 
 	static Logger logger = Logger.getLogger(AdjustmentDAOImpl.class.getName());

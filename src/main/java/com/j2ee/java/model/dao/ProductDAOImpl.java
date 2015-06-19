@@ -3,10 +3,12 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dto.Product;
 
-public class ProductDAOImpl implements ProductDAO{
+@Component(value = "ProductDAOImpl")
+public class ProductDAOImpl implements ProductDAO {
 
 	static Logger logger = Logger.getLogger(ProductDAOImpl.class.getName());
 
@@ -30,8 +32,7 @@ public class ProductDAOImpl implements ProductDAO{
 		// TODO Auto-generated method stub
 		boolean result = false;
 		try {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.save(Product);
+			HibernateUtil.getSessionFactory().getCurrentSession().save(Product);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
@@ -69,6 +70,5 @@ public class ProductDAOImpl implements ProductDAO{
 		}
 		return result;
 	}
-
 
 }

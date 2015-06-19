@@ -21,13 +21,13 @@ import com.j2ee.java.model.dto.StockTransfer;
  * @author John Tran
  *
  */
-@Component(value="STransferBOImpl1")
+@Component(value="StTransferBOImpl")
 public class StockTransferBOImpl implements StockTransferBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(StockTransferBOImpl.class);
 	
 	@Autowired
-	@Qualifier("STransferImpl1")
+	@Qualifier("StTransferDAOImpl")
 	private StockTranferDAO stockTransferDAO;
 	
 	@Override

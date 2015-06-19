@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dto.StockTransfer;
 
-@Component(value="STransferImpl1")
+@Component(value="StTransferDAOImpl")
 public class StockTranferDAOImpl implements StockTranferDAO{
 
 	static Logger logger = Logger.getLogger(StockTranferDAOImpl.class.getName());
@@ -71,3 +71,4 @@ public class StockTranferDAOImpl implements StockTranferDAO{
 	}
 
 }
+	
