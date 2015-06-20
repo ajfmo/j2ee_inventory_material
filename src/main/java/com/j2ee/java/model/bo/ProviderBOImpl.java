@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dao.ProviderDAO;
 import com.j2ee.java.model.dto.Provider;
-@Component(value="ProductBOImplCl")
+@Component(value="ProviderBOImpl")
 public class ProviderBOImpl implements ProviderBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(ProviderBOImpl.class);

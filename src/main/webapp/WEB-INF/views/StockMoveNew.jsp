@@ -167,8 +167,10 @@
 		type="text/javascript"></script>
 	<script src="<c:url value="/resources/js/StockMoveContent.js" />"
 		type="text/javascript"></script>
+	<script src="<c:url value="/resources/js/StockMoveNew/StockMoveNew.js" />"
+		type="text/javascript"></script>
 
-	<script>
+	<!-- <script>
 		$(function() {
 			$('#sandbox-container input').datepicker({
 				format : "dd/mm/yyyy"
@@ -227,6 +229,6 @@
 				
 			});
 		});
-	</script>
+	</script> -->
 </body>
 </html>
