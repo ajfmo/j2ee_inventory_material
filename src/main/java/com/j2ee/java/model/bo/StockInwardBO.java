@@ -15,4 +15,6 @@ public interface StockInwardBO {
 	public boolean updateStockInward(StockInward stockInward);
 
 	public boolean deleteStockInward(StockInward stockInward);
+	
+	public int getMaxStockInID();
 }

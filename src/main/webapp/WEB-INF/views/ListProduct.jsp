@@ -7,18 +7,17 @@
 
 <meta charset="utf-8">
 
-<title>Stock Inward</title>
+<title>Product &amp; Service</title>
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap.min.css" />"
 	type="text/css">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/StockInward/jquery-ui.css" />"
-	type="text/css">
+	href="<c:url value="/resources/css/bootstrap-dialog.css" />" type="text/css">
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/StockInward/stockInward.css" />"
-	type="text/css">
+	href="<c:url value="/resources/css/StockInward/jquery-ui.css" />"
+	type="text/css">	
 
 <!-- MetisMenu CSS -->
 <link rel="stylesheet"
@@ -33,6 +32,13 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
 	type="text/css">
+<link
+   href="//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css"
+   rel="stylesheet" type="text/css" />
+<link rel="stylesheet"
+    href="
+   <c:url value="/resources/css/ListProduct/listProduct.css" />"
+   type="text/css">
 
 <!-- JavaScript file -->
 <!-- Load JavaScript Libraries -->
@@ -43,18 +49,25 @@
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/jquery/jquery-ui.js" />"
 	type="text/javascript"></script>
+<script src="<c:url value="/resources/js/jquery/jquery.dataTables.js" />"
+	type="text/javascript">
+</script>
+<script src="<c:url value="/resources/js/jquery/dataTables.bootstrap.js" />"
+	type="text/javascript">
+</script>
 <script src="<c:url value="/resources/js/bootstrap-dialog.min.js" />"
-	type="text/javascript"></script>
-
+	type="text/javascript">
+</script>
+<script src="<c:url value="/resources/js/jquery/bootstrap-datepicker.js" />"
+	type="text/javascript">
+</script>
 <!-- Metis Menu Plugin JavaScript -->
 <script src="<c:url value="/resources/js/metisMenu.min.js" />"
 	type="text/javascript"></script>
-
+	
 <!-- Custom Theme JavaScript -->
 <script src="../dist/js/sb-admin-2.js"></script>
 <script src="<c:url value="/resources/js/sb-admin-2.js" />"
-	type="text/javascript"></script>
-<script src="<c:url value="/resources/js/StockInward/StockInward.js" />"
 	type="text/javascript"></script>
 </head>
 <body>
@@ -145,7 +158,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<!-- Include content of this page  -->
-					<jsp:include page="pages/StockInwardContent.jsp"></jsp:include>
+					<jsp:include page="pages/ListProductContent.jsp"></jsp:include>
 					<!-- Include content of this page  -->
 				</div>
 
@@ -161,34 +174,8 @@
 
 	</div>
 	<!-- /#wrapper -->
-	<script src="<c:url value="/resources/js/StockInward/StockInwardTable.js" />"
-		type="text/javascript"></script>
-	<script>
-		function loadData(count, i) {
-			var html = "<tr id='row_" + i + "'>";
-			html += "<td><input class='case' type='checkbox'/></td>";
-			html += "<td><span id='snum" + i + "'>" + count + ".</span></td>";
-			html += "<td><input readonly='readonly'readonly='readonly' type='text' data-type='productID' name='productID[]' id='productID_"+i+"' class='form-control searchID' autocomplete='off'></td>";
-			html += "<td><input type='text' data-type='productName' name='productName[]' id='productName_"+i+"' class='form-control searchName' autocomplete='off'></td>";
-			html += "<td>" + "<select id='stockID_"+i+"' class='form-control'>"
-					+ "<c:forEach var='item' items='${listStock}'>"
-					+ "<option value='<c:out value='${item.stockID}'>"
-					+ "</c:out>'><c:out value='${item.stockName}'>"
-					+ "</c:out></option></c:forEach>" + "</select>" + "</td>";
-			html += "<td><input readonly='readonly' type='text' data-type='unitName' name='unitName[]' id='unitName_"+i+"' class='form-control' autocomplete='off'></td>";
-			html += "<td><input readonly='readonly' type='text' name='price[]' id='price_"
-					+ i
-					+ "' class='form-control price' autocomplete='off' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;'></td>";
-			html += "<td><input type='text' name='quantity[]' id='quantity_"
-					+ i
-					+ "' class='form-control changesNo' autocomplete='off' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;'></td>";
-			html += "<td><input readonly='readonly' type='text' name='total[]' id='total_"
-					+ i
-					+ "' class='form-control totalLinePrice' autocomplete='off' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;'></td>";
-			html += "</tr>";
-
-			return html;
-		}
-	</script>
+<script
+src="<c:url value="/resources/js/ListProduct/listProduct.js"/>"type="text/javascript">
+</script>
 </body>
 </html>

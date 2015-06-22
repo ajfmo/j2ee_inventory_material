@@ -13,6 +13,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -25,16 +27,10 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.j2ee.java.model.bo.ProductBO;
-import com.j2ee.java.model.bo.ProductBOImpl;
 import com.j2ee.java.model.bo.ProviderBO;
-import com.j2ee.java.model.bo.ProviderBOImpl;
-import com.j2ee.java.model.bo.StaffBO;
 import com.j2ee.java.model.bo.StaffBOImpl;
 import com.j2ee.java.model.bo.StockBO;
-import com.j2ee.java.model.bo.StockBOImpl;
 import com.j2ee.java.model.bo.StockInwardBO;
-import com.j2ee.java.model.bo.StockInwardBOImpl;
-import com.j2ee.java.model.bo.StockInwardDetailBO;
 import com.j2ee.java.model.bo.StockInwardDetailBOImpl;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Provider;
@@ -45,12 +41,36 @@ import com.j2ee.java.model.dto.StockInwardDetail;
 
 @Controller
 public class StockInwardController {
-
+	
+	@Autowired
+	@Qualifier("StockBOImpl")
+	private StockBO stockBO;
+	
+	@Autowired
+	@Qualifier("ProviderBOImpl")
+	private ProviderBO providerBO;
+	
+	@Autowired
+	@Qualifier("ProductBOImpl")
+	private ProductBO productBO;
+	
+	@Autowired
+	@Qualifier("StockInwardBOImpl")
+	private StockInwardBO stockInwardBO;
+	
+	@Autowired
+	@Qualifier("StockInwardDetailBOImpl")
+	private StockInwardDetailBOImpl stockInDetailBO;
+	
+	@Autowired
+	@Qualifier("StaffBOImpl")
+	private StaffBOImpl staffBO;
+	
 	private static final Logger logger = LoggerFactory
 			.getLogger(StockInwardController.class);
 
 	private static final SimpleDateFormat formatterWeb = new SimpleDateFormat(
-			"YYYY/MM/DD");
+			"DD/MM/YYYY");
 	private static final SimpleDateFormat formatter = new SimpleDateFormat(
 			"YYYY-MM-DD");
 
@@ -58,13 +78,15 @@ public class StockInwardController {
 	@RequestMapping(value = "/StockInward")
 	public String stockInward(Model model) {
 		
-		StockBO stockBO = new StockBOImpl();
 		List<Stock> listStock = stockBO.getAllStock();
 		model.addAttribute("listStock", listStock);
 
-		ProviderBO providerBO = new ProviderBOImpl();
 		List<Provider> listProvider = providerBO.getAllProvider();
 		model.addAttribute("listProvider", listProvider);
+		
+		// get current max StockInward ID.
+		int maxStockIn = stockInwardBO.getMaxStockInID();
+		model.addAttribute("maxStockIn", (maxStockIn + 1));
 		
 		return "StockInward";
 	}
@@ -73,8 +95,7 @@ public class StockInwardController {
 	@RequestMapping(value = "/getProvider", method = RequestMethod.GET)
 	public @ResponseBody String getProvide() {
 		Gson gson = new Gson();
-
-		ProviderBO providerBO = new ProviderBOImpl();
+		
 		Provider listProvider = providerBO.getByID(1);
 
 		Type type = new TypeToken<Provider>() {
@@ -90,7 +111,7 @@ public class StockInwardController {
 	public @ResponseBody String getProduct() {
 		Gson gson = new Gson();
 		String data = "";
-		ProductBO productBO = new ProductBOImpl();
+		
 		List<Product> product = productBO.getAllProduct();
 		
 		Type type = new TypeToken<List<Product>>() {
@@ -124,15 +145,6 @@ public class StockInwardController {
 	public @ResponseBody String saveStockInward(HttpServletRequest request)
 			throws ParseException {
 
-		// StockInward BO
-		StockInwardBO stockInwardBO = new StockInwardBOImpl();
-		StockInwardDetailBO stockInDetailBO = new StockInwardDetailBOImpl();
-
-		ProviderBO providerBO = new ProviderBOImpl();
-		StaffBO staffBO = new StaffBOImpl();
-		ProductBO productBO = new ProductBOImpl();
-		StockBO stockBO = new StockBOImpl();
-
 		// get stock inward
 		String stockInward = request.getParameter("0");
 		JsonObject stockInwardObj = new Gson().fromJson(stockInward,
@@ -141,11 +153,6 @@ public class StockInwardController {
 		// Save value into database
 
 		StockInward stockIn = new StockInward();
-
-		// Get Provider Object
-		Provider provider = new Provider();
-		provider = providerBO.getByID(stockInwardObj.get("providerID")
-				.getAsInt());
 
 		// Get StaffID
 		Staff staff = new Staff();
@@ -162,7 +169,6 @@ public class StockInwardController {
 		int totalNumber = stockInwardObj.get("totalNumber").getAsInt();
 
 		// set value for StockInward
-		stockIn.setProviderID(provider);
 		stockIn.setStaffID(staff);
 		stockIn.setDate(formatter.parse(formatter.format(date)));
 		stockIn.setReason(reason);

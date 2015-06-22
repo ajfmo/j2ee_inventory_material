@@ -174,7 +174,7 @@ $(document).ready(function() {
 	});
 	
 	$('#cancel').on('click',function(){
-		BootstrapDialog.alert('I want banana!');
+		BootstrapDialog.alert('I want money!');
 	});
 });
 //total price calculation 

@@ -14,8 +14,8 @@ time, mark, audio, video {
 	margin: 0;
 	padding: 0;
 	border: 0;
-	font-size: 100%;
-	font: inherit;
+/*  	font-size: 15px; */
+/* 	font: inherit; */
 	vertical-align: baseline;
 }
 /* HTML5 display-role reset for older browsers */
@@ -71,8 +71,9 @@ body
 #packing
 {
     margin-left: -25px;
-    width: 967px;
+    width: 1070px;
 	font-family:Sitka Heading !important;
+	font-size: 15px;
 }
 
 #packing .contain
@@ -199,5 +200,7 @@ margin:0 15px;
 	border-right:solid 3px #555;
 }
 
-
+.dataTables_filter, .dataTables_info { 
+	display: none; 
+}
 

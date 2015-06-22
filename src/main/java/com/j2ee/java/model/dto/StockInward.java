@@ -30,10 +30,6 @@ public class StockInward {
 	private int inwardID;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "ProviderID")  
-	private Provider providerID;
-
-    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "StaffID")  
 	private Staff staffID;
 
@@ -49,6 +45,9 @@ public class StockInward {
 
 	@Column(name = "TotalNumber")
 	private int totalNumber;
+	
+	@Column(name = "Note")
+	private String note;
 
 	@OneToMany(mappedBy = "inwardID")
 	private transient Set<StockInwardDetail> stockInStockInDetail = new HashSet<StockInwardDetail>();
@@ -70,15 +69,15 @@ public class StockInward {
 	 * @param totalNumber
 	 */
 	public StockInward(int inwardID, Provider providerID, Staff staffID, Date date,
-			String reason, BigDecimal totalAmount, int totalNumber) {
+			String reason, BigDecimal totalAmount, int totalNumber, String note) {
 		super();
 		this.inwardID = inwardID;
-		this.providerID = providerID;
 		this.staffID = staffID;
 		this.date = date;
 		this.reason = reason;
 		this.totalAmount = totalAmount;
 		this.totalNumber = totalNumber;
+		this.note = note;
 	}
 
 	/**
@@ -94,21 +93,6 @@ public class StockInward {
 	 */
 	public void setInwardID(int inwardID) {
 		this.inwardID = inwardID;
-	}
-
-	/**
-	 * @return the providerID
-	 */
-	public Provider getProviderID() {
-		return providerID;
-	}
-
-	/**
-	 * @param providerID
-	 *            the providerID to set
-	 */
-	public void setProviderID(Provider providerID) {
-		this.providerID = providerID;
 	}
 
 	/**
@@ -194,4 +178,11 @@ public class StockInward {
 		this.stockInStockInDetail = stockInStockInDetail;
 	}
 	
+	public String getNote() {
+		return note;
+	}
+
+	public void setNote(String note) {
+		this.note = note;
+	}
 }

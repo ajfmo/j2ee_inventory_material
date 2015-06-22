@@ -24,9 +24,8 @@ $(document).ready(function() {
     var month = date.getMonth()+1;
     var day = date.getDate();
 
-    var output = date.getFullYear() + '/' +
-        ((''+month).length<2 ? '0' : '') + month + '/' +
-        ((''+day).length<2 ? '0' : '') + day;
+    var output = ((''+month).length<2 ? '0' : '') + month + '/' + ((''+day).length<2 ? '0' : '') + day + '/' + date.getFullYear()
+        ;
     
     $('#ngayNhap').val(output);
 });

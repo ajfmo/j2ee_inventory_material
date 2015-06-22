@@ -14,10 +14,7 @@
                   <label for="buildProductID">Build ID</label>
                   <input type="text" class="form-control" id="buildProductID" placeholder="Build ID">
                   <label for="staffName">Staff ID</label>
-                  <select class="form-control">
-                     <option value="ma_nhanvien">Mr Bo</option>
-                     <option value="ma_nhanvien">Mr C</option>
-                  </select>
+                  <input type="text" disabled="disabled" class="form-control" id="staffID" placeholder="staffID">
                </div>
             </div>
             <div class="row" id="row2">
@@ -49,15 +46,15 @@
                </tr>
                <tr>
                   <td>Quantity</td>
-                  <td><input type="number" class="form-control" placeholder="Quantity"></td>
+                  <td><input type="number" onkeypress="return IsNumeric(event);" class="form-control" id="quantity" min="1" max="20" step="1"></td>
                </tr>
                <tr>
                   <td>Unit Price</td>
-                  <td><input type="number" class="form-control" placeholder="Unit Price" disabled="disabled"></td>
+                  <td><input type="number" class="form-control" id="unitPrice" disabled="disabled"></td>
                </tr>
                <tr>
                   <td>SubTotal</td>
-                  <td><input type="number" class="form-control" placeholder="SubTotal" disabled="disabled"></td>
+                  <td><input type="number" class="form-control" id="subTotal" disabled="disabled"></td>
                </tr>
                <tr>
                   <td>To Stock</td>

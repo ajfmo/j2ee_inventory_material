@@ -48,9 +48,6 @@ public class Provider {
 	private String description;
 	
 	@OneToMany(mappedBy = "providerID")
-	private transient Set<StockInward> providerStockInward = new HashSet<StockInward>();
-	
-	@OneToMany(mappedBy = "providerID")
 	private transient Set<Product> providerProduct = new HashSet<Product>();
 	/**
 	 * 
@@ -164,14 +161,6 @@ public class Provider {
 	 */
 	public void setDescription(String description) {
 		this.description = description;
-	}
-
-	public Set<StockInward> getProviderStockInward() {
-		return providerStockInward;
-	}
-
-	public void setProviderStockInward(Set<StockInward> providerStockInward) {
-		this.providerStockInward = providerStockInward;
 	}
 
 	public Set<Product> getProviderProduct() {
