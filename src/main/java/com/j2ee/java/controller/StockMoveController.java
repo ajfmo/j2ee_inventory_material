@@ -4,7 +4,6 @@
 package com.j2ee.java.controller;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -24,9 +23,8 @@ import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.StaffBO;
 import com.j2ee.java.model.bo.StockBO;
 import com.j2ee.java.model.bo.StockTransferBO;
+import com.j2ee.java.model.bo.Utils;
 import com.j2ee.java.model.dto.Product;
-import com.j2ee.java.model.dto.ReferenceType;
-import com.j2ee.java.model.dto.Staff;
 import com.j2ee.java.model.dto.Stock;
 import com.j2ee.java.model.dto.StockTransfer;
 
@@ -49,7 +47,7 @@ public class StockMoveController {
 	@Autowired
 	@Qualifier("StockBOImpl")
 	private StockBO stockBO;
-	
+
 	@Autowired
 	@Qualifier("StaffBOImpl")
 	private StaffBO staffBO;
@@ -63,6 +61,12 @@ public class StockMoveController {
 	// NewStockMoveBill -- StockMoveNew
 	@RequestMapping(value = "/NewStockMoveBill")
 	public String newStockMoveBill(Model model) {
+
+		// get latest stock transfer id
+		int lastestID = stockTransferBO.getLastestBillID();
+
+		// set to model attribute, after increase this ID
+		model.addAttribute("lastestID", lastestID + 1);
 
 		// get list product
 		List<Product> listProducts = productBO.getAllProduct();
@@ -81,7 +85,54 @@ public class StockMoveController {
 
 	// processLater -- StockMoveWaiting
 	@RequestMapping(value = "/processLater")
-	public String processLater(Model model) {
+	public @ResponseBody String processLater(HttpServletRequest req) {
+
+		// get stock move
+		String stockMove = req.getParameter("0");
+		JsonObject stockMoveObj = new Gson().fromJson(stockMove,
+				JsonObject.class);
+
+		// get latest stock transfer id from form
+		int latestIDFromForm = stockMoveObj.get("latestID").getAsInt();
+
+		if (latestIDFromForm <= 0) {
+			return "{\"result\" : \"0\"}";
+		}
+
+		// check if have this stock transfer id in database
+		// get latest stock transfer id from database
+		int latestIDFromData = stockTransferBO.getLastestBillID();
+
+		// save data to database
+		if (latestIDFromData != latestIDFromForm) {
+
+			// if didn't have:
+			// create a stockTransfer object from request, with status is
+			// Waiting Available (2)
+			StockTransfer stTranfer = createStockTransferDTOObject(req, 2);
+			if (stockTransferBO.insertStockTransfer(stTranfer)) {
+				return "{\"result\" : \"1\"}";
+			} else {
+				return "{\"result\" : \"0\"}";
+			}
+		} else {
+
+			// if had: update status of stock transfer bill to: Waiting
+			StockTransfer stTranfer = stockTransferBO.getByID(latestIDFromForm);
+			stTranfer.setStatusID(2); // 2 == Waiting Available
+			if (stockTransferBO.updateStockTransfer(stTranfer)) {
+				return "{\"result\" : \"1\"}";
+			} else {
+				return "{\"result\" : \"0\"}";
+			}
+		}
+
+	}
+
+	// navigate -- StockMoveWaiting
+	// TO-DO: set values of selects, quantity, date,... same as database
+	@RequestMapping(value = "/stockMoveWaiting")
+	public String stockMoveWaiting(Model model) {
 
 		// get list product
 		List<Product> listProducts = productBO.getAllProduct();
@@ -96,6 +147,7 @@ public class StockMoveController {
 		model.addAttribute("listStocks", listStocks);
 
 		return "StockMoveWaiting";
+
 	}
 
 	// checkAvailable -- StockMoveAvailable
@@ -138,68 +190,93 @@ public class StockMoveController {
 
 	// saveNewStockMove Bill
 	@RequestMapping(value = "/saveNewStockMove")
-	public @ResponseBody String saveNewStockMove(HttpServletRequest req,
-			HttpSession session) {
+	public @ResponseBody String saveNewStockMove(HttpServletRequest req) {
 
-		String productID = req.getParameter("product");
-		String expectedDay = req.getParameter("expectedDay");
-		String quantity = req.getParameter("quantity");
-		String priority = req.getParameter("priority");
-		String fromStockID = req.getParameter("fromStock");
-		String toStockID = req.getParameter("toStock");
-		String description = req.getParameter("description");
+		// create a stockTransfer object from request, with status is New (1)
+		StockTransfer stTranfer = createStockTransferDTOObject(req, 1);
 
 		// get stock move
 		String stockMove = req.getParameter("0");
 		JsonObject stockMoveObj = new Gson().fromJson(stockMove,
 				JsonObject.class);
 
-		//save data to database
-		//get staff object
-		Staff staff = new Staff();
-		
+		// get latest stock transfer id from form
+		int latestIDFromForm = stockMoveObj.get("latestID").getAsInt();
+
+		// get latest stock transfer id from database
+		int latestIDFromData = stockTransferBO.getLastestBillID();
+
+		// save data to database
+		if (latestIDFromData != latestIDFromForm) {
+			if (stockTransferBO.insertStockTransfer(stTranfer)) {
+				return "{\"result\" : \"1\"}";
+			}
+		} else {
+			stTranfer.setTransferID(latestIDFromData);
+			if (stockTransferBO.updateStockTransfer(stTranfer)) {
+				return "{\"result\" : \"2\"}";
+			}
+		}
+
+		return "{\"result\" : \"0\"}";
+	}
+
+	private StockTransfer createStockTransferDTOObject(HttpServletRequest req,
+			int statusID) {
+
 		StockTransfer stTranfer = new StockTransfer();
 
-		//Staff staff = new Staff();
-		//staff.setStaffID((int) session.getAttribute("staffID"));
+		// get stock move
+		String stockMove = req.getParameter("0");
+		JsonObject stockMoveObj = new Gson().fromJson(stockMove,
+				JsonObject.class);
 
-		stTranfer.setStaffID(staff);
+		// get staff object
+		/*
+		 * Staff staff = new Staff(); int staffID = (int)
+		 * session.getAttribute("staffIDSession"); staff = staffBO.getByID(1);
+		 * stTranfer.setStaffID(staff);
+		 */
 
-		ReferenceType refType = new ReferenceType();
-		refType.setRefTypeID(10); // 10 mean New
+		// get Reference Type
+		stTranfer.setStatusID(statusID);
 
-		stTranfer.setStatusID(refType);
-
+		// get Product
 		Product product = new Product();
-		product.setProductID(Integer.parseInt(productID.split(":")[0]));
-
+		product = productBO.getByID(Integer.parseInt(stockMoveObj
+				.get("product").getAsString().split(":")[0]));
 		stTranfer.setProductID(product);
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+
+		// get expected day
 		try {
-			stTranfer.setExpectedDate(sdf.parse(expectedDay));
+			stTranfer.setExpectedDate(Utils.DATE_FORMATTER_WEB
+					.parse(stockMoveObj.get("expectedDay").getAsString()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		stTranfer.setQuantity(Integer.parseInt(quantity));
-		stTranfer.setPriority(stockTransferBO.getPriorityID(priority));
 
+		// get quantity
+		stTranfer.setQuantity(stockMoveObj.get("quantity").getAsInt());
+
+		// get priority
+		stTranfer.setPriority(stockTransferBO.getPriorityID(stockMoveObj.get(
+				"priority").getAsString()));
+
+		// get from stock
 		Stock fromStock = new Stock();
-		fromStock.setStockID(Integer.parseInt(fromStockID.split(":")[0]));
-
+		fromStock = stockBO.getByID(Integer.parseInt(stockMoveObj
+				.get("fromStock").getAsString().split(":")[0]));
 		stTranfer.setFromStock(fromStock);
 
+		// get to stock
 		Stock toStock = new Stock();
-		toStock.setStockID(Integer.parseInt(toStockID.split(":")[0]));
-
+		toStock = stockBO.getByID(Integer.parseInt(stockMoveObj.get("toStock")
+				.getAsString().split(":")[0]));
 		stTranfer.setToStock(toStock);
-		stTranfer.setDescription(description);
 
-		if (stockTransferBO.insertStockInward(stTranfer)) {
-			return "{\"result\" : \"1\"}";
-		}
+		// get description
+		stTranfer.setDescription(stockMoveObj.get("description").getAsString());
 
-		// System.out.println(product + ": " + quantity);
-
-		return "{\"result\" : \"0\"}";
+		return stTranfer;
 	}
 }

@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Entity
-@Table(name="regulation")
+@Table(name="RegulationConfig")
 public class Regulation {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="id")
-	private int id;
+	@Column(name="RegulationID")
+	private int regulationID;
 	
-	@Column(name="key")
+	@Column(name="Key")
 	private String key;
 	
-	@Column(name="value")
+	@Column(name="Value")
 	private String value;
 	/**
 	 * 
@@ -37,7 +37,7 @@ public class Regulation {
 	 */
 	public Regulation(int id, String key, String value) {
 		super();
-		this.id = id;
+		this.regulationID = id;
 		this.key = key;
 		this.value = value;
 	}
@@ -45,13 +45,13 @@ public class Regulation {
 	 * @return the id
 	 */
 	public int getId() {
-		return id;
+		return regulationID;
 	}
 	/**
 	 * @param id the id to set
 	 */
 	public void setId(int id) {
-		this.id = id;
+		this.regulationID = id;
 	}
 	/**
 	 * @return the key

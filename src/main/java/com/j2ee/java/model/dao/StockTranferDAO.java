@@ -15,12 +15,14 @@ import com.j2ee.java.model.dto.StockTransfer;
 public interface StockTranferDAO {
 	
 	public StockTransfer getByID(int id);
+	
+	public int getLastestBillID();
 
-	public List<StockTransfer> getAllStockInward();
+	public List<StockTransfer> getAllStockTransfer();
 
-	public boolean insertStockInward(StockTransfer stockTransfer);
+	public boolean insertStockTransfer(StockTransfer stockTransfer);
 
-	public boolean updateStockInward(StockTransfer stockTransfer);
+	public boolean updateStockTransfer(StockTransfer stockTransfer);
 
-	public boolean deleteStockInward(StockTransfer stockTransfer);
+	public boolean deleteStockTransfer(StockTransfer stockTransfer);
 }

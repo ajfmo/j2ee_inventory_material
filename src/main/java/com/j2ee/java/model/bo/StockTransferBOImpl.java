@@ -53,7 +53,7 @@ public class StockTransferBOImpl implements StockTransferBO {
 	}
 	
 	@Override
-	public List<StockTransfer> getAllStockInward() {
+	public List<StockTransfer> getAllStockTransfer() {
 
 		List<StockTransfer> listStockTransfer = new ArrayList<StockTransfer>();
 		Transaction tx = null;
@@ -61,7 +61,7 @@ public class StockTransferBOImpl implements StockTransferBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listStockTransfer = stockTransferDAO.getAllStockInward();
+			listStockTransfer = stockTransferDAO.getAllStockTransfer();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -75,7 +75,7 @@ public class StockTransferBOImpl implements StockTransferBO {
 	}
 
 	@Override
-	public boolean insertStockInward(StockTransfer stockTransfer) {
+	public boolean insertStockTransfer(StockTransfer stockTransfer) {
 
 		boolean result = false;
 		Transaction tx = null;
@@ -83,7 +83,7 @@ public class StockTransferBOImpl implements StockTransferBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockTransferDAO.insertStockInward(stockTransfer);
+			result = stockTransferDAO.insertStockTransfer(stockTransfer);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -98,7 +98,7 @@ public class StockTransferBOImpl implements StockTransferBO {
 	}
 
 	@Override
-	public boolean updateStockInward(StockTransfer stockTransfer) {
+	public boolean updateStockTransfer(StockTransfer stockTransfer) {
 
 		boolean result = false;
 		Transaction tx = null;
@@ -106,13 +106,14 @@ public class StockTransferBOImpl implements StockTransferBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockTransferDAO.updateStockInward(stockTransfer);
+			result = stockTransferDAO.updateStockTransfer(stockTransfer);
 			
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
+				result = false;
 			}
 			logger.error("Error", ex);
 		}
@@ -120,7 +121,7 @@ public class StockTransferBOImpl implements StockTransferBO {
 	}
 
 	@Override
-	public boolean deleteStockInward(StockTransfer stockTransfer) {
+	public boolean deleteStockTransfer(StockTransfer stockTransfer) {
 
 		boolean result = false;
 		Transaction tx = null;
@@ -128,7 +129,7 @@ public class StockTransferBOImpl implements StockTransferBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockTransferDAO.deleteStockInward(stockTransfer);
+			result = stockTransferDAO.deleteStockTransfer(stockTransfer);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -158,6 +159,88 @@ public class StockTransferBOImpl implements StockTransferBO {
 			result = 1;
 		}
 		
+		return result;
+	}
+
+	@Override
+	public String getPriorityString(int ID) {
+		
+		String result = "";
+		if(ID == 4){
+			result = "Urgent";
+		}
+		if(ID == 3){
+			result = "High";
+		}
+		if(ID == 2){
+			result = "Normal";
+		}
+		if(ID == 1){
+			result = "Low";
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int getStatusID(String status) {
+
+		int result = 0;
+		if("Done".equals(status)){
+			result = 4;
+		}
+		if("Available".equals(status)){
+			result = 3;
+		}
+		if("Waiting Available".equals(status)){
+			result = 2;
+		}
+		if("New".equals(status)){
+			result = 1;
+		}
+		
+		return result;
+	}
+
+	@Override
+	public String getStatusString(int ID) {
+		String result = "";
+		if(ID == 4){
+			result = "Done";
+		}
+		if(ID == 3){
+			result = "Available";
+		}
+		if(ID == 2){
+			result = "Waiting Available";
+		}
+		if(ID == 1){
+			result = "New";
+		}
+		
+		return result;
+	}
+
+	@Override
+	public int getLastestBillID() {
+
+		int result = 0;
+		Transaction tx = null;
+		try {
+			tx = HibernateUtil.getSessionFactory().getCurrentSession()
+					.beginTransaction();
+
+			result = stockTransferDAO.getLastestBillID();
+			
+			tx.commit();
+		} catch (Exception ex) {
+			// TODO: handle exception
+			if (tx != null) {
+				tx.rollback();
+			}
+			logger.error("Error", ex);
+			ex.printStackTrace();
+		}
 		return result;
 	}
 

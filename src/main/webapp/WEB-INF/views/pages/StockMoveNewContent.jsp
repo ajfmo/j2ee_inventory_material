@@ -13,7 +13,7 @@
 		<div class="col-lg-6">
 			<a class="btn btn-primary" id="btnEdit">Edit</a> <a
 				class="btn btn-success" id="btnSave">Save</a> <a
-				class="btn btn-primary" href="processLater">Process Later</a> <a
+				class="btn btn-primary" id="btnProcessLater">Process Later</a> <a
 				class="btn btn-primary" href="processAll">Process Entirely</a> <a
 				class="btn btn-danger">Cancel Move</a>
 		</div>
@@ -25,6 +25,7 @@
 					<li><a href="#">Done</a></li>
 				</ul>
 		</div>
+		<input value=${lastestID } id="latestID" style="display: none;">
 	</div>
 </div>
 <jsp:include page="StockMoveInputField.jsp"></jsp:include>

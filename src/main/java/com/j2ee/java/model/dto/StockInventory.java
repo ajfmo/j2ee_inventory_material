@@ -33,10 +33,6 @@ public class StockInventory {
 	@Column(name="InventoryID")
 	private int inventoryID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "RefID")  
-	private ReferenceType refID;
-	
 	@Column(name="Date")
 	@Temporal(TemporalType.DATE)
 	private Date date;
@@ -74,11 +70,10 @@ public class StockInventory {
 	 * @param price
 	 * @param amount
 	 */
-	public StockInventory(int inventoryID, ReferenceType refID, Date date, Product productID,
+	public StockInventory(int inventoryID, Date date, Product productID,
 			Stock stockID, int quantity, BigDecimal price, BigDecimal amount) {
 		super();
 		this.inventoryID = inventoryID;
-		this.refID = refID;
 		this.date = date;
 		this.productID = productID;
 		this.stockID = stockID;
@@ -97,18 +92,6 @@ public class StockInventory {
 	 */
 	public void setInventoryID(int inventoryID) {
 		this.inventoryID = inventoryID;
-	}
-	/**
-	 * @return the refID
-	 */
-	public ReferenceType getRefID() {
-		return refID;
-	}
-	/**
-	 * @param refID the refID to set
-	 */
-	public void setRefID(ReferenceType refID) {
-		this.refID = refID;
 	}
 	/**
 	 * @return the date

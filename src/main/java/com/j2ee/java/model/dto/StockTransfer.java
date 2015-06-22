@@ -44,10 +44,6 @@ public class StockTransfer {
 	@Temporal(TemporalType.DATE)
 	private Date expectedDate;
 
-	@ManyToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "StatusID")
-	private ReferenceType statusID;
-
 	@Column(name = "Quantity")
 	private int quantity;
 
@@ -61,6 +57,9 @@ public class StockTransfer {
 
 	@Column(name = "Priority")
 	private int priority;
+	
+	@Column(name = "StatusID")
+	private int statusID; 
 
 	@Column(name = "Description")
 	private String description;
@@ -133,14 +132,6 @@ public class StockTransfer {
 		this.expectedDate = expectedDate;
 	}
 
-	public ReferenceType getStatusID() {
-		return statusID;
-	}
-
-	public void setStatusID(ReferenceType statusID) {
-		this.statusID = statusID;
-	}
-
 	public int getQuantity() {
 		return quantity;
 	}
@@ -179,6 +170,14 @@ public class StockTransfer {
 
 	public void setDescription(String description) {
 		this.description = description;
+	}
+
+	public int getStatusID() {
+		return statusID;
+	}
+
+	public void setStatusID(int statusID) {
+		this.statusID = statusID;
 	}
 
 }

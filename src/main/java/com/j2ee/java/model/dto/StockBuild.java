@@ -39,10 +39,7 @@ public class StockBuild {
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "ProductID")
 	private Product productID;
-	
-    @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "RefTypeID")
-	private ReferenceType refTypeID;
+
 	
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "StaffID")
@@ -80,13 +77,12 @@ public class StockBuild {
 	 * @param reason
 	 * @param buildDate
 	 */
-	public StockBuild(int buildID, Product productID, ReferenceType refTypeID, Staff staffID,
+	public StockBuild(int buildID, Product productID, Staff staffID,
 			BigDecimal totalAmount, int totalQuantity, String reason,
 			Date buildDate) {
 		super();
 		this.buildID = buildID;
 		this.productID = productID;
-		this.refTypeID = refTypeID;
 		this.staffID = staffID;
 		this.totalAmount = totalAmount;
 		this.totalQuantity = totalQuantity;
@@ -117,18 +113,7 @@ public class StockBuild {
 	public void setProductID(Product productID) {
 		this.productID = productID;
 	}
-	/**
-	 * @return the refTypeID
-	 */
-	public ReferenceType getRefTypeID() {
-		return refTypeID;
-	}
-	/**
-	 * @param refTypeID the refTypeID to set
-	 */
-	public void setRefTypeID(ReferenceType refTypeID) {
-		this.refTypeID = refTypeID;
-	}
+
 	/**
 	 * @return the staffID
 	 */
