@@ -30,12 +30,15 @@ import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.ProviderBO;
 import com.j2ee.java.model.bo.StaffBOImpl;
 import com.j2ee.java.model.bo.StockBO;
+import com.j2ee.java.model.bo.StockInventoryBOImpl;
 import com.j2ee.java.model.bo.StockInwardBO;
+import com.j2ee.java.model.bo.StockInwardBOImpl;
 import com.j2ee.java.model.bo.StockInwardDetailBOImpl;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Provider;
 import com.j2ee.java.model.dto.Staff;
 import com.j2ee.java.model.dto.Stock;
+import com.j2ee.java.model.dto.StockInventory;
 import com.j2ee.java.model.dto.StockInward;
 import com.j2ee.java.model.dto.StockInwardDetail;
 
@@ -59,20 +62,28 @@ public class StockInwardController {
 	private StockInwardBO stockInwardBO;
 	
 	@Autowired
-	@Qualifier("StockInwardDetailBOImpl")
-	private StockInwardDetailBOImpl stockInDetailBO;
+	@Qualifier("StockInventoryBOImpl")
+	private StockInventoryBOImpl stockInventoryBO;
 	
 	@Autowired
 	@Qualifier("StaffBOImpl")
 	private StaffBOImpl staffBO;
 	
+	@Autowired
+	@Qualifier("StockInwardBOImpl")
+	private StockInwardBOImpl stockInBOImpl;
+	
+	@Autowired
+	@Qualifier("StockInwardDetailBOImpl")
+	private StockInwardDetailBOImpl stockInDetailBO;
+	
 	private static final Logger logger = LoggerFactory
 			.getLogger(StockInwardController.class);
 
 	private static final SimpleDateFormat formatterWeb = new SimpleDateFormat(
-			"DD/MM/YYYY");
+			"MM/dd/yyyy");
 	private static final SimpleDateFormat formatter = new SimpleDateFormat(
-			"YYYY-MM-DD");
+			"yyyy-MM-dd");
 
 	// return page of function StockInward
 	@RequestMapping(value = "/StockInward")
@@ -87,6 +98,19 @@ public class StockInwardController {
 		// get current max StockInward ID.
 		int maxStockIn = stockInwardBO.getMaxStockInID();
 		model.addAttribute("maxStockIn", (maxStockIn + 1));
+		
+		
+		// TODO demo for get inventory
+//		List<Object[]> listTe = stockInventoryBO.getAllStockInventory();
+//		
+//		Iterator<Object[]> itr = listTe.iterator();
+//		while(itr.hasNext()){
+//		   Object[] obj = (Object[]) itr.next();
+//		   
+//		   String proID = String.valueOf(obj[0]); 
+//		   String stocID = String.valueOf(obj[1]);
+//		   long totalQ = Long.valueOf(obj[2].toString());
+//		}
 		
 		return "StockInward";
 	}
@@ -145,6 +169,8 @@ public class StockInwardController {
 	public @ResponseBody String saveStockInward(HttpServletRequest request)
 			throws ParseException {
 
+		String response = "";
+		
 		// get stock inward
 		String stockInward = request.getParameter("0");
 		JsonObject stockInwardObj = new Gson().fromJson(stockInward,
@@ -159,11 +185,10 @@ public class StockInwardController {
 		staff = staffBO.getByID(stockInwardObj.get("staffID").getAsInt());
 
 		String dateFormat = stockInwardObj.get("date").getAsString();
-		logger.info("dateFormat " + dateFormat);
-
 		Date date = formatterWeb.parse(dateFormat);
 
 		String reason = stockInwardObj.get("reason").getAsString();
+		String note = stockInwardObj.get("note").getAsString();
 		BigDecimal totalAmount = new BigDecimal(stockInwardObj
 				.get("totalMoney").getAsFloat());
 		int totalNumber = stockInwardObj.get("totalNumber").getAsInt();
@@ -172,6 +197,7 @@ public class StockInwardController {
 		stockIn.setStaffID(staff);
 		stockIn.setDate(formatter.parse(formatter.format(date)));
 		stockIn.setReason(reason);
+		stockIn.setNote(note);
 		stockIn.setTotalAmount(totalAmount);
 		stockIn.setTotalNumber(totalNumber);
 
@@ -181,41 +207,50 @@ public class StockInwardController {
 		String stockInwardDetail = request.getParameter("1");
 		JsonArray stockInwardDetailObj = (JsonArray) new Gson().fromJson(
 				stockInwardDetail, JsonArray.class);
+		
 		Iterator<JsonElement> it = stockInwardDetailObj.iterator();
-		List<JsonObject> list = new ArrayList<JsonObject>();
+		List<JsonObject> listStockInwardDetail = new ArrayList<JsonObject>();
 		while (it.hasNext()) {
-			JsonObject cat = it.next().getAsJsonObject();
-			if (!cat.toString().equals("{}")) {
-				list.add(cat);
+			JsonObject item = it.next().getAsJsonObject();
+			if (!item.toString().equals("{}")) {
+				listStockInwardDetail.add(item);
 			}
 		}
 
 		// get StockInwardDetail and save to database
 
-		for (JsonObject jsonObject : list) {
+		for (JsonObject jsonObject : listStockInwardDetail) {
+			// Save to StockInwarDetail
 			StockInwardDetail stockInDetail = new StockInwardDetail();
 
 			stockInDetail.setInwardID(stockIn);
-
 			Product product = new Product();
 			product = productBO.getByID(jsonObject.get("productID").getAsInt());
 			stockInDetail.setProductID(product);
-
+			
 			Stock stock = new Stock();
 			stock = stockBO.getByID(jsonObject.get("stockID").getAsInt());
 			stockInDetail.setStockID(stock);
 			// get Price and Amount
-
 			stockInDetail.setNumber(jsonObject.get("quantity").getAsInt());
 			stockInDetail.setPrice(product.getOrgPrice());
 			BigDecimal amount = BigDecimal.ZERO;
 			amount = product.getOrgPrice().multiply(
 					new BigDecimal(stockInDetail.getNumber()));
 			stockInDetail.setAmount(amount);
-
 			stockInDetailBO.insertStockInwardDetail(stockInDetail);
+			
+			// Save to StockInventory
+			StockInventory sInventory = new StockInventory();
+			sInventory.setDate(formatter.parse(formatter.format(date)));
+			sInventory.setProductID(product);
+			sInventory.setStockID(stock);
+			sInventory.setQuantity(jsonObject.get("quantity").getAsInt());
+			sInventory.setPrice(product.getOrgPrice());
+			sInventory.setAmount(amount);
+			stockInventoryBO.insertStockInventory(sInventory);
 		}
-
-		return null;
+		response = "{\"ID\": \"1\"}";
+		return response;
 	}
 }

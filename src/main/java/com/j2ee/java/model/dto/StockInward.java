@@ -29,7 +29,7 @@ public class StockInward {
 	@Column(name = "InwardID")
 	private int inwardID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StaffID")  
 	private Staff staffID;
 

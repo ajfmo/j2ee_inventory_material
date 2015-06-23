@@ -127,6 +127,7 @@ $(document).ready(function() {
 		var reason = $('#reason').val();
 		var totalAmount = $('#totalNumber').val();
 		var totalMoney = $('#totalMoney').val();
+		var note = $('#note').val();
 		
 		var stockInward = {
 			"providerID" : providerID,
@@ -134,7 +135,8 @@ $(document).ready(function() {
 			"date" : date,
 			"reason" : reason,
 			"totalNumber" : totalAmount,
-			"totalMoney" : totalMoney
+			"totalMoney" : totalMoney,
+			"note" : note
 		};
 		
 		var TableData = new Array();
@@ -150,8 +152,6 @@ $(document).ready(function() {
 		    }
 			idx++;
 		});
-		//TableData.shift();  // first row is the table header - so remove
-		//alert(TableData);
 		
 		// call ajax to save data
 		var data = {};
@@ -163,7 +163,35 @@ $(document).ready(function() {
             dataType: 'json',
             data: data,
             success: function(response) {
-                
+            	// Check if response is success.
+				if(response.ID == 1){
+					var dialog = new BootstrapDialog({
+		                type: BootstrapDialog.TYPE_SUCCESS,
+		                title: 'Successful Message',
+		                message: 'Save bill successful!',
+		                buttons: [{
+		                    id: 'btn-ok',
+		                    label: 'OK'
+		                }]
+		            });     
+					dialog.realize();
+					var btnOk = dialog.getButton('btn-ok');
+					btnOk.click(function(event){
+						location.reload(true);
+			        });
+					dialog.open();
+				}
+				else {
+					BootstrapDialog.show({
+		                type: BootstrapDialog.TYPE_DANGER,
+		                title: 'Danger Message',
+		                message: 'Have problem! Please try later!',
+		                buttons: [{
+		                    id: 'btn-cancel',
+		                    label: 'CANCEL'
+		                }]
+		            });   
+				}
             },
             error : function(xhr, status){
                 console.log(status);
@@ -176,6 +204,11 @@ $(document).ready(function() {
 	$('#cancel').on('click',function(){
 		BootstrapDialog.alert('I want money!');
 	});
+	
+	$('#createNew').on('click',function(){
+		location.reload(true);
+	});
+	
 });
 //total price calculation 
 function calculateTotal(){

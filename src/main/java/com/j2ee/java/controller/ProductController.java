@@ -1,7 +1,9 @@
 package com.j2ee.java.controller;
 
 import java.lang.reflect.Type;
+import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 
@@ -17,10 +19,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.JsonArray;
 import com.google.gson.Gson;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.j2ee.java.model.bo.ProductBO;
+import com.j2ee.java.model.bo.ProductComponentBO;
 import com.j2ee.java.model.dto.Product;
+import com.j2ee.java.model.dto.ProductComponent;
 
 @Controller
 public class ProductController {
@@ -30,6 +37,10 @@ public class ProductController {
 	@Autowired
 	@Qualifier("ProductBOImpl")
 	private ProductBO productBO;
+	
+	@Autowired
+	@Qualifier("ProductComponentBOImpl")
+	private ProductComponentBO productCompoBO;
 	
 	@RequestMapping(value = "/getProductInfor", method = RequestMethod.POST)
 	public final @ResponseBody String getProduct(HttpServletRequest request) {
@@ -69,10 +80,54 @@ public class ProductController {
 		return jsonProduct;
 	}
 	
+	// open page Create Component for Product
 	@RequestMapping(value = "/createComponent", method = RequestMethod.GET)
 	public String createComponent(Locale locale, Model model) {
 		logger.info("Display form add component information");
 		
 		return "Component";
+	}
+	
+	// Save Component for Product
+	@RequestMapping(value = "/saveProductComponent", method = RequestMethod.POST)
+	public @ResponseBody String saveProductComponent(HttpServletRequest request) {
+		
+		// get stock inward
+		String ajaxData = request.getParameter("0");
+		JsonArray productComponentObj = (JsonArray) new Gson().fromJson(
+				ajaxData, JsonArray.class);
+		
+		Iterator<JsonElement> it = productComponentObj.iterator();
+		List<JsonObject> listProCompo = new ArrayList<JsonObject>();
+		while (it.hasNext()) {
+			JsonObject item = it.next().getAsJsonObject();
+			if (!item.toString().equals("{}")) {
+				listProCompo.add(item);
+			}
+		}
+		
+		for (JsonObject jsonObject : listProCompo) {
+			
+			Product product = new Product();
+			product.setProductID(jsonObject.get("productID").getAsInt());
+			
+			Product component = new Product();
+			component.setProductID(jsonObject.get("componentID").getAsInt());
+			
+			BigDecimal unitPrice = BigDecimal.ZERO;
+			unitPrice = jsonObject.get("unitPrice").getAsBigDecimal();
+			
+			ProductComponent productCompo = new ProductComponent();
+			productCompo.setProductID(product);
+			productCompo.setComponentID(component);
+			productCompo.setQuantity(jsonObject.get("quantity").getAsInt());
+			productCompo.setUnitPrice(unitPrice);
+			productCompo.setTotal(unitPrice.multiply(new BigDecimal(productCompo.getQuantity())));
+			
+			productCompoBO.insertProductComponent(productCompo);
+		}
+		
+		String response = "{\"ID\": \"1\"}";
+		return response;
 	}
 }

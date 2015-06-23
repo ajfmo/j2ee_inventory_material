@@ -46,7 +46,7 @@ public class StockOutward {
 	@Column(name = "CustomerID")
 	private int customerID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StaffID")  
 	private Staff staffID;
 

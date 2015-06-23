@@ -37,11 +37,11 @@ public class StockInventory {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ProductID")  
 	private Product productID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StockID") 
 	private Stock stockID;
 	
@@ -53,6 +53,8 @@ public class StockInventory {
 	
 	@Column(name="Amount")
 	private BigDecimal amount;
+	
+	private int totalQuantity;
 	/**
 	 * 
 	 */
@@ -164,6 +166,12 @@ public class StockInventory {
 	 */
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+	public int getTotalQuantity() {
+		return totalQuantity;
+	}
+	public void setTotalQuantity(int totalQuantity) {
+		this.totalQuantity = totalQuantity;
 	}
 	
 }

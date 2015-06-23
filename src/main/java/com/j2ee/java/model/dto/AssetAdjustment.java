@@ -36,7 +36,7 @@ public class AssetAdjustment {
 	@Column(name="AssetNumber")
 	private int assetNumber;
 	
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
     @JoinColumn(name = "AssetID")
 	private Asset assetID;
 	

@@ -30,11 +30,11 @@ public class AssetLiquidationDetail {
 	@Column(name="LiDetailID")
 	private int liDetailID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "LiquidID")  
 	private AssetLiquidation liquidID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "AssetID")
 	private Asset assetID;
 	

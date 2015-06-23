@@ -7,7 +7,6 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -37,19 +36,19 @@ public class Product {
 	@Column(name="ProductName")
 	private String productName;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "TypeID")  
 	private ProductType typeID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ProviderID")
 	private Provider providerID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ManufacturerID")
 	private Manufacture manufactureID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "UnitID")
 	private ProductUnit unitID;
 	
@@ -327,5 +326,91 @@ public class Product {
 	public void setProductStockTransfer(Set<StockTransfer> productStockTransfer) {
 		this.productStockTransfer = productStockTransfer;
 	}
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result
+				+ ((manufactureID == null) ? 0 : manufactureID.hashCode());
+		result = prime * result + maxStock;
+		result = prime * result + minStock;
+		result = prime * result
+				+ ((orgPrice == null) ? 0 : orgPrice.hashCode());
+		result = prime * result + ((photo == null) ? 0 : photo.hashCode());
+		result = prime * result + productID;
+		result = prime * result
+				+ ((productName == null) ? 0 : productName.hashCode());
+		result = prime * result
+				+ ((providerID == null) ? 0 : providerID.hashCode());
+		result = prime * result
+				+ ((salePrice == null) ? 0 : salePrice.hashCode());
+		result = prime * result + ((typeID == null) ? 0 : typeID.hashCode());
+		result = prime * result + ((unitID == null) ? 0 : unitID.hashCode());
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Product other = (Product) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (manufactureID == null) {
+			if (other.manufactureID != null)
+				return false;
+		} else if (!manufactureID.equals(other.manufactureID))
+			return false;
+		if (maxStock != other.maxStock)
+			return false;
+		if (minStock != other.minStock)
+			return false;
+		if (orgPrice == null) {
+			if (other.orgPrice != null)
+				return false;
+		} else if (!orgPrice.equals(other.orgPrice))
+			return false;
+		if (photo == null) {
+			if (other.photo != null)
+				return false;
+		} else if (!photo.equals(other.photo))
+			return false;
+		if (productID != other.productID)
+			return false;
+		if (productName == null) {
+			if (other.productName != null)
+				return false;
+		} else if (!productName.equals(other.productName))
+			return false;
+		if (providerID == null) {
+			if (other.providerID != null)
+				return false;
+		} else if (!providerID.equals(other.providerID))
+			return false;
+		if (salePrice == null) {
+			if (other.salePrice != null)
+				return false;
+		} else if (!salePrice.equals(other.salePrice))
+			return false;
+		if (typeID == null) {
+			if (other.typeID != null)
+				return false;
+		} else if (!typeID.equals(other.typeID))
+			return false;
+		if (unitID == null) {
+			if (other.unitID != null)
+				return false;
+		} else if (!unitID.equals(other.unitID))
+			return false;
+		return true;
+	}
+
 }

@@ -30,15 +30,15 @@ public class StockOutwardDetail {
 	@Column(name = "OutwardDetailID")
 	private int outwardDetailID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "OutwardID")  
 	private StockOutward outwardID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StockID")  
 	private Stock stockID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ProductID")  
 	private Product productID;
 

@@ -36,12 +36,11 @@ public class StockBuild {
 	@Column(name="BuildID")
 	private int buildID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ProductID")
 	private Product productID;
-
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StaffID")
 	private Staff staffID;
 	
@@ -113,7 +112,6 @@ public class StockBuild {
 	public void setProductID(Product productID) {
 		this.productID = productID;
 	}
-
 	/**
 	 * @return the staffID
 	 */

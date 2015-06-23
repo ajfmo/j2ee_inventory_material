@@ -30,15 +30,15 @@ public class StockTransferDetail {
 	@Column(name = "StockTrDetailID")
 	private int stockTrDetailID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ProductID")  
 	private Product productID;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "FromStock")  
 	private Stock fromStock;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ToStock")  
 	private Stock toStock;
 

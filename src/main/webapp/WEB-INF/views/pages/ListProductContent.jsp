@@ -52,7 +52,7 @@
 			                  <input id="check_all" class="formcontrol" type="checkbox"></th>
 			                  <th>S. No</th>
 			                  <th width="20%">Component ID</th>
-			                  <th width="45%">Product Name</th>
+			                  <th width="45%">Component Name</th>
 			                  <th width="20%">Quantity</th>
 			               </tr>
 			            </thead>
@@ -65,23 +65,22 @@
 			      <div class="col-xs-6 col-md-6">
 			         <button class="btn btn-danger delete" type="button">-Delete</button>
 			         <button class="btn btn-success addmore" type="button">+ Add More</button>
-			         <button id="saveData" class="btn btn-primary" type="submit">Save Data</button>
+			         <button id="saveProductComponent" class="btn btn-primary" type="submit">Save Data</button>
 			      </div>
 			   </div>
 			</div>
-        <script 
-		src="<c:url value="/resources/js/ListProduct/component.js" />"type="text/javascript">
-		</script>
+			
 		<script>
 		function loadData(count, i) {
 			var html = "<tr id='row_" + i + "'>";
 			html += "<td><input class='case' type='checkbox'/></td>";
 			html += "<td><span id='snum" + i + "'>" + count + ".</span></td>";
-			html += "<td><input readonly='readonly'readonly='readonly' type='text' data-type='productID' name='productID[]' id='productID_"+i+"' class='form-control searchID' autocomplete='off'></td>";
-			html += "<td><input type='text' data-type='productName' name='productName[]' id='productName_"+i+"' class='form-control searchName' autocomplete='off'></td>";
+			html += "<td><input readonly='readonly' type='text' data-type='componentID' name='componentID[]' id='componentID_"+i+"' class='form-control searchID' autocomplete='off'></td>";
+			html += "<td><input type='text' data-type='componentName' name='componentName[]' id='componentName_"+i+"' class='form-control searchName' autocomplete='off'></td>";
 			html += "<td><input type='number' name='quantity[]' id='quantity_"
 				+ i
 				+ "' class='form-control changesNo' autocomplete='off' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;' min='1' max='20'></td>";
+			html += "<td><input type='text' data-type='unitPrice' name='unitPrice[]' id='unitPrice_"+i+"' class='form-control' ></td>";
 			html += "</tr>";
 		
 			return html;

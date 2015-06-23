@@ -100,5 +100,40 @@ public class ProductUnit {
 		this.productUnitProduct = productUnitProduct;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result
+				+ ((description == null) ? 0 : description.hashCode());
+		result = prime * result + unitID;
+		result = prime * result
+				+ ((unitName == null) ? 0 : unitName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductUnit other = (ProductUnit) obj;
+		if (description == null) {
+			if (other.description != null)
+				return false;
+		} else if (!description.equals(other.description))
+			return false;
+		if (unitID != other.unitID)
+			return false;
+		if (unitName == null) {
+			if (other.unitName != null)
+				return false;
+		} else if (!unitName.equals(other.unitName))
+			return false;
+		return true;
+	}
+
 }	

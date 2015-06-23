@@ -72,8 +72,7 @@
                   <td><label>Note</label></td>
                   <td colspan="3">
                      <div class="input-control text  info-state">
-                        <input type="text" class="form-control"
-                           placeholder="Note">
+                        <input type="text" class="form-control" placeholder="Note" id="note">
                      </div>
                   </td>
                </tr>

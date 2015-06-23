@@ -100,7 +100,7 @@
 					<li class=""><a href="#"><i class="fa fa-edit fa-fw"></i>
 							Category Management<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
-							<li><a href="#">Product</a></li>
+							<li><a href="product">Product</a></li>
 							<li><a href="#">Stock</a></li>
 							<li><a href="#">Unit</a></li>
 							<li><a href="#">Provider</a></li>

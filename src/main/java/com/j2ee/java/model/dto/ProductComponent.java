@@ -1,8 +1,6 @@
 package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
-
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -21,24 +19,24 @@ public class ProductComponent {
 	@Id
 	@GeneratedValue
 	@Column(name="ID")
-	private int id;
+	private Integer id;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ComponentID")  
 	private Product componentID;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "ProductID")
 	private Product productID;
 	
 	@Column(name="Quantity")
 	private int quantity;
 	
-	@Column(name="Price")
-	private BigDecimal price;
+	@Column(name="UnitPrice")
+	private BigDecimal unitPrice;
 	
-	@Column(name="Amount")
-	private BigDecimal amount;
+	@Column(name="Total")
+	private BigDecimal total;
 	/**
 	 * 
 	 */
@@ -54,13 +52,13 @@ public class ProductComponent {
 	 * @param amount
 	 */
 	public ProductComponent(Product componentID, Product productID,
-			int quantity, BigDecimal price, BigDecimal amount) {
+			int quantity, BigDecimal unitPrice, BigDecimal amount) {
 		super();
 		this.componentID = componentID;
 		this.productID = productID;
 		this.quantity = quantity;
-		this.price = price;
-		this.amount = amount;
+		this.unitPrice = unitPrice;
+		this.total = amount;
 	}
 	/**
 	 * @return the id
@@ -113,26 +111,69 @@ public class ProductComponent {
 	/**
 	 * @return the price
 	 */
-	public BigDecimal getPrice() {
-		return price;
+	public BigDecimal getUnitPrice() {
+		return unitPrice;
 	}
 	/**
 	 * @param price the price to set
 	 */
-	public void setPrice(BigDecimal price) {
-		this.price = price;
+	public void setUnitPrice(BigDecimal unitPrice) {
+		this.unitPrice = unitPrice;
 	}
 	/**
 	 * @return the amount
 	 */
-	public BigDecimal getAmount() {
-		return amount;
+	public BigDecimal getTotal() {
+		return total;
 	}
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setTotal(BigDecimal total) {
+		this.total = total;
+	}
+	@Override
+	public int hashCode() {
+		if (id != null) {
+	        return id.hashCode();
+	    } else {
+	        return super.hashCode();
+	    }
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductComponent other = (ProductComponent) obj;
+		if (total == null) {
+			if (other.total != null)
+				return false;
+		} else if (!total.equals(other.total))
+			return false;
+		if (componentID == null) {
+			if (other.componentID != null)
+				return false;
+		} else if (!componentID.equals(other.componentID))
+			return false;
+		if (id != other.id)
+			return false;
+		if (unitPrice == null) {
+			if (other.unitPrice != null)
+				return false;
+		} else if (!unitPrice.equals(other.unitPrice))
+			return false;
+		if (productID == null) {
+			if (other.productID != null)
+				return false;
+		} else if (!productID.equals(other.productID))
+			return false;
+		if (quantity != other.quantity)
+			return false;
+		return true;
 	}
 	
 }

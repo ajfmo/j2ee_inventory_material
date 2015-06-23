@@ -11,27 +11,28 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.StockInwardDetailDAO;
-import com.j2ee.java.model.dto.StockInwardDetail;
+import com.j2ee.java.model.dao.StockInventoryDAO;
+import com.j2ee.java.model.dto.StockInventory;
 
-@Component(value = "StockInwardDetailBOImpl")
-public class StockInwardDetailBOImpl implements StockInwardDetailBO {
+@Component(value="StockInventoryBOImpl")
+public class StockInventoryBOImpl implements StockInventoryBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(StockInwardDetailBOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(StockInventoryBOImpl.class);
+	
 	@Autowired
-	@Qualifier("StockInwardDetailDAOImpl")
-	private StockInwardDetailDAO stockInDetailDAO;
-
+	@Qualifier("StockInventoryDAOImpl")
+	private StockInventoryDAO stockInventoryBO;
+	
 	@Override
-	public StockInwardDetail getByID(int id) {
-
-		StockInwardDetail StockInwardDetail = null;
+	public StockInventory getByID(int id) {
+		
+		StockInventory stockInventory = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			StockInwardDetail = stockInDetailDAO.getByID(id);
+			stockInventory = stockInventoryBO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -41,19 +42,19 @@ public class StockInwardDetailBOImpl implements StockInwardDetailBO {
 			}
 			logger.error("Error", ex);
 		}
-		return StockInwardDetail;
+		return stockInventory;
 	}
 
 	@Override
-	public List<StockInwardDetail> getAllStockInwardDetail() {
-
-		List<StockInwardDetail> listStockInwardDetail = new ArrayList<StockInwardDetail>();
+	public List<Object[]> getAllStockInventory() {
+		
+		List<Object[]> listStockInventory = new ArrayList<Object[]>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listStockInwardDetail = stockInDetailDAO.getAllStockInwardDetail();
+			listStockInventory = stockInventoryBO.getAllStockInventory();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -63,20 +64,20 @@ public class StockInwardDetailBOImpl implements StockInwardDetailBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listStockInwardDetail;
+		return listStockInventory;
 	}
 
 	@Override
-	public boolean insertStockInwardDetail(StockInwardDetail stockInDetail) {
-
+	public boolean insertStockInventory(StockInventory stockInventory) {
+		
 		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInDetailDAO.insertStockInwardDetail(stockInDetail);
-
+			result = stockInventoryBO.insertStockInventory(stockInventory);
+			
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -89,7 +90,7 @@ public class StockInwardDetailBOImpl implements StockInwardDetailBO {
 	}
 
 	@Override
-	public boolean updateStockInwardDetail(StockInwardDetail stockInDetail) {
+	public boolean updateStockInventory(StockInventory stockInventory) {
 
 		boolean result = false;
 		Transaction tx = null;
@@ -97,8 +98,8 @@ public class StockInwardDetailBOImpl implements StockInwardDetailBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInDetailDAO.updateStockInwardDetail(stockInDetail);
-
+			result = stockInventoryBO.updateStockInventory(stockInventory);
+			
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -111,7 +112,7 @@ public class StockInwardDetailBOImpl implements StockInwardDetailBO {
 	}
 
 	@Override
-	public boolean deleteStockInwardDetail(StockInwardDetail stockInDetail) {
+	public boolean deleteStockInventory(StockInventory stockInventory) {
 
 		boolean result = false;
 		Transaction tx = null;
@@ -119,8 +120,8 @@ public class StockInwardDetailBOImpl implements StockInwardDetailBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInDetailDAO.deleteStockInwardDetail(stockInDetail);
-
+			result = stockInventoryBO.deleteStockInventory(stockInventory);
+			
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception

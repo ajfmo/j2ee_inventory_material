@@ -83,5 +83,33 @@ public class ProductType {
 		this.productTypeProduct = productTypeProduct;
 	}
 
-	
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + typeID;
+		result = prime * result
+				+ ((typeName == null) ? 0 : typeName.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		ProductType other = (ProductType) obj;
+		if (typeID != other.typeID)
+			return false;
+		if (typeName == null) {
+			if (other.typeName != null)
+				return false;
+		} else if (!typeName.equals(other.typeName))
+			return false;
+		return true;
+	}
+
 }

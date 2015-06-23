@@ -41,14 +41,14 @@ public class Adjustment {
 	@Column(name="RefType")
 	private int refType;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StockID")
     private Stock stockID;
 	
 	@Column(name="TotalDiffAmount")
 	private BigDecimal TotalDiffAmount;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StaffID")
 	private Staff staffID;
 	

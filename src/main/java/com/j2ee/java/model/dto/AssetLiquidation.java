@@ -40,7 +40,7 @@ public class AssetLiquidation {
 	@Temporal(TemporalType.DATE)
 	private Date date;
 	
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = "StaffID")  
 	private Staff staffID;
 	

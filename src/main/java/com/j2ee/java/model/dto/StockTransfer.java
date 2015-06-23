@@ -32,11 +32,11 @@ public class StockTransfer {
 	@Column(name = "TransferID")
 	private int transferID;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "StaffID")
 	private Staff staffID;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "ProductID")
 	private Product productID;
 
@@ -47,11 +47,11 @@ public class StockTransfer {
 	@Column(name = "Quantity")
 	private int quantity;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "FromStockID")
 	private Stock fromStock;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "ToStockID")
 	private Stock toStock;
 

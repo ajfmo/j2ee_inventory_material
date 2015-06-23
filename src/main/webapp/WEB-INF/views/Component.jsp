@@ -8,42 +8,31 @@
       <!-- Bootstrap Core CSS -->
       <link rel="stylesheet"
       href="
-      <c:url value="/resources/css/bootstrap.min.css" />
-      "
+      <c:url value="/resources/css/bootstrap.min.css" />"
       type="text/css">
       <link rel="stylesheet"
       href="
-      <c:url value="/resources/css/StockInward/jquery-ui.css" />
-      "
+      <c:url value="/resources/css/StockInward/jquery-ui.css" />"
       type="text/css">	
       <!-- Custom Fonts -->
       <link rel="stylesheet"
       href="
-      <c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />
-      "
+      <c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
       type="text/css">
-      <!-- <link href="../resources/css/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
-         -->
       <!-- Load JavaScript Libraries -->
       <script src="
-      <c:url value="/resources/js/jquery/jquery-1.11.3.min.js" />
-      "
+      <c:url value="/resources/js/jquery/jquery-1.11.3.min.js" />"
       type="text/javascript"></script>
       <!-- Bootstrap Core JavaScript -->
       <script src="
-      <c:url value="/resources/js/bootstrap.min.js" />
-      "
+      <c:url value="/resources/js/bootstrap.min.js" />"
       type="text/javascript"></script>
       <script src="
-      <c:url value="/resources/js/jquery/jquery-ui.js" />
-      "
+      <c:url value="/resources/js/jquery/jquery-ui.js" />"
       type="text/javascript"></script>
       <script src="
-      <c:url value="/resources/js/bootstrap-dialog.min.js" />
-      "
+      <c:url value="/resources/js/bootstrap-dialog.min.js" />"
       type="text/javascript"></script>
-      <script src="
-      <c:url value="/resources/js/component.js" />"type="text/javascript"></script>
    </head>
    <body>
       <div class="content-resize"
@@ -68,8 +57,7 @@
          </div>
          <div class="row">
             <div class="col-xs-6 col-md-4">
-               <button class="btn btn-success addmore" type="button">+ Add
-               More</button>
+               <button class="btn btn-success addmore" type="button">+ Add More</button>
             </div>
          </div>
       </div>

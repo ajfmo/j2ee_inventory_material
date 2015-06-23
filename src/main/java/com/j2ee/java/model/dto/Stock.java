@@ -34,7 +34,7 @@ public class Stock {
 	@Column(name = "Size")
 	private int size;
 
-	@ManyToOne(cascade = CascadeType.ALL)
+	@ManyToOne
 	@JoinColumn(name = "ManagerID")
 	private Staff managerID;
 
