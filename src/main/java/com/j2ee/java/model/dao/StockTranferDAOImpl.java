@@ -76,8 +76,16 @@ public class StockTranferDAOImpl implements StockTranferDAO{
 	@Override
 	public int getLastestBillID() {
 		// TODO Auto-generated method stub
-		return (int) HibernateUtil.getSessionFactory().getCurrentSession()
-				.createSQLQuery("SELECT TransferID FROM stock_transfer ORDER BY TransferID DESC").list().get(0);
+		@SuppressWarnings("unchecked")
+		List<Integer> rs = HibernateUtil.getSessionFactory().getCurrentSession()
+				.createSQLQuery("SELECT TransferID FROM stock_transfer ORDER BY TransferID DESC").list();
+		if(rs != null){
+			if(rs.size() > 0){
+				return rs.get(0);
+			}
+		}
+		
+		return 0;
 	}
 
 }
