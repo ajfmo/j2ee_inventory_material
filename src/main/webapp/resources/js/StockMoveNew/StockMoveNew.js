@@ -15,6 +15,8 @@ $(function() {
 	$("#quantity").val(1);
 
 	$('#btnEdit').css('display', 'none');
+	$('#btnCheckAvailable').css('display', 'none');
+	
 	$("#btnEdit").click(function() {
 		$('.input-info').prop("disabled", false);
 		$('#btnEdit').css('display', 'none');
@@ -51,10 +53,14 @@ $(function() {
 					data : data,
 					dataType : "json",
 					success : function(data) {
-						if (data.result == "1") {
-							window.location = "stockMoveWaiting";
-						} else if (data.result == "2") {
-							window.location = "stockMoveWaiting";
+						if (data.result == "1" || data.result == "2") {
+							//change status to waiting available
+							$("#sttNew").removeClass("active");
+							$("#sttWaiting").addClass("active")
+							//change button
+							$("#btnProcessLater").css('display', 'none');
+							$('#btnCheckAvailable').css('display', 'inline-block');
+							
 						} else {
 							alert("Failed :( !");
 						}
@@ -118,6 +124,49 @@ $(function() {
 				return false;
 			}
 		}
+	});
+	
+	$("#btnCheckAvailable").click(function() {
 
+		if ($("#quantity").val() < 1) {
+			alert("Quantity must more than 0");
+		} else {
+
+			var stockMove = {
+				"product" : $("#product").val(),
+				"quantity" : $("#quantity").val(),
+				"fromStock" : $("#fromStock").val(),
+				"toStock" : $("#toStock").val()
+			};
+
+			var data = {};
+			data[0] = JSON.stringify(stockMove);
+
+			if ($("#fromStock").val() != $("#toStock").val()) {
+				$('.input-info').prop("disabled", true);
+				$('#btnSave').css('display', 'none');
+				$('#btnEdit').css('display', 'inline-block');
+				$.ajax({
+					type : "POST",
+					url : "checkAvailable",
+					data : data,
+					dataType : "json",
+					success : function(data) {
+						if (data.result == "1") {
+							//yes, this product is available in fromStock
+							
+						} else {
+							alert("Failed :( !");
+						}
+					},
+					error : function(status) {
+						console.log(status);
+					}
+				});
+			} else {
+				alert("Invalid Destination Location");
+				return false;
+			}
+		}
 	});
 });

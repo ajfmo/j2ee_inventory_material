@@ -131,62 +131,72 @@ public class StockMoveController {
 
 	// navigate -- StockMoveWaiting
 	// TO-DO: set values of selects, quantity, date,... same as database
-	@RequestMapping(value = "/stockMoveWaiting")
-	public String stockMoveWaiting(Model model) {
-
-		// get list product
-		List<Product> listProducts = productBO.getAllProduct();
-
-		// set to model attribute
-		model.addAttribute("listProducts", listProducts);
-
-		// get list active stock
-		List<Stock> listStocks = stockBO.getAllStock();
-
-		// set to model attribute
-		model.addAttribute("listStocks", listStocks);
-
-		return "StockMoveWaiting";
-
-	}
+	/*
+	 * @RequestMapping(value = "/stockMoveWaiting") public String
+	 * stockMoveWaiting(Model model) {
+	 * 
+	 * // get list product List<Product> listProducts =
+	 * productBO.getAllProduct();
+	 * 
+	 * // set to model attribute model.addAttribute("listProducts",
+	 * listProducts);
+	 * 
+	 * // get list active stock List<Stock> listStocks = stockBO.getAllStock();
+	 * 
+	 * // set to model attribute model.addAttribute("listStocks", listStocks);
+	 * 
+	 * return "StockMoveWaiting";
+	 * 
+	 * }
+	 */
 
 	// checkAvailable -- StockMoveAvailable
 	@RequestMapping(value = "/checkAvailable")
-	public String checkAvailable(Model model) {
+	public @ResponseBody String checkAvailable(HttpServletRequest req) {
 
-		// get list product
-		List<Product> listProducts = productBO.getAllProduct();
+		// get stock move
+		String stockMove = req.getParameter("0");
+		JsonObject stockMoveObj = new Gson().fromJson(stockMove,
+				JsonObject.class);
 
-		// set to model attribute
-		model.addAttribute("listProducts", listProducts);
+		// get Product
+		Product product = new Product();
+		product = productBO.getByID(Integer.parseInt(stockMoveObj
+				.get("product").getAsString().split(":")[0]));
 
-		// get list active stock
-		List<Stock> listStocks = stockBO.getAllStock();
+		// get quantity
+		int quantity = stockMoveObj.get("quantity").getAsInt();
 
-		// set to model attribute
-		model.addAttribute("listStocks", listStocks);
+		// get from stock
+		Stock fromStock = new Stock();
+		fromStock = stockBO.getByID(Integer.parseInt(stockMoveObj
+				.get("fromStock").getAsString().split(":")[0]));
+
+		// get to stock
+		Stock toStock = new Stock();
+		toStock = stockBO.getByID(Integer.parseInt(stockMoveObj.get("toStock")
+				.getAsString().split(":")[0]));
 
 		return "StockMoveAvailable";
 	}
 
 	// processAll -- StockMoveDone
-	@RequestMapping(value = "/processAll")
-	public String processAll(Model model) {
-
-		// get list product
-		List<Product> listProducts = productBO.getAllProduct();
-
-		// set to model attribute
-		model.addAttribute("listProducts", listProducts);
-
-		// get list active stock
-		List<Stock> listStocks = stockBO.getAllStock();
-
-		// set to model attribute
-		model.addAttribute("listStocks", listStocks);
-
-		return "StockMoveDone";
-	}
+	/*
+	 * @RequestMapping(value = "/processAll") public String processAll(Model
+	 * model) {
+	 * 
+	 * // get list product List<Product> listProducts =
+	 * productBO.getAllProduct();
+	 * 
+	 * // set to model attribute model.addAttribute("listProducts",
+	 * listProducts);
+	 * 
+	 * // get list active stock List<Stock> listStocks = stockBO.getAllStock();
+	 * 
+	 * // set to model attribute model.addAttribute("listStocks", listStocks);
+	 * 
+	 * return "StockMoveDone"; }
+	 */
 
 	// saveNewStockMove Bill
 	@RequestMapping(value = "/saveNewStockMove")
