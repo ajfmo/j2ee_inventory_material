@@ -56,7 +56,7 @@ $(function() {
 						if (data.result == "1" || data.result == "2") {
 							//change status to waiting available
 							$("#sttNew").removeClass("active");
-							$("#sttWaiting").addClass("active")
+							$("#sttWaiting").addClass("active");
 							//change button
 							$("#btnProcessLater").css('display', 'none');
 							$('#btnCheckAvailable').css('display', 'inline-block');
@@ -153,10 +153,36 @@ $(function() {
 					dataType : "json",
 					success : function(data) {
 						if (data.result == "1") {
-							//yes, this product is available in fromStock
 							
+							//yes, this product is available in fromStock
+							//update status in database
+							$.ajax({
+								type : "POST",
+								url : "updateToAvailable",
+								data : { "stockTransferID" : $("#latestID").val() },
+								dataType : "json",
+								success : function(data) {
+									if (data.result == "1") {
+										//change status to available
+										$("#sttWaiting").removeClass("active");
+										$("#sttAvailable").addClass("active");
+									} else {
+										alert("Update available failed :( !");
+									}
+								},
+								error : function(status) {
+									console.log(status);
+								}
+							});
+							
+						} else if(data.result == -1){
+							
+							//warning lower than min stock
+							alert("If move, product in source stock will be lower than min value!");
 						} else {
-							alert("Failed :( !");
+							
+							//not available
+							alert("Product is not enough in source stock!");
 						}
 					},
 					error : function(status) {

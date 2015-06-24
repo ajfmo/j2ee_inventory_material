@@ -12,27 +12,33 @@ import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
 import com.j2ee.java.model.dao.StockInventoryDAO;
+import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.StockInventory;
 
-@Component(value="StockInventoryBOImpl")
+@Component(value = "StockInventoryBOImpl")
 public class StockInventoryBOImpl implements StockInventoryBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(StockInventoryBOImpl.class);
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(StockInventoryBOImpl.class);
+
 	@Autowired
 	@Qualifier("StockInventoryDAOImpl")
-	private StockInventoryDAO stockInventoryBO;
-	
+	private StockInventoryDAO stockInventoryDAO;
+
+	@Autowired
+	@Qualifier("ProductBOImpl")
+	private ProductBO productBO;
+
 	@Override
 	public StockInventory getByID(int id) {
-		
+
 		StockInventory stockInventory = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			stockInventory = stockInventoryBO.getByID(id);
+			stockInventory = stockInventoryDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -46,15 +52,15 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 	}
 
 	@Override
-	public List<Object[]> getAllStockInventory() {
-		
-		List<Object[]> listStockInventory = new ArrayList<Object[]>();
+	public List<StockInventory> getAllStockInventory() {
+
+		List<StockInventory> listStockInventory = new ArrayList<StockInventory>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listStockInventory = stockInventoryBO.getAllStockInventory();
+			listStockInventory = stockInventoryDAO.getAllStockInventory();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -69,15 +75,15 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 
 	@Override
 	public boolean insertStockInventory(StockInventory stockInventory) {
-		
+
 		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryBO.insertStockInventory(stockInventory);
-			
+			result = stockInventoryDAO.insertStockInventory(stockInventory);
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -98,8 +104,8 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryBO.updateStockInventory(stockInventory);
-			
+			result = stockInventoryDAO.updateStockInventory(stockInventory);
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -120,13 +126,67 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryBO.deleteStockInventory(stockInventory);
-			
+			result = stockInventoryDAO.deleteStockInventory(stockInventory);
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
+			}
+			logger.error("Error", ex);
+		}
+		return result;
+	}
+
+	@Override
+	public int checkAvailableOfProduct(StockInventory stockInventory) {
+
+		if (stockInventory == null) {
+			return 0;
+		}
+
+		int result = 0;
+		Transaction tx = null;
+		try {
+			tx = HibernateUtil.getSessionFactory().getCurrentSession()
+					.beginTransaction();
+			List<StockInventory> listStockInventory = stockInventoryDAO
+					.getStockInventoryByProductAndStock(stockInventory
+							.getProductID().getProductID(), stockInventory
+							.getStockID().getStockID());
+			tx.commit();
+			if (listStockInventory != null) {
+				if (listStockInventory.size() > 0) {
+					StockInventory stockInventoryResult = listStockInventory
+							.get(0);
+					if (stockInventory.getQuantity() < stockInventoryResult
+							.getQuantity()) {
+
+						// available
+						// then check minStock
+						Product product = productBO.getByID(stockInventory
+								.getProductID().getProductID());
+						if (stockInventoryResult.getQuantity()
+								- stockInventory.getQuantity() >= product
+									.getMinStock()) {
+							return 1;
+						} else {
+							return -1;
+						}
+					} else {
+
+						// not available
+						return 0;
+					}
+				}
+			}
+
+		} catch (Exception ex) {
+			// TODO: handle exception
+			if (tx != null) {
+				tx.rollback();
+				result = 0;
 			}
 			logger.error("Error", ex);
 		}

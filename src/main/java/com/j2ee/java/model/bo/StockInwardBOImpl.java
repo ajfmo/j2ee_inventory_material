@@ -18,9 +18,11 @@ import com.j2ee.java.model.dao.StockInwardDAO;
 public class StockInwardBOImpl implements StockInwardBO {
 
 	private static final Logger logger = LoggerFactory.getLogger(StockInwardBOImpl.class);
+	
 	@Autowired
 	@Qualifier("StockInwardDAOImpl")
 	private StockInwardDAO stockInwardDAO;
+	
 	@Override
 	public StockInward getByID(int id) {
 		

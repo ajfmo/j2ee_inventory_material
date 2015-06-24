@@ -53,10 +53,6 @@ public class StockInventory {
 	@Column(name="Amount")
 	private BigDecimal amount;
 	
-	private int totalQuantity;
-	/**
-	 * 
-	 */
 	public StockInventory() {
 		super();
 		// TODO Auto-generated constructor stub
@@ -165,12 +161,6 @@ public class StockInventory {
 	 */
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
-	}
-	public int getTotalQuantity() {
-		return totalQuantity;
-	}
-	public void setTotalQuantity(int totalQuantity) {
-		this.totalQuantity = totalQuantity;
 	}
 	
 }

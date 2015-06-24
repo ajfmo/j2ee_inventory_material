@@ -35,7 +35,7 @@
 		<mapping class="com.j2ee.java.model.dto.ProductType"/>
 		<mapping class="com.j2ee.java.model.dto.ProductUnit"/>
 		<mapping class="com.j2ee.java.model.dto.Provider"/>
-		<mapping class="com.j2ee.java.model.dto.Regulation"/>
+		<mapping class="com.j2ee.java.model.dto.RegulationInventory"/>
 		<mapping class="com.j2ee.java.model.dto.Staff"/>
 		<mapping class="com.j2ee.java.model.dto.Stock"/>
 		<mapping class="com.j2ee.java.model.dto.StockBuild"/>

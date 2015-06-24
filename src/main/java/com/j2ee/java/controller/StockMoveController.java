@@ -7,7 +7,6 @@ import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,10 +21,12 @@ import com.google.gson.JsonObject;
 import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.StaffBO;
 import com.j2ee.java.model.bo.StockBO;
+import com.j2ee.java.model.bo.StockInventoryBO;
 import com.j2ee.java.model.bo.StockTransferBO;
 import com.j2ee.java.model.bo.Utils;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Stock;
+import com.j2ee.java.model.dto.StockInventory;
 import com.j2ee.java.model.dto.StockTransfer;
 
 /**
@@ -51,6 +52,10 @@ public class StockMoveController {
 	@Autowired
 	@Qualifier("StaffBOImpl")
 	private StaffBO staffBO;
+
+	@Autowired
+	@Qualifier("StockInventoryBOImpl")
+	private StockInventoryBO stockInventoryBO;
 
 	@RequestMapping(value = "/StockMove")
 	public String stockMove() {
@@ -81,6 +86,25 @@ public class StockMoveController {
 		model.addAttribute("listStocks", listStocks);
 
 		return "StockMoveNew";
+	}
+
+	// updateToAvailable -- update status of bill to available
+	@RequestMapping(value = "/updateToAvailable")
+	public @ResponseBody String updateToAvailable(HttpServletRequest req) {
+
+		int result = 0; 
+		
+		//get current stock transfer id
+		String stTransIDReq = req.getParameter("stockTransferID");
+		if(!"".equals(stTransIDReq)){
+			int currentStockTransfer = Integer.parseInt(stTransIDReq);
+			StockTransfer stockTransfer = stockTransferBO.getByID(currentStockTransfer);
+			stockTransfer.setStatusID(stockTransferBO.getStatusID("Available"));
+			if(stockTransferBO.updateStockTransfer(stockTransfer)){
+				result = 1;
+			}
+		}
+		return "{\"result\" : \"" + result + "\"}";
 	}
 
 	// processLater -- StockMoveWaiting
@@ -154,6 +178,8 @@ public class StockMoveController {
 	@RequestMapping(value = "/checkAvailable")
 	public @ResponseBody String checkAvailable(HttpServletRequest req) {
 
+		StockInventory stockInventory = new StockInventory();
+
 		// get stock move
 		String stockMove = req.getParameter("0");
 		JsonObject stockMoveObj = new Gson().fromJson(stockMove,
@@ -163,21 +189,21 @@ public class StockMoveController {
 		Product product = new Product();
 		product = productBO.getByID(Integer.parseInt(stockMoveObj
 				.get("product").getAsString().split(":")[0]));
+		stockInventory.setProductID(product);
 
 		// get quantity
 		int quantity = stockMoveObj.get("quantity").getAsInt();
+		stockInventory.setQuantity(quantity);
 
 		// get from stock
 		Stock fromStock = new Stock();
 		fromStock = stockBO.getByID(Integer.parseInt(stockMoveObj
 				.get("fromStock").getAsString().split(":")[0]));
+		stockInventory.setStockID(fromStock);
 
-		// get to stock
-		Stock toStock = new Stock();
-		toStock = stockBO.getByID(Integer.parseInt(stockMoveObj.get("toStock")
-				.getAsString().split(":")[0]));
+		int result = stockInventoryBO.checkAvailableOfProduct(stockInventory);
 
-		return "StockMoveAvailable";
+		return "{\"result\" : \"" + result + "\"}";
 	}
 
 	// processAll -- StockMoveDone
