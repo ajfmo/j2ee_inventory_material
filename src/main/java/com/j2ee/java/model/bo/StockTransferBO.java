@@ -32,4 +32,6 @@ public interface StockTransferBO {
 	public boolean updateStockTransfer(StockTransfer stockTransfer);
 
 	public boolean deleteStockTransfer(StockTransfer stockTransfer);
+	
+	public boolean updateStockTransferStatus(int stockTransferID, int statusID);
 }

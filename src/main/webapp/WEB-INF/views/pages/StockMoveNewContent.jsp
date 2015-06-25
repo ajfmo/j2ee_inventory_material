@@ -27,6 +27,7 @@
 				</ul>
 		</div>
 		<input value=${lastestID } id="latestID" style="display: none;">
+		<input value=${curStatus } id="curStatus" style="display: none;">
 	</div>
 </div>
 <jsp:include page="StockMoveInputField.jsp"></jsp:include>

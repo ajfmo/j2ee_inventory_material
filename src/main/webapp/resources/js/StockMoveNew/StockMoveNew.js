@@ -57,6 +57,7 @@ $(function() {
 							//change status to waiting available
 							$("#sttNew").removeClass("active");
 							$("#sttWaiting").addClass("active");
+							$("#curStatus").val(2);
 							//change button
 							$("#btnProcessLater").css('display', 'none');
 							$('#btnCheckAvailable').css('display', 'inline-block');
@@ -166,6 +167,7 @@ $(function() {
 										//change status to available
 										$("#sttWaiting").removeClass("active");
 										$("#sttAvailable").addClass("active");
+										$("#curStatus").val(3);
 										$("#btnCheckAvailable").css('display', 'none');
 									} else {
 										alert("Update available failed :( !");
@@ -212,7 +214,8 @@ $(function() {
 				"fromStock" : $("#fromStock").val(),
 				"toStock" : $("#toStock").val(),
 				"description" : $("#description").val(),
-				"latestID" : $("#latestID").val()
+				"latestID" : $("#latestID").val(),
+				"curStatus" : $("#curStatus").val()
 			};
 
 			var data = {};
@@ -228,13 +231,42 @@ $(function() {
 					data : data,
 					dataType : "json",
 					success : function(data) {
-						if (data.result == "1") {
+						if (data.result == "success") {
+							//change status to DONE
+							$("#sttNew").removeClass("active");
+							$("#sttWaiting").removeClass("active");
+							$("#sttAvailable").removeClass("active");
+							$("#sttDone").addClass("active");
+							$("#curStatus").val(4);
+							$("#btnCheckAvailable").css('display', 'none');
+							$("#btnProcessLater").css('display', 'none');
+							$("#btnProcessAll").css('display', 'none');
+							$("#btnCancelMove").css('display', 'none');
+						} else if (data.result == "lower"){
 
+							//warning lower than min stock
+							alert("If move, product in source stock will be lower than min value!");
+							
+							//change status to DONE
+							$("#sttNew").removeClass("active");
+							$("#sttWaiting").removeClass("active");
+							$("#sttAvailable").removeClass("active");
+							$("#sttDone").addClass("active");
+							$("#curStatus").val(4);
+							$("#btnCheckAvailable").css('display', 'none');
+							$("#btnProcessLater").css('display', 'none');
+							$("#btnProcessAll").css('display', 'none');
+							$("#btnCancelMove").css('display', 'none');
 						} else {
 							
+							//notAvailable
+							alert("Product is not enough in source stock!");
 						}
 					},
 					error : function(status) {
+						
+						//notAvailable
+						alert("Failed :( !");
 						console.log(status);
 					}
 				});

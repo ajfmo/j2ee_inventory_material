@@ -74,6 +74,9 @@ public class StockMoveController {
 		// set to model attribute, after increase this ID
 		model.addAttribute("lastestID", lastestID + 1);
 
+		// set current status is "New"
+		model.addAttribute("curStatus", 1);
+
 		// get list product
 		List<Product> listProducts = productBO.getAllProduct();
 
@@ -93,15 +96,16 @@ public class StockMoveController {
 	@RequestMapping(value = "/updateToAvailable")
 	public @ResponseBody String updateToAvailable(HttpServletRequest req) {
 
-		int result = 0; 
-		
-		//get current stock transfer id
+		int result = 0;
+
+		// get current stock transfer id
 		String stTransIDReq = req.getParameter("stockTransferID");
-		if(!"".equals(stTransIDReq)){
+		if (!"".equals(stTransIDReq)) {
 			int currentStockTransfer = Integer.parseInt(stTransIDReq);
-			StockTransfer stockTransfer = stockTransferBO.getByID(currentStockTransfer);
+			StockTransfer stockTransfer = stockTransferBO
+					.getByID(currentStockTransfer);
 			stockTransfer.setStatusID(stockTransferBO.getStatusID("Available"));
-			if(stockTransferBO.updateStockTransfer(stockTransfer)){
+			if (stockTransferBO.updateStockTransfer(stockTransfer)) {
 				result = 1;
 			}
 		}
@@ -130,7 +134,7 @@ public class StockMoveController {
 
 		// save data to database
 		if (latestIDFromData != latestIDFromForm) {
-			
+
 			// if didn't have:
 			// create a stockTransfer object from request, with status is
 			// Waiting Available (2)
@@ -170,7 +174,7 @@ public class StockMoveController {
 		product = productBO.getByID(Integer.parseInt(stockMoveObj
 				.get("product").getAsString().split(":")[0]));
 		stockInventory.setProductID(product);
-		
+
 		// get quantity
 		int quantity = stockMoveObj.get("quantity").getAsInt();
 		stockInventory.setQuantity(quantity);
@@ -214,6 +218,99 @@ public class StockMoveController {
 			if (stockTransferBO.updateStockTransfer(stTranfer)) {
 				return "{\"result\" : \"2\"}";
 			}
+		}
+
+		return "{\"result\" : \"0\"}";
+	}
+
+	// processAllTransfer Bill
+	@RequestMapping(value = "/processAll")
+	public @ResponseBody String processAllTransfer(HttpServletRequest req) {
+
+		// get stock move
+		String stockMove = req.getParameter("0");
+		JsonObject stockMoveObj = new Gson().fromJson(stockMove,
+				JsonObject.class);
+		int latestIDFromForm = 0;
+
+		// check current status of this bill
+		int currentStatus = stockMoveObj.get("curStatus").getAsInt();
+
+		if (currentStatus == 1) {
+
+			// stt is new
+			// create a stockTransfer object from request, with status is New
+			// (1)
+			StockTransfer stTranfer = createStockTransferDTOObject(req, 1);
+
+			// get latest stock transfer id from form
+			latestIDFromForm = stockMoveObj.get("latestID").getAsInt();
+
+			// get latest stock transfer id from database
+			int latestIDFromData = stockTransferBO.getLastestBillID();
+
+			// save data to database
+			if (latestIDFromData < latestIDFromForm) {
+				if (stockTransferBO.insertStockTransfer(stTranfer)) {
+
+					// check available for this bill
+					String rs = checkAvailable(req);
+					if (rs.contains("1")) {
+						// stt is available
+						stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
+						return "{\"result\" : \"success\"}";
+					} else if (rs.contains("-1")) {
+						// stt is available
+						stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
+						return "{\"result\" : \"lower\"}";
+					} else {
+						return "{\"result\" : \"notAvailable\"}";
+					}
+				}
+			} else {
+				stTranfer.setTransferID(latestIDFromData);
+				if (stockTransferBO.updateStockTransfer(stTranfer)) {
+
+					// check available for this bill
+					String rs = checkAvailable(req);
+					if (rs.contains("1")) {
+						
+						// stt is available
+						stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
+						return "{\"result\" : \"success\"}";
+					} else if (rs.contains("-1")) {
+						
+						// stt is available but lower than MinValue
+						stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
+						return "{\"result\" : \"lower\"}";
+					} else {
+						return "{\"result\" : \"notAvailable\"}";
+					}
+				}
+			}
+		} else if (currentStatus == 2) {
+
+			// stt is waiting
+			String rs = checkAvailable(req);
+			if (rs.contains("1")) {
+				
+				// stt is available
+				stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
+				return "{\"result\" : \"success\"}";
+			} else if (rs.contains("-1")) {
+				
+				// stt is available but lower than MinValue
+				stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
+				return "{\"result\" : \"lower\"}";
+			} else {
+				return "{\"result\" : \"notAvailable\"}";
+			}
+		} else {
+
+			// stt is available
+			// then change stt to DONE
+			stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
+			return "{\"result\" : \"success\"}";
 		}
 
 		return "{\"result\" : \"0\"}";
@@ -276,5 +373,10 @@ public class StockMoveController {
 		stTranfer.setDescription(stockMoveObj.get("description").getAsString());
 
 		return stTranfer;
+	}
+
+	private boolean setStockTransferStatusToDone() {
+
+		return false;
 	}
 }

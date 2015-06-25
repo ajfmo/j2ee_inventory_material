@@ -244,4 +244,29 @@ public class StockTransferBOImpl implements StockTransferBO {
 		return result;
 	}
 
+	@Override
+	public boolean updateStockTransferStatus(int stockTransferID, int statusID) {
+		
+		boolean result = false;
+		Transaction tx = null;
+		try {
+			tx = HibernateUtil.getSessionFactory().getCurrentSession()
+					.beginTransaction();
+
+			StockTransfer stTransfer = stockTransferDAO.getByID(stockTransferID);
+			stTransfer.setStatusID(statusID);
+			stockTransferDAO.updateStockTransfer(stTransfer);
+			
+			tx.commit();
+		} catch (Exception ex) {
+			// TODO: handle exception
+			if (tx != null) {
+				tx.rollback();
+				result = false;
+			}
+			logger.error("Error", ex);
+		}
+		return result;
+	}
+
 }

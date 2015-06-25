@@ -146,7 +146,6 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			return 0;
 		}
 
-		int result = 0;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
@@ -186,11 +185,10 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
-				result = 0;
 			}
 			logger.error("Error", ex);
 		}
-		return result;
+		return 0;
 	}
 
 }
