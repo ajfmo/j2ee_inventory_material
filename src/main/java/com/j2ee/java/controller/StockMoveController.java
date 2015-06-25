@@ -7,6 +7,7 @@ import java.text.ParseException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -129,7 +130,7 @@ public class StockMoveController {
 
 		// save data to database
 		if (latestIDFromData != latestIDFromForm) {
-
+			
 			// if didn't have:
 			// create a stockTransfer object from request, with status is
 			// Waiting Available (2)
@@ -153,27 +154,6 @@ public class StockMoveController {
 
 	}
 
-	// navigate -- StockMoveWaiting
-	// TO-DO: set values of selects, quantity, date,... same as database
-	/*
-	 * @RequestMapping(value = "/stockMoveWaiting") public String
-	 * stockMoveWaiting(Model model) {
-	 * 
-	 * // get list product List<Product> listProducts =
-	 * productBO.getAllProduct();
-	 * 
-	 * // set to model attribute model.addAttribute("listProducts",
-	 * listProducts);
-	 * 
-	 * // get list active stock List<Stock> listStocks = stockBO.getAllStock();
-	 * 
-	 * // set to model attribute model.addAttribute("listStocks", listStocks);
-	 * 
-	 * return "StockMoveWaiting";
-	 * 
-	 * }
-	 */
-
 	// checkAvailable -- StockMoveAvailable
 	@RequestMapping(value = "/checkAvailable")
 	public @ResponseBody String checkAvailable(HttpServletRequest req) {
@@ -190,7 +170,7 @@ public class StockMoveController {
 		product = productBO.getByID(Integer.parseInt(stockMoveObj
 				.get("product").getAsString().split(":")[0]));
 		stockInventory.setProductID(product);
-
+		
 		// get quantity
 		int quantity = stockMoveObj.get("quantity").getAsInt();
 		stockInventory.setQuantity(quantity);
@@ -205,24 +185,6 @@ public class StockMoveController {
 
 		return "{\"result\" : \"" + result + "\"}";
 	}
-
-	// processAll -- StockMoveDone
-	/*
-	 * @RequestMapping(value = "/processAll") public String processAll(Model
-	 * model) {
-	 * 
-	 * // get list product List<Product> listProducts =
-	 * productBO.getAllProduct();
-	 * 
-	 * // set to model attribute model.addAttribute("listProducts",
-	 * listProducts);
-	 * 
-	 * // get list active stock List<Stock> listStocks = stockBO.getAllStock();
-	 * 
-	 * // set to model attribute model.addAttribute("listStocks", listStocks);
-	 * 
-	 * return "StockMoveDone"; }
-	 */
 
 	// saveNewStockMove Bill
 	@RequestMapping(value = "/saveNewStockMove")
