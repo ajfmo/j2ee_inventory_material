@@ -166,6 +166,7 @@ $(function() {
 										//change status to available
 										$("#sttWaiting").removeClass("active");
 										$("#sttAvailable").addClass("active");
+										$("#btnCheckAvailable").css('display', 'none');
 									} else {
 										alert("Update available failed :( !");
 									}
@@ -195,4 +196,53 @@ $(function() {
 			}
 		}
 	});
+	
+	//btn process entirely
+	$("#btnProcessAll").click(function() {
+
+		if ($("#quantity").val() < 1) {
+			alert("Quantity must more than 0");
+		} else {
+
+			var stockMove = {
+				"product" : $("#product").val(),
+				"expectedDay" : $("#expectedDay").val(),
+				"quantity" : $("#quantity").val(),
+				"priority" : $("#priority").val(),
+				"fromStock" : $("#fromStock").val(),
+				"toStock" : $("#toStock").val(),
+				"description" : $("#description").val(),
+				"latestID" : $("#latestID").val()
+			};
+
+			var data = {};
+			data[0] = JSON.stringify(stockMove);
+
+			if ($("#fromStock").val() != $("#toStock").val()) {
+				$('.input-info').prop("disabled", true);
+				$('#btnSave').css('display', 'none');
+				$('#btnEdit').css('display', 'inline-block');
+				$.ajax({
+					type : "POST",
+					url : "processAll",
+					data : data,
+					dataType : "json",
+					success : function(data) {
+						if (data.result == "1") {
+
+						} else {
+							
+						}
+					},
+					error : function(status) {
+						console.log(status);
+					}
+				});
+			} else {
+				alert("Invalid Destination Location");
+				return false;
+			}
+		}
+	});
+	
 });
