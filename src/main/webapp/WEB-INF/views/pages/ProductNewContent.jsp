@@ -28,7 +28,7 @@
 		          <td><label>Product Name</label></td>
 		          <td class="td-resize">
 		               <div class="input-control select info-state">
-		                  <select id="select_providerN" class="form-control">
+		                  <select id="select_listProduct" class="form-control">
 		                     <c:forEach var="item" items="${listProduct}">
 		                        <option
 		                        data-id="
@@ -45,7 +45,7 @@
 		            <td><label>Product Type</label></td>
 		            <td class="td-resize">
 		               <div class="input-control select info-state">
-		                  <select id="select_providerN" class="form-control">
+		                  <select id="select_listProductType" class="form-control">
 		                     <c:forEach var="item" items="${listProvider}">
 		                        <option
 		                        data-id="
@@ -64,7 +64,7 @@
 		         <td><label>Manufacturer Name</label></td>
 		            <td class="td-resize">
 		               <div class="input-control select info-state">
-		                  <select id="select_providerN" class="form-control">
+		                  <select id="select_listManufacturerName" class="form-control">
 		                     <c:forEach var="item" items="${listProvider}">
 		                        <option
 		                        data-id="
@@ -81,7 +81,7 @@
 		            <td><label>Provider Name</label></td>
 		            <td class="td-resize">
 		               <div class="input-control select info-state">
-		                  <select id="select_providerN" class="form-control">
+		                  <select id="select_providerName" class="form-control">
 		                     <c:forEach var="item" items="${listProvider}">
 		                        <option
 		                        data-id="

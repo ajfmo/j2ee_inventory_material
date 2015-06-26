@@ -21,8 +21,8 @@ public class ProductNewController {
 	
 	
 	@RequestMapping(value = "/productnew", method = RequestMethod.GET)
-	public String homePage() {
-		logger.info("Welcome home!");
+	public String createNewProduct() {
+		logger.info("Create New Product!");
 		
 		return "ProductNew";
 	}
