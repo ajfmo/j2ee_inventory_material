@@ -34,7 +34,7 @@
    href="//cdn.datatables.net/plug-ins/725b2a2115b/integration/bootstrap/3/dataTables.bootstrap.css"
    rel="stylesheet" type="text/css" />
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/datepicker3.css" />"
+	href="<c:url value="/resources/css/bootstrap-dialog.css" />"
 	type="text/css">
 <link rel="stylesheet"
     href="
@@ -56,7 +56,7 @@
 <script src="<c:url value="/resources/js/jquery/dataTables.bootstrap.js" />"
 	type="text/javascript">
 </script>
-<script src="<c:url value="/resources/js/jquery/bootstrap-datepicker.js" />"
+<script src="<c:url value="/resources/js/bootstrap-dialog.min.js" />"
 	type="text/javascript">
 </script>
 <!-- Metis Menu Plugin JavaScript -->
@@ -108,7 +108,7 @@
 						<li class="sidebar-search">
 							<div class="input-group custom-search-form">
 								<input type="text" class="form-control"
-									placeholder="Tìm kiếm..."> <span
+									placeholder="Search..."> <span
 									class="input-group-btn">
 									<button class="btn btn-default" type="button">
 										<i class="fa fa-search"></i>
@@ -124,9 +124,9 @@
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level collapse">
 								<li><a href="StockInward">Stock Inward</a></li>
-								<li><a href="morris.html">Stock Outward</a></li>
+								<li><a href="StockInventory">Stock Outward</a></li>
 								<li><a href="StockMove">Stock Move</a></li>
-								<li><a href="morris.html">Adjustment</a></li>
+								<li><a href="StockInventory">Stock Inventory</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<!-- Category Management -->
 						<li class=""><a href="#"><i class="fa fa-edit fa-fw"></i>

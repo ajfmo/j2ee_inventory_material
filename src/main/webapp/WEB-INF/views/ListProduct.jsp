@@ -110,7 +110,7 @@
 						<li class="sidebar-search">
 							<div class="input-group custom-search-form">
 								<input type="text" class="form-control"
-									placeholder="Tìm kiếm..."> <span
+									placeholder="Search..."> <span
 									class="input-group-btn">
 									<button class="btn btn-default" type="button">
 										<i class="fa fa-search"></i>
@@ -126,9 +126,9 @@
 								class="fa arrow"></span></a>
 							<ul class="nav nav-second-level collapse">
 								<li><a href="StockInward">Stock Inward</a></li>
-								<li><a href="morris.html">Stock Outward</a></li>
+								<li><a href="StockInventory">Stock Outward</a></li>
 								<li><a href="StockMove">Stock Move</a></li>
-								<li><a href="morris.html">Adjustment</a></li>
+								<li><a href="StockInventory">Stock Inventory</a></li>
 							</ul> <!-- /.nav-second-level --></li>
 						<!-- Category Management -->
 						<li class=""><a href="#"><i class="fa fa-edit fa-fw"></i>

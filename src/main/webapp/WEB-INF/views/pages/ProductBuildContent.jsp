@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
    pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+
+
 <div id="packing">
    <div class=contain>
       <h1>Assembly Product</h1>
@@ -10,7 +12,7 @@
             <div class="row">
                <div class="form-group">
                   <label for="dateBuildProduct">Date</label> 
-		 		  <input id="sandbox-container" class="form-control" type="text">
+                  <input id="buildDate" readonly="readonly" class="form-control" type="text">
                   <label for="buildProductID">Build ID</label>
                   <input type="text" class="form-control" id="buildProductID" placeholder="Build ID">
                   <label for="staffName">Staff ID</label>
@@ -33,14 +35,15 @@
                   <td>Product Name</td>
                   <td>
                      <select class="form-control" id="select_productN">
-						<c:forEach var="item" items="${listProduct}">
-							<option data-value="
-								<c:out value="${item.productID}">
-								</c:out>">
-								<c:out value="${item.productName}">
-								</c:out>
-							</option>
-						</c:forEach>
+                        <c:forEach var="item" items="${listProduct}">
+                           <option data-value="
+                           <c:out value="${item.productID}">
+                           </c:out>
+                           ">
+                           <c:out value="${item.productName}">
+                           </c:out>
+                           </option>
+                        </c:forEach>
                      </select>
                   </td>
                </tr>
@@ -59,15 +62,13 @@
                <tr>
                   <td>To Stock</td>
                   <td>
-                     <select class="form-control">
-				<c:forEach var="item" items="${listStock}">
-					<option data-value="
-						<c:out value="${item.stockID}">
-						</c:out>">
-						<c:out value="${item.stockName}">
-						</c:out>
-					</option>
-				</c:forEach>
+                     <select id="select_stockID" class="form-control">
+                        <c:forEach var="item" items="${listStock}">
+                           <option value="<c:out value="${item.stockID}"></c:out>">
+                           <c:out value="${item.stockName}">
+                           </c:out>
+                           </option>
+                        </c:forEach>
                      </select>
                   </td>
                </tr>
@@ -90,9 +91,9 @@
          </div>
       </div>
       <div class="process-info">
-         <button type="button" class="btn btn-primary">Create New</button> 
-         <button type="button" class="btn btn-success">Save Data</button>
-         <button type="button" class="btn btn-warning">Cancel</button>
+         <button type="button" id="newProBuild" class="btn btn-primary">Create New</button> 
+         <button type="button" id="saveProBuild" class="btn btn-success">Save Data</button>
+         <button type="button" id="cancel" class="btn btn-warning">Cancel</button>
          <button type="button" class="btn btn-danger">Close</button>
       </div>
    </div>

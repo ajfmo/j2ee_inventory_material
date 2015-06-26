@@ -24,4 +24,6 @@ public interface StockInventoryBO {
 	public boolean deleteStockInventory(StockInventory stockInventory);
 	
 	public int checkAvailableOfProduct(StockInventory stockInventory);
+	
+	public int getCurrentQuantity(StockInventory sInventory);
 }

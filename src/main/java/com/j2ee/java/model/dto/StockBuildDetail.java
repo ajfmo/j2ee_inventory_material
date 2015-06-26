@@ -9,6 +9,8 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import org.springframework.stereotype.Component;
@@ -24,23 +26,25 @@ public class StockBuildDetail {
 	
 	@Id
 	@GeneratedValue
-	@Column(name="buildDetailID")
+	@Column(name="BuildDetailID")
 	private int buildDetailID;
 	
-	@Column(name="buildID")
-	private int buildID;
+    @ManyToOne
+    @JoinColumn(name = "BuildID")  
+	private StockBuild buildID;
 	
-	@Column(name="componentID")
-	private int componentID;
+    @ManyToOne
+    @JoinColumn(name = "ComponentID")  
+	private Product componentID;
 	
-	@Column(name="quantity")
+	@Column(name="Quantity")
 	private int quantity;
 	
-	@Column(name="price")
+	@Column(name="Price")
 	private BigDecimal price;
 	
-	@Column(name="amount")
-	private BigDecimal amount;
+	@Column(name="SubTotal")
+	private BigDecimal subTotal;
 	/**
 	 * 
 	 */
@@ -56,15 +60,15 @@ public class StockBuildDetail {
 	 * @param price
 	 * @param amount
 	 */
-	public StockBuildDetail(int buildDetailID, int buildID, int componentID,
-			int quantity, BigDecimal price, BigDecimal amount) {
+	public StockBuildDetail(int buildDetailID, StockBuild buildID, Product componentID,
+			int quantity, BigDecimal price, BigDecimal subTotal) {
 		super();
 		this.buildDetailID = buildDetailID;
 		this.buildID = buildID;
 		this.componentID = componentID;
 		this.quantity = quantity;
 		this.price = price;
-		this.amount = amount;
+		this.subTotal = subTotal;
 	}
 	/**
 	 * @return the buildDetailID
@@ -81,25 +85,25 @@ public class StockBuildDetail {
 	/**
 	 * @return the buildID
 	 */
-	public int getBuildID() {
+	public StockBuild getBuildID() {
 		return buildID;
 	}
 	/**
 	 * @param buildID the buildID to set
 	 */
-	public void setBuildID(int buildID) {
+	public void setBuildID(StockBuild buildID) {
 		this.buildID = buildID;
 	}
 	/**
 	 * @return the componentID
 	 */
-	public int getComponentID() {
+	public Product getComponentID() {
 		return componentID;
 	}
 	/**
 	 * @param componentID the componentID to set
 	 */
-	public void setComponentID(int componentID) {
+	public void setComponentID(Product componentID) {
 		this.componentID = componentID;
 	}
 	/**
@@ -129,14 +133,14 @@ public class StockBuildDetail {
 	/**
 	 * @return the amount
 	 */
-	public BigDecimal getAmount() {
-		return amount;
+	public BigDecimal getSubTotal() {
+		return subTotal;
 	}
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(BigDecimal amount) {
-		this.amount = amount;
+	public void setSubTotal(BigDecimal subTotal) {
+		this.subTotal = subTotal;
 	}
 	
 }

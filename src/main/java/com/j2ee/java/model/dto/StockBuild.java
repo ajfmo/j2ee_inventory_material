@@ -42,6 +42,10 @@ public class StockBuild {
     @ManyToOne
     @JoinColumn(name = "StaffID")
 	private Staff staffID;
+    
+    @ManyToOne
+    @JoinColumn(name = "StockID")
+    private Stock stockID;
 	
 	@Column(name="TotalAmount")
 	private BigDecimal totalAmount;
@@ -76,12 +80,13 @@ public class StockBuild {
 	 * @param buildDate
 	 */
 	public StockBuild(int buildID, Product productID, Staff staffID,
-			BigDecimal totalAmount, int totalQuantity, String reason,
-			Date buildDate) {
+			Stock stockID, BigDecimal totalAmount, int totalQuantity, 
+			String reason, Date buildDate) {
 		super();
 		this.buildID = buildID;
 		this.productID = productID;
 		this.staffID = staffID;
+		this.stockID = stockID;
 		this.totalAmount = totalAmount;
 		this.totalQuantity = totalQuantity;
 		this.reason = reason;
@@ -122,6 +127,13 @@ public class StockBuild {
 	 */
 	public void setStaffID(Staff staffID) {
 		this.staffID = staffID;
+	}
+	
+	public Stock getStockID() {
+		return stockID;
+	}
+	public void setStockID(Stock stockID) {
+		this.stockID = stockID;
 	}
 	/**
 	 * @return the totalAmount

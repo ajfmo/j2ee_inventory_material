@@ -71,8 +71,7 @@ $(document).ready(function() {
 	        var rowindex = tr.index();
 	        
 	        // get Product Type
-	        var productType = oTable.fnGetData( rowindex, 6
-	        		);
+	        var productType = oTable.fnGetData( rowindex, 6 );
 	        
 	        // get productID
 	        productID = oTable.fnGetData( rowindex, 0 );

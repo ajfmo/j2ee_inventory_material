@@ -1,48 +1,37 @@
-/**
- * 
- */
 package com.j2ee.java.model.dao;
 
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dto.StockInventory;
-import com.j2ee.java.model.dto.StockInward;
 
-/**
- * @author John Tran
- *
- */
-@Component(value = "StockInventoryDAOImpl")
-public class StockInventoryDAOImpl implements StockInventoryDAO {
+@Component(value="StockInventoryDAOImpl")
+public class StockInventoryDAOImpl implements StockInventoryDAO{
 
 	static Logger logger = Logger.getLogger(StockInventoryDAOImpl.class.getName());
-	/* (non-Javadoc)
-	 * @see com.j2ee.java.model.dao.StockInventoryDAO#getByID(int)
-	 */
+	
 	@Override
 	public StockInventory getByID(int id) {
-
+		
 		return (StockInventory) HibernateUtil.getSessionFactory()
 				.getCurrentSession().get(StockInventory.class, id);
 	}
 
-	/* (non-Javadoc)
-	 * @see com.j2ee.java.model.dao.StockInventoryDAO#getAllStockInventory()
-	 */
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<StockInventory> getAllStockInventory() {
-
-		return HibernateUtil.getSessionFactory().getCurrentSession()
-				.createQuery("from StockInventory").list();
+	public List<Object[]> getAllStockInventory() {
+		String hql = "SELECT MAX(s.Date) AS date, s.productID.productID, s.stockID.stockID, SUM(s.quantity) as totalQuantity"
+				+ " FROM StockInventory s"
+				+ " GROUP BY s.productID, s.stockID";
+		Query query = HibernateUtil.getSessionFactory().getCurrentSession().createQuery(hql);
+		@SuppressWarnings("rawtypes")
+		List results = query.list();
+		return results;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.j2ee.java.model.dao.StockInventoryDAO#insertStockInventory(com.j2ee.java.model.dto.StockInventory)
-	 */
 	@Override
 	public boolean insertStockInventory(StockInventory stockInventory) {
 
@@ -52,59 +41,56 @@ public class StockInventoryDAOImpl implements StockInventoryDAO {
 					.save(stockInventory);
 			result = true;
 		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info("Can't save stockInventory");
+			
+			logger.info("Can't save StockInventory");
 		}
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.j2ee.java.model.dao.StockInventoryDAO#updateStockInventory(com.j2ee.java.model.dto.StockInventory)
-	 */
 	@Override
 	public boolean updateStockInventory(StockInventory stockInventory) {
 
 		boolean result = false;
 		try {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.update(stockInventory);
+			Query query = HibernateUtil.getSessionFactory().getCurrentSession()
+					.createQuery("UPDATE StockInventory SET Quantity = :quantity" +
+    				" WHERE ProductID = :productID" + 
+					" AND StockID = :stockID");
+			query.setParameter("quantity", stockInventory.getQuantity());
+			query.setParameter("productID", stockInventory.getProductID());
+			query.setParameter("stockID", stockInventory.getStockID());
+			query.executeUpdate();
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't update stockInventory");
+			logger.info("Can't update StockInventory");
 		}
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see com.j2ee.java.model.dao.StockInventoryDAO#deleteStockInventory(com.j2ee.java.model.dto.StockInventory)
-	 */
 	@Override
 	public boolean deleteStockInventory(StockInventory stockInventory) {
-
-		boolean result = false;
-		try {
-			HibernateUtil.getSessionFactory().getCurrentSession()
-					.delete(stockInventory);
-			result = true;
-		} catch (Exception e) {
-			// TODO: handle exception
-			logger.info("Can't delete stockInventory");
-		}
-		return result;
+		// TODO Auto-generated method stub
+		return false;
 	}
 
-	
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<StockInventory> getStockInventoryByProductAndStock(int productID, int stockID) {
-
-		return HibernateUtil.getSessionFactory().getCurrentSession()
-				.createQuery("from StockInventory si where si.productID = :proID and si.stockID = :stID")
-				.setInteger("proID", productID)
-				.setInteger("stID", stockID)
-				.list();
+	public int getCurrentQuantity(StockInventory sInventory) {
+		int quantity = -1;
+		Query query = HibernateUtil.getSessionFactory().getCurrentSession()
+				.createQuery("SELECT SUM(s.quantity) AS quantity"
+						+ " FROM StockInventory s "
+						+ " WHERE s.productID = :productID "
+						+ " AND s.stockID = :stockID"
+						+ " GROUP BY s.productID, s.stockID");
+		query.setParameter("productID", sInventory.getProductID());
+		query.setParameter("stockID", sInventory.getStockID());
+		@SuppressWarnings("rawtypes")
+		List results = query.list();
+		if (results.size() > 0) {
+			quantity = (int) results.get(0);
+		}
+		return quantity;
 	}
-
 
 }

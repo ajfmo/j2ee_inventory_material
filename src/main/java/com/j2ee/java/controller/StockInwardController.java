@@ -28,12 +28,11 @@ import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.ProviderBO;
-import com.j2ee.java.model.bo.StaffBOImpl;
+import com.j2ee.java.model.bo.StaffBO;
 import com.j2ee.java.model.bo.StockBO;
-import com.j2ee.java.model.bo.StockInventoryBOImpl;
+import com.j2ee.java.model.bo.StockInventoryBO;
 import com.j2ee.java.model.bo.StockInwardBO;
-import com.j2ee.java.model.bo.StockInwardBOImpl;
-import com.j2ee.java.model.bo.StockInwardDetailBOImpl;
+import com.j2ee.java.model.bo.StockInwardDetailBO;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Provider;
 import com.j2ee.java.model.dto.Staff;
@@ -63,19 +62,19 @@ public class StockInwardController {
 	
 	@Autowired
 	@Qualifier("StockInventoryBOImpl")
-	private StockInventoryBOImpl stockInventoryBO;
+	private StockInventoryBO stockInventoryBO;
 	
 	@Autowired
 	@Qualifier("StaffBOImpl")
-	private StaffBOImpl staffBO;
+	private StaffBO staffBO;
 	
 	@Autowired
 	@Qualifier("StockInwardBOImpl")
-	private StockInwardBOImpl stockInBOImpl;
+	private StockInwardBO stockInBOImpl;
 	
 	@Autowired
 	@Qualifier("StockInwardDetailBOImpl")
-	private StockInwardDetailBOImpl stockInDetailBO;
+	private StockInwardDetailBO stockInDetailBO;
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(StockInwardController.class);

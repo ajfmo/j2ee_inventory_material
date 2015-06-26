@@ -1,10 +1,10 @@
 $(document).ready(function() {
 	
-	// Date picker
-	$('#sandbox-container').datepicker({
-		format: "mm/dd/yyyy"
-	});
-	
+    var date = new Date();
+    var month = date.getMonth()+1;
+    var day = date.getDate();
+    var output = ((''+month).length<2 ? '0' : '') + month + '/' + ((''+day).length<2 ? '0' : '') + day + '/' + date.getFullYear();
+    $('#buildDate').val(output);
 	
 	// variable datatable
 	var oTable = $("#tableComponent").dataTable({
@@ -13,10 +13,11 @@ $(document).ready(function() {
 	});
 	var objJson = null;
 	var tableData = null;
+	var productID = null;
 	// Product select change
     $("#select_productN").change(function(){
     	// get value of ProductID
-    	var productID = $(this).find(':selected').data('value').trim();
+    	productID = $(this).find(':selected').data('value').trim();
     	
     	// reset quantity value
     	$("#quantity").val('1');
@@ -24,6 +25,8 @@ $(document).ready(function() {
     	// calling Ajax
     	var success = function(response) {
     		if (response != "") {
+				var i = 0;
+				
     			objJson = jQuery.parseJSON(response);
     			tableData = jQuery.parseJSON(response);
     			$('#tableComponent').dataTable().fnDestroy();
@@ -32,16 +35,17 @@ $(document).ready(function() {
     		        "bLengthChange": false, //used to hide the property 
         			"aaData" : objJson,
         			"aoColumns" : [ {
-        				"mDataProp" : "componentID.productID"
+        				"mData" : "componentID.productID"
         			}, {
-        				"mDataProp" : "componentID.productName"
+        				"mData" : "componentID.productName"
         			}, {
-        				"mDataProp" : "quantity"
+        				"mData" : "quantity"
         			}, {
-        				"mDataProp" : "price"
+        				"mData" : "unitPrice"
         			}, {
-        				"mDataProp" : "quantity"
+        				"mData" : "total"
         			} ]
+    			
         		});
     		} else {
     			oTable.fnClearTable();
@@ -52,7 +56,7 @@ $(document).ready(function() {
     		}
     	};
 
-    	// dinh nghia ham error
+    	// define function error
     	var error = function() {
     		alert("Can't get list Product Component!");
     	};
@@ -95,7 +99,7 @@ $(document).ready(function() {
 		for(var i = 0; i < rowCount; i++){
 			
 			var quantityCompo = tableData[i].quantity;
-			var priceCompo = tableData[i].price;
+			var priceCompo = tableData[i].unitPrice;
 			
 			oTable.fnUpdate((parseInt(quantityCompo)*parseInt(quantity)), parseInt(i), 2);
 
@@ -103,8 +107,97 @@ $(document).ready(function() {
 			oTable.fnUpdate((parseInt(afterQuatity)*parseFloat(priceCompo)), parseInt(i), 4);
 		}
     });
+    
+    // save product build
+    $('#saveProBuild').click(function() {
+    	
+    	// get Stock Build data
+    	var staffID = "3";
+    	var totalQuantity = $('#quantity').val(); 
+    	var totalAmount = $('#subTotal').val();
+    	var note = $('#note').val();
+    	var buildDate = output;
+    	var stockID = $('#select_stockID').val();
+    	
+		var stockBuild = {
+			"productID" : productID,
+			"staffID" : staffID,
+			"buildDate" : buildDate,
+			"note" : note,
+			"totalQuantity" : totalQuantity,
+			"totalAmount" : totalAmount,
+			"stockID" : stockID
+		};
+    	
+		var TableData = new Array();
+    	// get row number
+    	var rowCount = oTable.fnSettings().fnRecordsTotal();
+		for(var i = 0; i < rowCount; i++){
+			var compoID = oTable.fnGetData( i, 0 );
+			var quantityCompo = oTable.fnGetData( i, 2 );
+			var priceCompo = oTable.fnGetData( i, 3 );
+			var subTotal = oTable.fnGetData( i, 4 );
+			TableData[i]={
+		        "compoID" : compoID
+		        , "quantityCompo" : quantityCompo
+		        , "priceCompo" : priceCompo
+		        , "subTotal" : subTotal
+			}
+		}
+		
+		// call ajax to save data
+		var data = {};
+		data[0] = JSON.stringify(stockBuild);
+		data[1] = JSON.stringify(TableData);
+		$.ajax({
+        	type: 'POST',
+            url: './saveStockBuild',
+            dataType: 'json',
+            data: data,
+            success: function(response) {
+            	// Check if response is success.
+				if(response.ID == 1){
+					var dialog = new BootstrapDialog({
+		                type: BootstrapDialog.TYPE_SUCCESS,
+		                title: 'Successful Message',
+		                message: 'Save Stock Build successful!',
+		                buttons: [{
+		                    id: 'btn-ok',
+		                    label: 'OK'
+		                }]
+		            });     
+					dialog.realize();
+					var btnOk = dialog.getButton('btn-ok');
+					btnOk.click(function(event){
+						location.reload(true);
+			        });
+					dialog.open();
+				}
+				else {
+					var dialogError = new BootstrapDialog({
+		                type: BootstrapDialog.TYPE_DANGER,
+		                title: 'Danger Message',
+		                message: response.MGS,
+		                buttons: [{
+		                    id: 'btn-cancel',
+		                    label: 'CANCEL'
+		                }]
+		            });   
+					dialogError.realize();
+					var btnCancel = dialogError.getButton('btn-cancel');
+					btnCancel.click(function(event){
+						location.reload(true);
+			        });
+					dialogError.open();
+				}
+            },
+            error : function(xhr, status){
+                console.log(status);
+            }
+            
+        });
+	});
 });
-
 //It restrict the non-numbers
 var specialKeys = new Array();
 specialKeys.push(8,46); //Backspace
