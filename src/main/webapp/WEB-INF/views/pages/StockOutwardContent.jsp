@@ -14,34 +14,34 @@
          <table class="table no-border striped3n table-resize">
             <tbody>
                <tr class="row_1">
-                  <td><label>Provider ID</label></td>
+                  <td><label>Customer ID</label></td>
                   <td class="td-resize">
                      <div class="input-control select info-state">
-                        <select id="select_providerID" class="form-control">
-                           <c:forEach var="item" items="${listProvider}">
+                        <select id="select_customerID" class="form-control">
+                           <c:forEach var="item" items="${listCustomer}">
                               <option
                               data-value="
-                              <c:out value="${item.providerName}">
+                              <c:out value="${item.customerName}">
                               </c:out>
                               ">
-                              <c:out value="${item.providerID}">
+                              <c:out value="${item.customerID}">
                               </c:out>
                               </option>
                            </c:forEach>
                         </select>
                      </div>
                   </td>
-                  <td><label>Product Name</label></td>
+                  <td><label>Customer Name</label></td>
                   <td class="td-resize">
                      <div class="input-control select info-state">
-                        <select id="select_providerN" class="form-control">
+                        <select id="select_customerN" class="form-control">
                            <c:forEach var="item" items="${listProvider}">
                               <option
                               data-id="
-                              <c:out value="${item.providerID}">
+                              <c:out value="${item.customerID}">
                               </c:out>
                               ">
-                              <c:out value="${item.providerName}">
+                              <c:out value="${item.customerName}">
                               </c:out>
                               </option>
                            </c:forEach>
@@ -87,7 +87,7 @@
                   <td><label>Bill No</label></td>
                   <td>
                      <div class="input-control text info-state">
-                        <input type="text" class="form-control" disabled="disabled" value="${maxStockIn}">
+                        <input type="text" class="form-control" disabled="disabled" value="${maxStockOut}">
                      </div>
                   </td>
                </tr>

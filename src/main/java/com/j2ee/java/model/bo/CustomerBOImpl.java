@@ -10,29 +10,27 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
+import com.j2ee.java.model.dao.CustomerDAO;
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.StockInventoryDAO;
-import com.j2ee.java.model.dto.StockInventory;
+import com.j2ee.java.model.dto.Customer;
 
-@Component(value="StockInventoryBOImpl")
-public class StockInventoryBOImpl implements StockInventoryBO {
+@Component(value="CustomerBOImpl")
+public class CustomerBOImpl implements CustomerBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(StockInventoryBOImpl.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(CustomerBOImpl.class);
 	@Autowired
-	@Qualifier("StockInventoryDAOImpl")
-	private StockInventoryDAO stockInventoryDAO;
+	@Qualifier("CustomerDAOImpl")
+	private CustomerDAO CustomerDAO;
 	
 	@Override
-	public StockInventory getByID(int id) {
-		
-		StockInventory stockInventory = null;
+	public Customer getByID(int id) {
+		Customer Customer = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			stockInventory = stockInventoryDAO.getByID(id);
+			Customer = CustomerDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -42,19 +40,18 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			}
 			logger.error("Error", ex);
 		}
-		return stockInventory;
+		return Customer;
 	}
 
 	@Override
-	public List<Object[]> getAllStockInventory() {
-		
-		List<Object[]> listStockInventory = new ArrayList<Object[]>();
+	public List<Customer> getAllCustomer() {
+		List<Customer> listCustomer = new ArrayList<Customer>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listStockInventory = stockInventoryDAO.getAllStockInventory();
+			listCustomer = CustomerDAO.getAllCustomer();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -64,19 +61,18 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listStockInventory;
+		return listCustomer;
 	}
 
 	@Override
-	public boolean insertStockInventory(StockInventory stockInventory) {
-		
+	public boolean insertCustomer(Customer customer) {
 		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryDAO.insertStockInventory(stockInventory);
+			result = CustomerDAO.insertCustomer(customer);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -90,15 +86,14 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 	}
 
 	@Override
-	public boolean updateStockInventory(StockInventory stockInventory) {
-
+	public boolean updateCustomer(Customer customer) {
 		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryDAO.updateStockInventory(stockInventory);
+			result = CustomerDAO.updateCustomer(customer);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -112,15 +107,14 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 	}
 
 	@Override
-	public boolean deleteStockInventory(StockInventory stockInventory) {
-
+	public boolean deleteCustomer(Customer customer) {
 		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryDAO.deleteStockInventory(stockInventory);
+			result = CustomerDAO.deleteCustomer(customer);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -131,33 +125,6 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			logger.error("Error", ex);
 		}
 		return result;
-	}
-
-	@Override
-	public int getCurrentQuantity(StockInventory sInventory) {
-		int result = 0;
-		Transaction tx = null;
-		try {
-			tx = HibernateUtil.getSessionFactory().getCurrentSession()
-					.beginTransaction();
-
-			result = stockInventoryDAO.getCurrentQuantity(sInventory);
-			
-			tx.commit();
-		} catch (Exception ex) {
-			// TODO: handle exception
-			if (tx != null) {
-				tx.rollback();
-			}
-			logger.error("Error", ex);
-		}
-		return result;
-	}
-
-	@Override
-	public int checkAvailableOfProduct(StockInventory stockInventory) {
-		// TODO Auto-generated method stub
-		return 0;
 	}
 
 }

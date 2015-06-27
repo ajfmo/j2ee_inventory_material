@@ -15,7 +15,7 @@ public interface StockInventoryDAO {
 
 	public StockInventory getByID(int id);
 
-	public List<StockInventory> getAllStockInventory();
+	public List<Object[]> getAllStockInventory();
 
 	public boolean insertStockInventory(StockInventory stockInventory);
 
@@ -24,7 +24,6 @@ public interface StockInventoryDAO {
 	public boolean deleteStockInventory(StockInventory stockInventory);
 	
 	public List<StockInventory> getStockInventoryByProductAndStock(int productID, int stockID);
-
 	
 	public int getCurrentQuantity(StockInventory sInventory);
 }

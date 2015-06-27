@@ -135,7 +135,7 @@ public class ProductBuildController {
 			Stock stockID = new Stock();
 			stockID = stockBO.getByID(stockBuildObj.get("stockID").getAsInt());
 			String dateFormat = stockBuildObj.get("buildDate").getAsString();
-			Date date = Utils.DATE_FORMATTER_WEB.parse(dateFormat);
+			Date date = Utils.DATE_FORMATTER.parse(dateFormat);
 			String note = stockBuildObj.get("note").getAsString();
 			BigDecimal totalAmount = new BigDecimal(stockBuildObj
 					.get("totalAmount").getAsFloat());
@@ -177,7 +177,7 @@ public class ProductBuildController {
 			sBuild.setStockID(stockID);
 			sBuild.setTotalAmount(totalAmount);
 			sBuild.setTotalQuantity(totalQuantity);
-			sBuild.setBuildDate(Utils.DATE_FORMATTER.parse(Utils.DATE_FORMATTER.format(date)));
+			sBuild.setBuildDate(date);
 			sBuild.setReason(note);
 
 			// save to database

@@ -23,10 +23,8 @@ public class StockInventoryDAOImpl implements StockInventoryDAO{
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<Object[]> getAllStockInventory() {
-		String hql = "SELECT MAX(s.Date) AS date, s.productID.productID, s.stockID.stockID, SUM(s.quantity) as totalQuantity"
-				+ " FROM StockInventory s"
-				+ " GROUP BY s.productID, s.stockID";
-		Query query = HibernateUtil.getSessionFactory().getCurrentSession().createQuery(hql);
+		Query query = HibernateUtil.getSessionFactory()
+				.getCurrentSession().createSQLQuery("call getAllStockInventory()");
 		@SuppressWarnings("rawtypes")
 		List results = query.list();
 		return results;
@@ -91,6 +89,13 @@ public class StockInventoryDAOImpl implements StockInventoryDAO{
 			quantity = (int) results.get(0);
 		}
 		return quantity;
+	}
+
+	@Override
+	public List<StockInventory> getStockInventoryByProductAndStock(
+			int productID, int stockID) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

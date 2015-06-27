@@ -15,7 +15,7 @@ public interface StockInventoryBO {
 	
 	public StockInventory getByID(int id);
 
-	public List<StockInventory> getAllStockInventory();
+	public List<Object[]> getAllStockInventory();
 
 	public boolean insertStockInventory(StockInventory stockInventory);
 

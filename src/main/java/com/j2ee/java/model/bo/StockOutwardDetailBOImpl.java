@@ -11,28 +11,27 @@ import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.StockInventoryDAO;
-import com.j2ee.java.model.dto.StockInventory;
+import com.j2ee.java.model.dao.StockOutwardDetailDAO;
+import com.j2ee.java.model.dto.StockOutwardDetail;
 
-@Component(value="StockInventoryBOImpl")
-public class StockInventoryBOImpl implements StockInventoryBO {
+@Component(value = "StockOutwardDetailBOImpl")
+public class StockOutwardDetailBOImpl implements StockOutwardDetailBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(StockInventoryBOImpl.class);
-	
+	private static final Logger logger = LoggerFactory.getLogger(StockOutwardDetailBOImpl.class);
 	@Autowired
-	@Qualifier("StockInventoryDAOImpl")
-	private StockInventoryDAO stockInventoryDAO;
-	
+	@Qualifier("StockOutwardDetailDAOImpl")
+	private StockOutwardDetailDAO sOutDetailDAO;
+
 	@Override
-	public StockInventory getByID(int id) {
-		
-		StockInventory stockInventory = null;
+	public StockOutwardDetail getByID(int id) {
+
+		StockOutwardDetail StockOutwardDetail = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			stockInventory = stockInventoryDAO.getByID(id);
+			StockOutwardDetail = sOutDetailDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -42,19 +41,19 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			}
 			logger.error("Error", ex);
 		}
-		return stockInventory;
+		return StockOutwardDetail;
 	}
 
 	@Override
-	public List<Object[]> getAllStockInventory() {
-		
-		List<Object[]> listStockInventory = new ArrayList<Object[]>();
+	public List<StockOutwardDetail> getAllStockOutwardDetail() {
+
+		List<StockOutwardDetail> listStockOutwardDetail = new ArrayList<StockOutwardDetail>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listStockInventory = stockInventoryDAO.getAllStockInventory();
+			listStockOutwardDetail = sOutDetailDAO.getAllStockOutwardDetail();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -64,33 +63,11 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listStockInventory;
+		return listStockOutwardDetail;
 	}
 
 	@Override
-	public boolean insertStockInventory(StockInventory stockInventory) {
-		
-		boolean result = false;
-		Transaction tx = null;
-		try {
-			tx = HibernateUtil.getSessionFactory().getCurrentSession()
-					.beginTransaction();
-
-			result = stockInventoryDAO.insertStockInventory(stockInventory);
-			
-			tx.commit();
-		} catch (Exception ex) {
-			// TODO: handle exception
-			if (tx != null) {
-				tx.rollback();
-			}
-			logger.error("Error", ex);
-		}
-		return result;
-	}
-
-	@Override
-	public boolean updateStockInventory(StockInventory stockInventory) {
+	public boolean insertStockOutwardDetail(StockOutwardDetail sOutDetail) {
 
 		boolean result = false;
 		Transaction tx = null;
@@ -98,8 +75,8 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryDAO.updateStockInventory(stockInventory);
-			
+			result = sOutDetailDAO.insertStockOutwardDetail(sOutDetail);
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -112,7 +89,7 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 	}
 
 	@Override
-	public boolean deleteStockInventory(StockInventory stockInventory) {
+	public boolean updateStockOutwardDetail(StockOutwardDetail sOutDetail) {
 
 		boolean result = false;
 		Transaction tx = null;
@@ -120,8 +97,8 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryDAO.deleteStockInventory(stockInventory);
-			
+			result = sOutDetailDAO.updateStockOutwardDetail(sOutDetail);
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -134,15 +111,16 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 	}
 
 	@Override
-	public int getCurrentQuantity(StockInventory sInventory) {
-		int result = 0;
+	public boolean deleteStockOutwardDetail(StockOutwardDetail sOutDetail) {
+
+		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = stockInventoryDAO.getCurrentQuantity(sInventory);
-			
+			result = sOutDetailDAO.deleteStockOutwardDetail(sOutDetail);
+
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
@@ -153,11 +131,4 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 		}
 		return result;
 	}
-
-	@Override
-	public int checkAvailableOfProduct(StockInventory stockInventory) {
-		// TODO Auto-generated method stub
-		return 0;
-	}
-
 }

@@ -19,6 +19,7 @@
                      <th>Product ID</th>
                      <th>Product Name</th>
                      <th>Unit Type</th>
+                     <th>Quantity</th>
                      <th>Original Price</th>
                      <th>Sub Total</th>
                      <th>Stock</th>
@@ -28,7 +29,7 @@
 					<c:forEach items="${listSInven}" var="current">
 						<tr>
 							<td>
-								<c:out value="${current.productID.productID}"></c:out>
+								${current.toStringDateWeb()}
 							</td>
 
 							<td>
@@ -42,13 +43,17 @@
 							<td>
 								<c:out value="${current.productID.unitID.unitName}" />
 							</td>
+							
+							<td>
+								<c:out value="${current.quantity}" />
+							</td>
 
 							<td>
 								<c:out value="${current.price}" />
 							</td>
 							
 							<td>
-								<c:out value="${current.quantity}" />
+								<c:out value="${current.amount}" />
 							</td>
 							
 							<td>

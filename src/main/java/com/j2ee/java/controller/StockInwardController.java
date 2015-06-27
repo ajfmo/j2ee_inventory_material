@@ -3,7 +3,6 @@ package com.j2ee.java.controller;
 import java.lang.reflect.Type;
 import java.math.BigDecimal;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Iterator;
@@ -33,6 +32,7 @@ import com.j2ee.java.model.bo.StockBO;
 import com.j2ee.java.model.bo.StockInventoryBO;
 import com.j2ee.java.model.bo.StockInwardBO;
 import com.j2ee.java.model.bo.StockInwardDetailBO;
+import com.j2ee.java.model.bo.Utils;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Provider;
 import com.j2ee.java.model.dto.Staff;
@@ -67,23 +67,14 @@ public class StockInwardController {
 	@Autowired
 	@Qualifier("StaffBOImpl")
 	private StaffBO staffBO;
-	
-	@Autowired
-	@Qualifier("StockInwardBOImpl")
-	private StockInwardBO stockInBOImpl;
-	
+
 	@Autowired
 	@Qualifier("StockInwardDetailBOImpl")
 	private StockInwardDetailBO stockInDetailBO;
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(StockInwardController.class);
-
-	private static final SimpleDateFormat formatterWeb = new SimpleDateFormat(
-			"MM/dd/yyyy");
-	private static final SimpleDateFormat formatter = new SimpleDateFormat(
-			"yyyy-MM-dd");
-
+	
 	// return page of function StockInward
 	@RequestMapping(value = "/StockInward")
 	public String stockInward(Model model) {
@@ -97,19 +88,6 @@ public class StockInwardController {
 		// get current max StockInward ID.
 		int maxStockIn = stockInwardBO.getMaxStockInID();
 		model.addAttribute("maxStockIn", (maxStockIn + 1));
-		
-		
-		// TODO demo for get inventory
-//		List<Object[]> listTe = stockInventoryBO.getAllStockInventory();
-//		
-//		Iterator<Object[]> itr = listTe.iterator();
-//		while(itr.hasNext()){
-//		   Object[] obj = (Object[]) itr.next();
-//		   
-//		   String proID = String.valueOf(obj[0]); 
-//		   String stocID = String.valueOf(obj[1]);
-//		   long totalQ = Long.valueOf(obj[2].toString());
-//		}
 		
 		return "StockInward";
 	}
@@ -184,7 +162,7 @@ public class StockInwardController {
 		staff = staffBO.getByID(stockInwardObj.get("staffID").getAsInt());
 
 		String dateFormat = stockInwardObj.get("date").getAsString();
-		Date date = formatterWeb.parse(dateFormat);
+		Date date = Utils.DATE_FORMATTER.parse(dateFormat);
 
 		String reason = stockInwardObj.get("reason").getAsString();
 		String note = stockInwardObj.get("note").getAsString();
@@ -194,7 +172,7 @@ public class StockInwardController {
 
 		// set value for StockInward
 		stockIn.setStaffID(staff);
-		stockIn.setDate(formatter.parse(formatter.format(date)));
+		stockIn.setDate(date);
 		stockIn.setReason(reason);
 		stockIn.setNote(note);
 		stockIn.setTotalAmount(totalAmount);
@@ -241,7 +219,7 @@ public class StockInwardController {
 			
 			// Save to StockInventory
 			StockInventory sInventory = new StockInventory();
-			sInventory.setDate(formatter.parse(formatter.format(date)));
+			sInventory.setDate(date);
 			sInventory.setProductID(product);
 			sInventory.setStockID(stock);
 			sInventory.setQuantity(jsonObject.get("quantity").getAsInt());

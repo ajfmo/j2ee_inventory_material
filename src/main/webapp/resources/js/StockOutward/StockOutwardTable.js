@@ -121,7 +121,7 @@ $(document).ready(function() {
 	//save stock-inward
 	$("#saveData").on('click',function(){
 		
-		var providerID = $('#select_providerID').val();
+		var customerID = $('#select_customerID').val();
 		var staffID = "3";
 		var date = $('#ngayNhap').val();
 		var reason = $('#reason').val();
@@ -130,7 +130,7 @@ $(document).ready(function() {
 		var note = $('#note').val();
 		
 		var stockInward = {
-			"providerID" : providerID,
+			"customerID" : customerID,
 			"staffID" : staffID,
 			"date" : date,
 			"reason" : reason,
@@ -159,7 +159,7 @@ $(document).ready(function() {
 		data[1] = JSON.stringify(TableData);
 		$.ajax({
         	type: 'POST',
-            url: './saveStockInward',
+            url: './saveStockOutward',
             dataType: 'json',
             data: data,
             success: function(response) {
@@ -185,7 +185,7 @@ $(document).ready(function() {
 					var dialogError = new BootstrapDialog({
 		                type: BootstrapDialog.TYPE_DANGER,
 		                title: 'Danger Message',
-		                message: 'Have problem! Please try later!',
+		                message: response.MGS,
 		                buttons: [{
 		                    id: 'btn-cancel',
 		                    label: 'CANCEL'

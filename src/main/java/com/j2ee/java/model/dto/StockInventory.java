@@ -18,6 +18,8 @@ import javax.persistence.TemporalType;
 
 import org.springframework.stereotype.Component;
 
+import com.j2ee.java.model.bo.Utils;
+
 /**
  * @author John Tran
  *
@@ -52,6 +54,7 @@ public class StockInventory {
 	
 	@Column(name="Amount")
 	private BigDecimal amount;
+	
 	/**
 	 * 
 	 */
@@ -163,5 +166,8 @@ public class StockInventory {
 	 */
 	public void setAmount(BigDecimal amount) {
 		this.amount = amount;
+	}
+	public String toStringDateWeb(){
+		return Utils.DATE_FORMATTER.format(date);
 	}
 }

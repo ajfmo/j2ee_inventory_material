@@ -42,7 +42,8 @@ public class StockOutward {
 	@Column(name = "Reason")
 	private String reason;
 
-	@Column(name = "CustomerID")
+    @ManyToOne
+    @JoinColumn(name = "CustomerID") 
 	private int customerID;
 
     @ManyToOne

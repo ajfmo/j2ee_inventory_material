@@ -6,77 +6,77 @@ import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
-import com.j2ee.java.model.dto.StockInward;
+import com.j2ee.java.model.dto.StockOutward;
 
-@Component(value = "StockInwardDAOImpl")
-public class StockInwardDAOImpl implements StockInwardDAO {
+@Component(value = "StockOutwardDAOImpl")
+public class StockOutwardDAOImpl implements StockOutwardDAO {
 
-	static Logger logger = Logger.getLogger(StockInwardDAOImpl.class.getName());
+	static Logger logger = Logger.getLogger(StockOutwardDAOImpl.class.getName());
 
 	@Override
-	public StockInward getByID(int id) {
+	public StockOutward getByID(int id) {
 
-		return (StockInward) HibernateUtil.getSessionFactory()
-				.getCurrentSession().get(StockInward.class, id);
+		return (StockOutward) HibernateUtil.getSessionFactory()
+				.getCurrentSession().get(StockOutward.class, id);
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<StockInward> getAllStockInward() {
+	public List<StockOutward> getAllStockOutward() {
 
 		return HibernateUtil.getSessionFactory().getCurrentSession()
-				.createQuery("from StockInward").list();
+				.createQuery("from StockOutward").list();
 	}
 
 	@Override
-	public boolean insertStockInward(StockInward stockInward) {
+	public boolean insertStockOutward(StockOutward sOutward) {
 
 		boolean result = false;
 		try {
 			HibernateUtil.getSessionFactory().getCurrentSession()
-					.save(stockInward);
+					.save(sOutward);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't save StockInward");
+			logger.info("Can't save StockOutward");
 		}
 		return result;
 	}
 
 	@Override
-	public boolean updateStockInward(StockInward stockInward) {
+	public boolean updateStockOutward(StockOutward sOutward) {
 
 		boolean result = false;
 		try {
 			HibernateUtil.getSessionFactory().getCurrentSession()
-					.update(stockInward);
+					.update(sOutward);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't update StockInward");
+			logger.info("Can't update StockOutward");
 		}
 		return result;
 	}
 
 	@Override
-	public boolean deleteStockInward(StockInward stockInward) {
+	public boolean deleteStockOutward(StockOutward sOutward) {
 
 		boolean result = false;
 		try {
 			HibernateUtil.getSessionFactory().getCurrentSession()
-					.delete(stockInward);
+					.delete(sOutward);
 			result = true;
 		} catch (Exception e) {
 			// TODO: handle exception
-			logger.info("Can't delete StockInward");
+			logger.info("Can't delete StockOutward");
 		}
 		return result;
 	}
 
 	@Override
-	public int getMaxStockInID() {
+	public int getMaxStockOutID() {
 		int result = 0;
-		String hql = "SELECT MAX(inwardID) FROM StockInward";
+		String hql = "SELECT MAX(outwardID) FROM StockOutward";
 		Query query = HibernateUtil.getSessionFactory().getCurrentSession().createQuery(hql);
 		@SuppressWarnings("rawtypes")
 		List results = query.list();
