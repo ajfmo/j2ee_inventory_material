@@ -44,7 +44,7 @@ public class StockOutward {
 
     @ManyToOne
     @JoinColumn(name = "CustomerID") 
-	private int customerID;
+	private Customer customerID;
 
     @ManyToOne
     @JoinColumn(name = "StaffID")  
@@ -75,7 +75,7 @@ public class StockOutward {
 	 * @param totalAmount
 	 */
 	public StockOutward(int outwardID, Date date, String reason,
-			int customerID, Staff staffID, int totalQuantity,
+			Customer customerID, Staff staffID, int totalQuantity,
 			BigDecimal totalAmount) {
 		super();
 		this.outwardID = outwardID;
@@ -125,13 +125,13 @@ public class StockOutward {
 	/**
 	 * @return the customerID
 	 */
-	public int getCustomerID() {
+	public Customer getCustomerID() {
 		return customerID;
 	}
 	/**
 	 * @param customerID the customerID to set
 	 */
-	public void setCustomerID(int customerID) {
+	public void setCustomerID(Customer customerID) {
 		this.customerID = customerID;
 	}
 	/**
