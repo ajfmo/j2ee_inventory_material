@@ -75,6 +75,7 @@ public class StockInventoryDAOImpl implements StockInventoryDAO{
 	@Override
 	public int getCurrentQuantity(StockInventory sInventory) {
 		int quantity = -1;
+		Long value = null;
 		Query query = HibernateUtil.getSessionFactory().getCurrentSession()
 				.createQuery("SELECT SUM(s.quantity) AS quantity"
 						+ " FROM StockInventory s "
@@ -86,7 +87,8 @@ public class StockInventoryDAOImpl implements StockInventoryDAO{
 		@SuppressWarnings("rawtypes")
 		List results = query.list();
 		if (results.size() > 0) {
-			quantity = (int) results.get(0);
+			value = (Long) results.get(0);
+			quantity = Integer.valueOf(value.toString());
 		}
 		return quantity;
 	}
