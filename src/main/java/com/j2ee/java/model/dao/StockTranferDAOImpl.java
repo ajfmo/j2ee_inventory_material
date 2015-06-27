@@ -3,9 +3,6 @@ package com.j2ee.java.model.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
-import org.hibernate.type.IntegerType;
-import org.hibernate.type.LongType;
-import org.hibernate.type.Type;
 import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dto.StockTransfer;

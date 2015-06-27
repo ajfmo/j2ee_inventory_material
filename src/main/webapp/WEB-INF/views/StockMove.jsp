@@ -32,6 +32,10 @@
 	href="<c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
 	type="text/css">
 
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/dataTables.bootstrap.css" />"
+	type="text/css">
+
 </head>
 <body>
 	<div id="wrapper">
@@ -45,7 +49,8 @@
 					class="icon-bar"></span> <span class="icon-bar"></span> <span
 					class="icon-bar"></span>
 			</button>
-			<a class="navbar-brand" href="index.html">Inventory Management - TSQ</a>
+			<a class="navbar-brand" href="index.html">Inventory Management -
+				TSQ</a>
 		</div>
 		<!-- /.navbar-header -->
 
@@ -117,9 +122,9 @@
 		<div id="page-wrapper" style="min-height: 346px;">
 			<div class="row">
 				<div class="col-lg-12">
-<!-- Include content of this page  -->
-					 <jsp:include page="pages/StockMoveContent.jsp"></jsp:include>
-<!-- Include content of this page  -->
+					<!-- Include content of this page  -->
+					<jsp:include page="pages/StockMoveContent.jsp"></jsp:include>
+					<!-- Include content of this page  -->
 				</div>
 
 				<!-- /.col-lg-12 -->
@@ -151,7 +156,12 @@
 	<script src="../dist/js/sb-admin-2.js"></script>
 	<script src="<c:url value="/resources/js/sb-admin-2.js" />"
 		type="text/javascript"></script>
-	<script src="<c:url value="/resources/js/StockInwardTable.js" />"
+	<script src="<c:url value="/resources/js/StockMove/StockMove.js" />"
+		type="text/javascript"></script>
+
+	<script src="<c:url value="/resources/js/jquery.dataTables.min.js" />"
+		type="text/javascript"></script>
+	<script src="<c:url value="/resources/js/dataTables.bootstrap.js" />"
 		type="text/javascript"></script>
 
 </body>

@@ -11,12 +11,15 @@
 	<h1>Create A Stock Move</h1>
 	<div class="row">
 		<div class="col-lg-6">
-			<a class="btn btn-primary" id="btnEdit">Edit</a> 
-			<a class="btn btn-success" id="btnSave">Save</a> 
-			<a class="btn btn-primary" id="btnProcessLater">Process Later</a> 
-			<a class="btn btn-primary" id="btnCheckAvailable">Check available</a> 
-			<a class="btn btn-primary" id="btnProcessAll">Process Entirely</a> 
-			<a class="btn btn-danger" id="btnCancelMove">Cancel Move</a>
+			<form action="NewStockMoveBill" method="post">
+				<a class="btn btn-primary" id="btnEdit">Edit</a> 
+				<button class="btn btn-success" id="btnCreateNew" type="submit">Create New</button>
+				<a class="btn btn-success" id="btnSave">Save</a> 
+				<a class="btn btn-primary" id="btnProcessLater">Process Later</a> 
+				<a class="btn btn-primary" id="btnCheckAvailable">Check available</a> 
+				<a class="btn btn-primary" id="btnProcessAll">Process Entirely</a> 
+				<a class="btn btn-danger" id="btnCancelMove">Cancel Move</a>
+			</form>
 		</div>
 		<div class="col-xs-6">
 				<ul class="nav nav-wizard">
@@ -26,8 +29,9 @@
 					<li class="" id="sttDone"><a href="#">Done</a></li>
 				</ul>
 		</div>
-		<input value=${lastestID } id="latestID" style="display: none;">
+		<input value=${curTransferID } id="curTransferID" style="display: none;">
 		<input value=${curStatus } id="curStatus" style="display: none;">
+		<input value=${isEdit } id="isEdit" style="display: none;">
 	</div>
 </div>
 <jsp:include page="StockMoveInputField.jsp"></jsp:include>

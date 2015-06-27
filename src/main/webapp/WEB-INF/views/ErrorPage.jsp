@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>New Stock Move</title>
+<title>Stock Move</title>
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
@@ -38,9 +38,6 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/wizard-stepbystep/bootstrap-nav-wizard.css" />"
 	type="text/css">
-	
-
-
 </head>
 <body>
 	<div id="wrapper">
@@ -126,9 +123,7 @@
 		<div id="page-wrapper" style="min-height: 346px;">
 			<div class="row">
 				<div class="col-lg-12">
-					<!-- Include content of this page  -->
-					<jsp:include page="pages/StockMoveNewContent.jsp"></jsp:include>
-					<!-- Include content of this page  -->
+					<h3 align="center">Error! Not support this request!</h3>
 				</div>
 
 				<!-- /.col-lg-12 -->
@@ -155,10 +150,6 @@
 	<script src="<c:url value="/resources/js/moment.min.js" />"
 		type="text/javascript"></script>
 
-	<script
-		src="<c:url value="/resources/js/bootstrap-datepicker.js" />"
-		type="text/javascript"></script>
-
 	<!-- Metis Menu Plugin JavaScript -->
 	<script src="<c:url value="/resources/js/metisMenu.min.js" />"
 		type="text/javascript"></script>
@@ -169,8 +160,10 @@
 		type="text/javascript"></script>
 	<script src="<c:url value="/resources/js/StockMoveContent.js" />"
 		type="text/javascript"></script>
-	<script src="<c:url value="/resources/js/StockMoveNew/StockMoveNew.js" />"
+
+	<script
+		src="<c:url value="/resources/js/bootstrap-datepicker.js" />"
 		type="text/javascript"></script>
-	
+
 </body>
 </html>
