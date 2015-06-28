@@ -67,16 +67,6 @@ $(document).ready(function() {
 	        $(this).addClass('selected');
 	        
 	        $('#createComponent').removeClass("disabled");
-	        // get row index
-//	        var tr = $(this).closest("tr");
-//	        var rowindex = tr.index();
-//	        
-//	        // get Product Type
-//	        var productType = oTable.fnGetData( rowindex, 6 );
-//	        
-//	        // get productID
-//	        productID = oTable.fnGetData( rowindex, 0 );
-	        
 	    }
     } );
 	
@@ -225,8 +215,7 @@ $(document).ready(function() {
 		// clear table body...
 		$("#tbData > tbody").html("");
 	});
-	
-	$("#createComponent").on('click',function(e){	
+
 		// When component PopUp is show.
 		$('#component').on('show.bs.modal', function (e) {
 			
@@ -263,13 +252,16 @@ $(document).ready(function() {
 		                console.log(status);
 		            }
 		        });
-			} else {
-				alert("chi tiết not aprove");
+			} else{
+				BootstrapDialog.show({
+	                type: BootstrapDialog.TYPE_WARNING,
+	                title: 'WARNING',
+	                message: 'Can not add component for this product!'
+	            });     
 				e.preventDefault();
 			}
 			
 		});
-	});
 	
 });
 //It restrict the non-numbers
