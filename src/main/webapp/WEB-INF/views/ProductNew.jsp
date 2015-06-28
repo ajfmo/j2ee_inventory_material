@@ -78,6 +78,7 @@
 	<script src="../dist/js/sb-admin-2.js"></script>
 	<script src="<c:url value="/resources/js/sb-admin-2.js" />"
 		type="text/javascript"></script>
+		
 	<script src="<c:url value="/resources/js/ProductManage/ProductManage.js" />"
 		type="text/javascript"></script>
 

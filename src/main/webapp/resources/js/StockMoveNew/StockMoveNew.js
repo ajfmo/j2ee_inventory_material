@@ -92,9 +92,7 @@ $(function() {
 			data[0] = JSON.stringify(stockMove);
 
 			if ($("#fromStock").val() != $("#toStock").val()) {
-				$('.input-info').prop("disabled", true);
-				$('#btnSave').css('display', 'none');
-				$('#btnEdit').css('display', 'inline-block');
+				
 				$.ajax({
 					type : "POST",
 					url : "processLater",
@@ -112,7 +110,9 @@ $(function() {
 							//change button
 							$("#btnProcessLater").css('display', 'none');
 							$('#btnCheckAvailable').css('display', 'inline-block');
-							
+							$('.input-info').prop("disabled", true);
+							$('#btnSave').css('display', 'none');
+							$('#btnEdit').css('display', 'inline-block');
 						} else {
 							alert("Failed :( !");
 						}
@@ -151,9 +151,7 @@ $(function() {
 			data[0] = JSON.stringify(stockMove);
 
 			if ($("#fromStock").val() != $("#toStock").val()) {
-				$('.input-info').prop("disabled", true);
-				$('#btnSave').css('display', 'none');
-				$('#btnEdit').css('display', 'inline-block');
+				
 				$.ajax({
 					type : "POST",
 					url : "saveNewStockMove",
@@ -164,8 +162,14 @@ $(function() {
 							$("#curTransferID").val(data.curTransferID);
 							$("#isEdit").val(1);
 							alert("Create new bill successful!");
+							$('.input-info').prop("disabled", true);
+							$('#btnSave').css('display', 'none');
+							$('#btnEdit').css('display', 'inline-block');
 						} else if (data.result == "2") {
 							alert("Update successful!");
+							$('.input-info').prop("disabled", true);
+							$('#btnSave').css('display', 'none');
+							$('#btnEdit').css('display', 'inline-block');
 						} else {
 							alert("Failed :( !");
 						}
@@ -199,9 +203,7 @@ $(function() {
 			data[0] = JSON.stringify(stockMove);
 
 			if ($("#fromStock").val() != $("#toStock").val()) {
-				$('.input-info').prop("disabled", true);
-				$('#btnSave').css('display', 'none');
-				$('#btnEdit').css('display', 'inline-block');
+				
 				$.ajax({
 					type : "POST",
 					url : "checkAvailable",
@@ -224,6 +226,9 @@ $(function() {
 										$("#sttAvailable").addClass("active");
 										$("#curStatus").val(3);
 										$("#btnCheckAvailable").css('display', 'none');
+										$('.input-info').prop("disabled", true);
+										$('#btnSave').css('display', 'none');
+										$('#btnEdit').css('display', 'inline-block');
 									} else {
 										alert("Update available failed :( !");
 									}
@@ -278,9 +283,6 @@ $(function() {
 			data[0] = JSON.stringify(stockMove);
 
 			if ($("#fromStock").val() != $("#toStock").val()) {
-				$('.input-info').prop("disabled", true);
-				$('#btnSave').css('display', 'none');
-				$('#btnEdit').css('display', 'inline-block');
 				$.ajax({
 					type : "POST",
 					url : "processAll",
@@ -299,6 +301,9 @@ $(function() {
 							$("#btnProcessAll").css('display', 'none');
 							$("#btnCancelMove").css('display', 'none');
 							$('#btnCreateNew').css('display', 'inline-block');
+							$('.input-info').prop("disabled", true);
+							$('#btnSave').css('display', 'none');
+							$('#btnEdit').css('display', 'inline-block');
 						} else if (data.result == "lower"){
 
 							//warning lower than min stock
@@ -315,6 +320,9 @@ $(function() {
 							$("#btnProcessAll").css('display', 'none');
 							$("#btnCancelMove").css('display', 'none');
 							$('#btnCreateNew').css('display', 'inline-block');
+							$('.input-info').prop("disabled", true);
+							$('#btnSave').css('display', 'none');
+							$('#btnEdit').css('display', 'inline-block');
 						} else if(data.result == "notAvailable") {
 							
 							//notAvailable
@@ -323,6 +331,9 @@ $(function() {
 							$("#btnProcessLater").css('display', 'none');
 							$("#curStatus").val(2);
 							alert("Product is not enough in source stock!");
+							$('.input-info').prop("disabled", true);
+							$('#btnSave').css('display', 'none');
+							$('#btnEdit').css('display', 'inline-block');
 						} else {
 							alert("Process failed :( !");
 							console.log(status);

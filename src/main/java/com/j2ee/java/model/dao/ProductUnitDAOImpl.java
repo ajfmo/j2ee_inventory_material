@@ -23,7 +23,7 @@ public class ProductUnitDAOImpl implements ProductUnitDAO {
 	@Override
 	public ProductUnit getByID(int id) {
 		return (ProductUnit) HibernateUtil.getSessionFactory().getCurrentSession()
-				.get(ProductType.class, id);
+				.get(ProductUnit.class, id);
 	}
 
 	@SuppressWarnings("unchecked")

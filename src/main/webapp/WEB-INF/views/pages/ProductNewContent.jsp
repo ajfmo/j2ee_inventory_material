@@ -3,19 +3,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <div class="productNewContent content-resize">
-	<h1>New Product</h1>
+	<h1 style="text-align: center;">New Product</h1>
 	<div class="row page-header">
 		<div class="col-lg-6" style="margin-left: -15px;">
-			<button id="btnSave" class="btn btn-primary">Save</button>
+			<button id="btnSave" class="btn btn-success">Save</button>
 			<button id="btnEdit" class="btn btn-primary">Edit</button>
-			<button id="btnCreate" class="btn btn-success">Create New</button>
 			<button id="btnCancel" class="btn btn-danger">Cancel</button>
 		</div>
+		<input value=${isEdit } id="isEdit" style="display: none;">
+		<input value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.productID }</c:when></c:choose>" id="productIDHidden" style="display: none;">
 	</div>
 	<div class="row information">
 		<div class="col-lg-3">
-			<img class="img-thumbnail" id="productPic" src="resources/images/1.jpg"
-				alt="some_text"> <input id="input-4" type="file">
+			<input type="file" id="i_file" value="">
+			<br>
+				<img src="" width="200" style="display:none;" id="productImage"/>
+        	<br>
+			<!-- <img class="img-thumbnail" id="productPic" src="resources/images/1.jpg"
+				alt="some_text"> <input id="input-4" type="file"> -->
 		</div>
 		<div class="col-lg-9">
 			<!-- Thông tin nhập -->
@@ -25,15 +30,19 @@
 						<td><label>Product</label></td>
 						<td class="td-resize">
 							<div class="input-control select info-state">
-								<input type="text" id="product" class="form-control" placeholder="Product's name">
+								<input type="text" id="inputProduct" class="form-control input-info" 
+								placeholder="Product's name"
+								maxlength="250"
+								value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.productName }</c:when></c:choose>">
 							</div>
 						</td>
 						<td><label>Origin Price</label></td>
 						<td colspan="1">
 							<div class="input-control text  info-state">
-								<input class="form-control" id="price" value="1"
+								<input class="form-control input-info" id="inputOrgPrice" 
 									onkeypress="return IsNumeric(event);" ondrop="return false;"
-									type="number">
+									type="number"
+									value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.orgPrice }</c:when></c:choose>">
 							</div>
 						</td>
 					</tr>
@@ -41,11 +50,26 @@
 						<td><label>Product Type</label></td>
 						<td class="td-resize">
 							<div class="input-control select info-state">
-								<select id="listProductType" class="form-control">
+								<select id="listProductType" class="form-control input-info">
 									<c:forEach var="productType" items="${listProductType}">
-										<option data-id="${productType.typeID}">
+										<%-- <option data-id="${productType.typeID}">
 											${productType.typeName}
-										</option>
+										</option> --%>
+										
+										<c:choose>
+											<c:when
+												test="${productType.typeID == productToEdit.typeID.typeID}">
+												<option selected="selected" data-id="${productType.typeID}">
+													${productType.typeName}
+												</option>
+											</c:when>
+											<c:otherwise>
+												<option data-id="${productType.typeID}">
+													${productType.typeName}
+												</option>
+											</c:otherwise>
+										</c:choose>
+										
 									</c:forEach>
 								</select>
 							</div>
@@ -53,11 +77,26 @@
 						<td><label>Product Unit</label></td>
 						<td class="td-resize">
 							<div class="input-control select info-state">
-								<select id="listProductUnit" class="form-control">
+								<select id="listProductUnit" class="form-control input-info">
 									<c:forEach var="productUnit" items="${listProductUnit}">
-										<option data-id="${productUnit.unitID}">
+										<%-- <option data-id="${productUnit.unitID}">
 											${productUnit.unitName}
-										</option>
+										</option> --%>
+										
+										<c:choose>
+											<c:when
+												test="${productUnit.unitID == productToEdit.unitID.unitID}">
+												<option selected="selected" data-id="${productUnit.unitID}">
+													${productUnit.unitName}
+												</option>
+											</c:when>
+											<c:otherwise>
+												<option data-id="${productUnit.unitID}">
+													${productUnit.unitName}
+												</option>
+											</c:otherwise>
+										</c:choose>
+										
 									</c:forEach>
 								</select>
 							</div>
@@ -67,11 +106,26 @@
 						<td><label>Manufacturer</label></td>
 						<td class="td-resize">
 							<div class="input-control select info-state">
-								<select id="manufacture" class="form-control">
+								<select id="listManufacture" class="form-control input-info">
 									<c:forEach var="manufacture" items="${listManufacture}">
-										<option data-id="${manufacture.manufactureID}">
+										<%-- <option data-id="${manufacture.manufactureID}">
 											${manufacture.name}
-										</option>
+										</option> --%>
+										
+										<c:choose>
+											<c:when
+												test="${manufacture.manufactureID == productToEdit.manufactureID.manufactureID}">
+												<option selected="selected" data-id="${manufacture.manufactureID}">
+													${manufacture.name}
+												</option>
+											</c:when>
+											<c:otherwise>
+												<option data-id="${manufacture.manufactureID}">
+													${manufacture.name}
+												</option>
+											</c:otherwise>
+										</c:choose>
+										
 									</c:forEach>
 								</select>
 							</div>
@@ -79,11 +133,26 @@
 						<td><label>Provider</label></td>
 						<td class="td-resize">
 							<div class="input-control select info-state">
-								<select id="provider" class="form-control">
+								<select id="listProvider" class="form-control input-info">
 									<c:forEach var="provider" items="${listProvider}">
-										<option data-id="${provider.providerID}">
+										<%-- <option data-id="${provider.providerID}">
 											${provider.providerName}
-										</option>
+										</option> --%>
+										
+										<c:choose>
+											<c:when
+												test="${provider.providerID == productToEdit.providerID.providerID}">
+												<option selected="selected" data-id="${provider.providerID}">
+													${provider.providerName}
+												</option>
+											</c:when>
+											<c:otherwise>
+												<option data-id="${provider.providerID}">
+													${provider.providerName}
+												</option>
+											</c:otherwise>
+										</c:choose>
+										
 									</c:forEach>
 								</select>
 							</div>
@@ -93,22 +162,24 @@
 						<td><label>Min Stock</label></td>
 						<td>
 							<div class="input-control text  info-state">
-								<input class="form-control" id="minStock" value="1"
+								<input class="form-control input-info" id="inputMinStock"
 									onkeypress="return IsNumeric(event);" ondrop="return false;"
-									type="number">
+									type="number"
+									value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.minStock }</c:when><c:otherwise>1</c:otherwise></c:choose>">
 							</div>
 						</td>
 						<td><label>Max Stock</label></td>
-						<td><input class="form-control" id="maxStock" value="1"
+						<td><input class="form-control input-info" id="inputMaxStock" 
 							onkeypress="return IsNumeric(event);" ondrop="return false;"
-							type="number"></td>
+							type="number"
+							value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.maxStock }</c:when><c:otherwise>1</c:otherwise></c:choose>"></td>
 					</tr>
 					<tr>
 						<td><label>Description</label></td>
 						<td colspan="3">
 							<div class="input-control text  info-state">
-								<textarea class="form-control" rows="5" id="description"
-									placeholder="Description" maxlength="100" style="resize: none;"></textarea>
+								<textarea class="form-control input-info" rows="5" id="inputDescription"
+									placeholder="Description" maxlength="100" style="resize: none;"><c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.description }</c:when><c:otherwise></c:otherwise></c:choose></textarea>
 							</div>
 						</td>
 					</tr>
@@ -117,8 +188,3 @@
 		</div>
 	</div>
 </div>
-<script>
-	$("#input-4").fileinput({
-		showCaption : false
-	});
-</script>

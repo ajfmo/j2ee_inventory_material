@@ -263,6 +263,56 @@ $(document).ready(function() {
 			
 		});
 	
+	//----------------Quan Tran-------------
+	//click on create new event
+	$("#createProduct").click(function() {
+		window.location = "productNew";
+	});
+	
+	$("#editProduct").click(function() {
+		var anSelected = fnGetSelected( oTable );
+		if(anSelected.length > 0){
+			var productID = oTable.fnGetData( anSelected[0], 0 );
+			window.location = "editProduct?productID="+productID;
+		}
+	});
+	
+	$("#deleteProduct").click(function() {
+		
+		if(!confirm("Are you sure to delete this product?")){
+			return;
+		}
+		
+		var anSelected = fnGetSelected( oTable );
+		if(anSelected.length > 0){
+			var productID = oTable.fnGetData( anSelected[0], 0 );
+			
+			var product = {
+					"productID" : productID
+				};
+			
+			var data = {};
+			data[0] = JSON.stringify(product);
+
+			$.ajax({
+				type : "POST",
+				url : "deleteProduct",
+				data : data,
+				dataType : "json",
+				success : function(data) {
+					if (data.result == "1") {
+						alert("Delete successful!");
+						window.location = "product";
+					}  else {
+						alert("Can't delete product because foreign key!");
+					}
+				},
+				error : function(status) {
+					console.log(status);
+				}
+			});
+		}
+	});
 });
 //It restrict the non-numbers
 var specialKeys = new Array();
