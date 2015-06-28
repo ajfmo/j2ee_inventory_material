@@ -1,6 +1,7 @@
+var oTable;
 $(document).ready(function() {
 	
-	var oTable = $('#tableProduct').dataTable();
+	oTable = $('#tableProduct').dataTable();
 	
 	var productID = null;
 	 // diable button create component
@@ -67,14 +68,14 @@ $(document).ready(function() {
 	        
 	        $('#createComponent').removeClass("disabled");
 	        // get row index
-	        var tr = $(this).closest("tr");
-	        var rowindex = tr.index();
-	        
-	        // get Product Type
-	        var productType = oTable.fnGetData( rowindex, 6 );
-	        
-	        // get productID
-	        productID = oTable.fnGetData( rowindex, 0 );
+//	        var tr = $(this).closest("tr");
+//	        var rowindex = tr.index();
+//	        
+//	        // get Product Type
+//	        var productType = oTable.fnGetData( rowindex, 6 );
+//	        
+//	        // get productID
+//	        productID = oTable.fnGetData( rowindex, 0 );
 	        
 	    }
     } );
@@ -102,7 +103,7 @@ $(document).ready(function() {
 		
 		if (count <= 1 || productIDValue) {
 			//
-			var html =loadData(count, i);
+			var html = loadData(count, i);
 			$('#tbData').append(html);
 			i++;
 		}
@@ -168,7 +169,6 @@ $(document).ready(function() {
     			elementId = id[id.length - 1];
     			$('#componentID_'+elementId).val(names[0]);
     			$('#componentName_'+elementId).val(names[1]);
-    			$('#unitPrice_'+elementId).val(names[3]);
     		}	
         });
 
@@ -189,14 +189,12 @@ $(document).ready(function() {
 			var productIDCompo = productID;
 			var compoID = "#componentID_"+ idx;
 			var quantity = "#quantity_" + idx;
-			var unitPrice = "#unitPrice_" + idx;
 			
 			if ($(compoID).val()) {
 				TableData[row]={
 			        "productID" : productIDCompo
 			        ,"componentID" : $(compoID).val()
 			        , "quantity": $(quantity).val()
-			        , "unitPrice": $(unitPrice).val()
 			    }
 			}
 			idx++;
@@ -220,8 +218,59 @@ $(document).ready(function() {
 	            
 	        });
 		}
-		
 	});
+	
+	// When component PopUp is hidden.
+	$('#component').on('hidden.bs.modal', function (e) {
+		// clear table body...
+		$("#tbData > tbody").html("");
+	});
+	
+	$("#createComponent").on('click',function(e){	
+		// When component PopUp is show.
+		$('#component').on('show.bs.modal', function (e) {
+			
+			// get productType and productID
+			var anSelected = fnGetSelected( oTable );
+			var productType = oTable.fnGetData( anSelected[0], 6 );
+			if (productType != 'Chi tiết') {
+
+				productID = oTable.fnGetData( anSelected[0], 0 );
+				// check if have data
+		        $.ajax({
+		        	type: 'POST',
+		            url: './getProductComponent',
+		            dataType: 'json',
+		    		data: { 
+		    	        'productID' : productID
+		    	    },
+		            success: function(response) {
+		            	var html = "";
+		            	for (var i = 0; i < response.length; i++) {
+		        			html = "<tr id='row_" + (i + 1) + "'>";
+		        			html += "<td><input class='case' type='checkbox'/></td>";
+		        			html += "<td><span id='snum" + (i + 1) + "'>" + (i + 1) + ".</span></td>";
+		        			html += "<td><input readonly='readonly' value='" + response[i].componentID.productID + "' type='text' data-type='componentID' name='componentID[]' id='componentID_"+(i + 1)+"' class='form-control searchID' autocomplete='off'></td>";
+		        			html += "<td><input type='text' value='" + response[i].componentID.productName + "' data-type='componentName' name='componentName[]' id='componentName_"+(i + 1)+"' class='form-control searchName' autocomplete='off'></td>";
+		        			html += "<td><input type='number' value='" + response[i].quantity + "' name='quantity[]' id='quantity_"
+		        				+ (i + 1)
+		        				+ "' class='form-control changesNo' autocomplete='off' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;' min='1' max='20'></td>";
+		        			html += "</tr>";
+		                    $('#tbData').append(html);
+		                }
+		            },
+		            error : function(xhr, status){
+		                console.log(status);
+		            }
+		        });
+			} else {
+				alert("chi tiết not aprove");
+				e.preventDefault();
+			}
+			
+		});
+	});
+	
 });
 //It restrict the non-numbers
 var specialKeys = new Array();
@@ -230,4 +279,8 @@ function IsNumeric(e) {
     var keyCode = e.which ? e.which : e.keyCode;
     var ret = ((keyCode >= 48 && keyCode <= 57) || specialKeys.indexOf(keyCode) != -1);
     return ret;
+}
+/* Get the rows which are currently selected */
+function fnGetSelected( oTableLocal ){
+    return oTableLocal.$('tr.selected');
 }
