@@ -53,7 +53,7 @@
 							class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
 							<li><a href="StockInward">Stock Inward</a></li>
-							<li><a href="StockInventory">Stock Outward</a></li>
+							<li><a href="StockOutward">Stock Outward</a></li>
 							<li><a href="StockMove">Stock Move</a></li>
 							<li><a href="StockInventory">Stock Inventory</a></li>
 						</ul> <!-- /.nav-second-level --></li>

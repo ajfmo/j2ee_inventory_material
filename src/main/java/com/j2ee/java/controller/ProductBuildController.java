@@ -91,14 +91,15 @@ public class ProductBuildController {
 		return "ProductBuild";
 	}
 	
-	@RequestMapping(value = "/getProductComponent", method = RequestMethod.POST)
+	@RequestMapping(value = "/getProductComponent", method = RequestMethod.POST,
+			produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public final @ResponseBody String getProductComponent(HttpServletRequest request) {
 		logger.info("Get Product information");
 		Gson gson = new Gson();
 		
 		String productID = request.getParameter("productID");
 
-		List<ProductComponent> listProductComponent = proCompoBO.getByID(Integer.valueOf(productID));
+		List<ProductComponent> listProductComponent = proCompoBO.getByProductID(Integer.valueOf(productID));
 
 		Type type = new TypeToken<List<ProductComponent>>() {
 		}.getType();
@@ -164,7 +165,9 @@ public class ProductBuildController {
 				sInvenCheck.setStockID(stockID);
 				int currentQuantity = sInventoryBO.getCurrentQuantity(sInvenCheck);
 				
-				if (currentQuantity < 0) {
+				int quantityCompo = jsonObject.get("quantityCompo").getAsInt();
+				
+				if ((currentQuantity - quantityCompo) < compoID.getMinStock()) {
 					response = "{\"ID\": \"2\",\"MGS\": \"Can not build this product, Please check item " 
 							+ compoID.getProductName() + "\"}";
 					return response;

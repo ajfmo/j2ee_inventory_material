@@ -157,6 +157,10 @@ public class StockInwardController {
 
 		StockInward stockIn = new StockInward();
 
+		// Get ProviderID
+		Provider provider = new Provider();
+		provider.setProviderID(stockInwardObj.get("providerID").getAsInt());
+		
 		// Get StaffID
 		Staff staff = new Staff();
 		staff = staffBO.getByID(stockInwardObj.get("staffID").getAsInt());
@@ -171,6 +175,7 @@ public class StockInwardController {
 		int totalNumber = stockInwardObj.get("totalNumber").getAsInt();
 
 		// set value for StockInward
+		stockIn.setProviderID(provider);
 		stockIn.setStaffID(staff);
 		stockIn.setDate(date);
 		stockIn.setReason(reason);

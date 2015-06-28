@@ -121,6 +121,8 @@ $(document).ready(function() {
 	//save stock-inward
 	$("#saveData").on('click',function(){
 		
+		var flag = false;
+		
 		var providerID = $('#select_providerID').val();
 		var staffID = "3";
 		var date = $('#ngayNhap').val();
@@ -129,86 +131,122 @@ $(document).ready(function() {
 		var totalMoney = $('#totalMoney').val();
 		var note = $('#note').val();
 		
-		var stockInward = {
-			"providerID" : providerID,
-			"staffID" : staffID,
-			"date" : date,
-			"reason" : reason,
-			"totalNumber" : totalAmount,
-			"totalMoney" : totalMoney,
-			"note" : note
-		};
-		
-		var TableData = new Array();
-		var idx = 1;
-		$('#tbData tr').each(function(row, tr){
-			var productID = "#productID_"+ idx;
-			var stockID = "#stockID_" + idx;
-			var quantity = "#quantity_" + idx;
-			TableData[row]={
-		        "productID" : $(productID).val()
-		        , "stockID" : $(stockID).val()
-		        , "quantity" : $(quantity).val()
-		    }
-			idx++;
-		});
-		
-		// call ajax to save data
-		var data = {};
-		data[0] = JSON.stringify(stockInward);
-		data[1] = JSON.stringify(TableData);
-		$.ajax({
-        	type: 'POST',
-            url: './saveStockInward',
-            dataType: 'json',
-            data: data,
-            success: function(response) {
-            	// Check if response is success.
-				if(response.ID == 1){
-					var dialog = new BootstrapDialog({
-		                type: BootstrapDialog.TYPE_SUCCESS,
-		                title: 'Successful Message',
-		                message: 'Save bill successful!',
-		                buttons: [{
-		                    id: 'btn-ok',
-		                    label: 'OK'
-		                }]
-		            });     
-					dialog.realize();
-					var btnOk = dialog.getButton('btn-ok');
-					btnOk.click(function(event){
-						location.reload(true);
-			        });
-					dialog.open();
+		if (totalAmount != '0') {
+			// save data
+			var stockInward = {
+				"providerID" : providerID,
+				"staffID" : staffID,
+				"date" : date,
+				"reason" : reason,
+				"totalNumber" : totalAmount,
+				"totalMoney" : totalMoney,
+				"note" : note
+			};
+				
+			var TableData = new Array();
+			var idx = 1;
+			$('#tbData tr').each(function(row, tr){
+				var productID = "#productID_"+ idx;
+				var stockID = "#stockID_" + idx;
+				var quantity = "#quantity_" + idx;
+				if ($(productID).val() != '' || $(quantity).val() != '' || $(quantity).val() != "0") {
+					TableData[row]={
+				        "productID" : $(productID).val()
+				        , "stockID" : $(stockID).val()
+				        , "quantity" : $(quantity).val()
+				    }
+					idx++;
+				} else {
+					flag = false;
+					return;
 				}
-				else {
-					var dialogError = new BootstrapDialog({
-		                type: BootstrapDialog.TYPE_DANGER,
-		                title: 'Danger Message',
-		                message: 'Have problem! Please try later!',
-		                buttons: [{
-		                    id: 'btn-cancel',
-		                    label: 'CANCEL'
-		                }]
-		            });     
-					dialogError.realize();
-					var btnCancel = dialogError.getButton('btn-cancel');
-					btnCancel.click(function(event){
-						location.reload(true);
-			        });
-					dialogError.open();  
-				}
-            },
-            error : function(xhr, status){
-                console.log(status);
-            }
-            
-        });
+			});
+			
+			if (flag) {
+				// call ajax to save data
+				var data = {};
+				data[0] = JSON.stringify(stockInward);
+				data[1] = JSON.stringify(TableData);
+				$.ajax({
+		        	type: 'POST',
+		            url: './saveStockInward',
+		            dataType: 'json',
+		            data: data,
+		            success: function(response) {
+		            	// Check if response is success.
+						if(response.ID == 1){
+							var dialog = new BootstrapDialog({
+				                type: BootstrapDialog.TYPE_SUCCESS,
+				                title: 'Successful Message',
+				                message: 'Save bill successful!',
+				                buttons: [{
+				                    id: 'btn-ok',
+				                    label: 'OK'
+				                }]
+				            });     
+							dialog.realize();
+							var btnOk = dialog.getButton('btn-ok');
+							btnOk.click(function(event){
+								location.reload(true);
+					        });
+							dialog.open();
+						}
+						else {
+							var dialogError = new BootstrapDialog({
+				                type: BootstrapDialog.TYPE_DANGER,
+				                title: 'Danger Message',
+				                message: 'Have problem! Please try later!',
+				                buttons: [{
+				                    id: 'btn-cancel',
+				                    label: 'CANCEL'
+				                }]
+				            });     
+							dialogError.realize();
+							var btnCancel = dialogError.getButton('btn-cancel');
+							btnCancel.click(function(event){
+								location.reload(true);
+					        });
+							dialogError.open();  
+						}
+		            },
+		            error : function(xhr, status){
+		                console.log(status);
+		            }
+		            
+		        });
+			} else {
+		      BootstrapDialog.show({
+	              type: BootstrapDialog.TYPE_WARNING,
+	              title: 'Warning Message',
+	              message: 'Please add product'
+	          }); 
+			}
+		} else {
+	      BootstrapDialog.show({
+              type: BootstrapDialog.TYPE_WARNING,
+              title: 'Warning Message',
+              message: 'Please add product'
+          });   
+		}
 		
 	});
 	
 	$('#cancel').on('click',function(){
-		BootstrapDialog.alert('I want money!');
+		var dialogCancel = new BootstrapDialog({
+            type: BootstrapDialog.TYPE_DANGER,
+            title: 'Danger Message',
+            message: 'Do you want to cancel this bill?',
+            buttons: [{
+                id: 'btn-ok',
+                label: 'OK'
+            }]
+        });     
+		dialogCancel.realize();
+		var btnOK = dialogCancel.getButton('btn-ok');
+		btnOK.click(function(event){
+			location.reload(true);
+        });
+		dialogCancel.open();  
 	});
 	
 	$('#createNew').on('click',function(){

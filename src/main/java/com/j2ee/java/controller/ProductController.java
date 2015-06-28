@@ -32,71 +32,84 @@ import com.j2ee.java.model.dto.ProductComponent;
 @Controller
 public class ProductController {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProductController.class);
-	
+	private static final Logger logger = LoggerFactory
+			.getLogger(ProductController.class);
+
 	@Autowired
 	@Qualifier("ProductBOImpl")
 	private ProductBO productBO;
-	
+
 	@Autowired
 	@Qualifier("ProductComponentBOImpl")
 	private ProductComponentBO productCompoBO;
-	
+
 	@RequestMapping(value = "/getProductInfor", method = RequestMethod.POST)
 	public final @ResponseBody String getProduct(HttpServletRequest request) {
 		logger.debug("Get Product information using ID");
-		
+
 		Gson gson = new Gson();
-		
+
 		String productID = request.getParameter("productID");
-		
+
 		Product product = productBO.getByID(Integer.parseInt(productID));
-		
+
 		Type type = new TypeToken<Product>() {
 		}.getType();
-		
+
 		String jsonProduct = gson.toJson(product, type);
 		return jsonProduct;
 	}
-	
+
 	@RequestMapping(value = "/product", method = RequestMethod.GET)
 	public String product(Locale locale, Model model) {
 		logger.info("Display List Product information");
-		
+
 		return "ListProduct";
 	}
-	
+
 	@RequestMapping(value = "/getListProduct", method = RequestMethod.POST, produces = "application/x-www-form-urlencoded;charset=UTF-8")
 	public @ResponseBody String getListProduct() {
 		Gson gson = new Gson();
-		
+
 		List<Product> listProduct = new ArrayList<Product>();
 		listProduct = productBO.getAllProduct();
-		
+
 		Type type = new TypeToken<List<Product>>() {
 		}.getType();
-		
+
 		String jsonProduct = gson.toJson(listProduct, type);
 		return jsonProduct;
 	}
-	
+
 	// open page Create Component for Product
 	@RequestMapping(value = "/createComponent", method = RequestMethod.GET)
 	public String createComponent(Locale locale, Model model) {
 		logger.info("Display form add component information");
-		
+
 		return "Component";
 	}
-	
+
 	// Save Component for Product
 	@RequestMapping(value = "/saveProductComponent", method = RequestMethod.POST)
 	public @ResponseBody String saveProductComponent(HttpServletRequest request) {
+
+		// get compoID 
+		String checkProductID = request.getParameter("0");
+		JsonObject checkProductIDObj = new Gson().fromJson(checkProductID,
+				JsonObject.class);
+		List<ProductComponent> itemCheck = new ArrayList<ProductComponent>();
+		itemCheck = productCompoBO.getByProductID(checkProductIDObj.get("productID").getAsInt());
+		// check list
+		if (itemCheck.size() > 0) {
+			// delete all product Component
+			productCompoBO.deleteProductCompoByProductID(checkProductIDObj.get("productID").getAsInt());
+		}
 		
-		// get stock inward
-		String ajaxData = request.getParameter("0");
+		// get product component
+		String ajaxData = request.getParameter("1");
 		JsonArray productComponentObj = (JsonArray) new Gson().fromJson(
 				ajaxData, JsonArray.class);
-		
+
 		Iterator<JsonElement> it = productComponentObj.iterator();
 		List<JsonObject> listProCompo = new ArrayList<JsonObject>();
 		while (it.hasNext()) {
@@ -105,28 +118,28 @@ public class ProductController {
 				listProCompo.add(item);
 			}
 		}
-		
+
 		for (JsonObject jsonObject : listProCompo) {
-			
+
 			Product product = new Product();
 			product.setProductID(jsonObject.get("productID").getAsInt());
-			
+
 			Product component = new Product();
-			component.setProductID(jsonObject.get("componentID").getAsInt());
-			
-			BigDecimal unitPrice = BigDecimal.ZERO;
-			unitPrice = jsonObject.get("unitPrice").getAsBigDecimal();
-			
+			component = productBO.getByID(jsonObject.get("componentID").getAsInt());
+
+			BigDecimal unitPrice = component.getOrgPrice();
+
 			ProductComponent productCompo = new ProductComponent();
 			productCompo.setProductID(product);
 			productCompo.setComponentID(component);
 			productCompo.setQuantity(jsonObject.get("quantity").getAsInt());
 			productCompo.setUnitPrice(unitPrice);
-			productCompo.setTotal(unitPrice.multiply(new BigDecimal(productCompo.getQuantity())));
-			
+			productCompo.setTotal(unitPrice.multiply(new BigDecimal(
+					productCompo.getQuantity())));
+
 			productCompoBO.insertProductComponent(productCompo);
 		}
-		
+
 		String response = "{\"ID\": \"1\"}";
 		return response;
 	}

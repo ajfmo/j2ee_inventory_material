@@ -5,7 +5,7 @@ import java.util.List;
 import com.j2ee.java.model.dto.ProductComponent;
 
 public interface ProductComponentDAO {
-	public List<ProductComponent> getByID(int id);
+	public List<ProductComponent> getByProductID(int id);
 
 	public List<ProductComponent> getAllProductComponent();
 
@@ -14,4 +14,6 @@ public interface ProductComponentDAO {
 	public boolean updateProductComponent(ProductComponent ProductComponent);
 
 	public boolean deleteProductComponent(ProductComponent ProductComponent);
+	
+	public int deleteProductCompoByProductID(int id);
 }

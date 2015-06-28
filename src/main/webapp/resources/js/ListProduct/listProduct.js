@@ -71,9 +71,10 @@ $(document).ready(function() {
     } );
 	
 	// Product with component
-	var i = $('#tbData tr').length;
+	
 	//deletes the selected table rows
 	$(".delete").on('click', function() {
+		var i = $('#tbData tr').length;
 		i --;
 		$('.case:checkbox:checked').parents("tr").remove();
 		$('#check_all').prop("checked", false); 
@@ -86,9 +87,9 @@ $(document).ready(function() {
 	
 	//adds extra table rows
 	$(".addmore").on('click',function(){
-		
+		var i = $('#tbData tr').length;
 		count = $('#tbData tr').length;
-		var productID = 'productID_' + (count - 1); 
+		var productID = 'componentID_' + (count - 1); 
 		var productIDValue = $('#' + productID).val();
 		
 		if (count <= 1 || productIDValue) {
@@ -174,11 +175,16 @@ $(document).ready(function() {
 	$("#saveProductComponent").on('click',function(){		
 		var TableData = new Array();
 		var idx = 1;
+		var checkProductID = "";
 		$('#tbData tr').each(function(row, tr){
 
 			var productIDCompo = productID;
 			var compoID = "#componentID_"+ idx;
 			var quantity = "#quantity_" + idx;
+			
+			checkProductID = {
+				"productID" : productID
+			};
 			
 			if ($(compoID).val()) {
 				TableData[row]={
@@ -193,7 +199,8 @@ $(document).ready(function() {
 		// call ajax to save data
 		var data = {};
 		if (!jQuery.isEmptyObject(TableData)) {
-			data[0] = JSON.stringify(TableData);
+			data[0] = JSON.stringify(checkProductID);
+			data[1] = JSON.stringify(TableData);
 			$.ajax({
 	        	type: 'POST',
 	            url: './saveProductComponent',
@@ -213,7 +220,8 @@ $(document).ready(function() {
 	// When component PopUp is hidden.
 	$('#component').on('hidden.bs.modal', function (e) {
 		// clear table body...
-		$("#tbData > tbody").html("");
+		count = $('#tbData tr').length;
+		$("#tbData").find("tr:gt(0)").remove();
 	});
 
 		// When component PopUp is show.

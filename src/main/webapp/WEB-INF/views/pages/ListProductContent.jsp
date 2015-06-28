@@ -11,7 +11,7 @@
 			<button id="editProduct" class="btn btn-warning" type="button">Edit Data</button>
 			<button id="deleteProduct" class="btn btn-danger" type="button">Delete</button>
 			<button id="createComponent" class="btn btn-success" type="button" data-toggle="modal"
-					data-target="#component">Create Component</button>
+					data-target="#component">Create &amp; Edit Component</button>
 			<button id="printProduct" class="btn btn-default" type="button">Print</button>
 		</div>
 		
@@ -80,7 +80,6 @@
 			html += "<td><input type='number' name='quantity[]' id='quantity_"
 				+ i
 				+ "' class='form-control changesNo' autocomplete='off' onkeypress='return IsNumeric(event);' ondrop='return false;' onpaste='return false;' min='1' max='20'></td>";
-			html += "<td><input type='text' data-type='unitPrice' name='unitPrice[]' id='unitPrice_"+i+"' class='form-control' ></td>";
 			html += "</tr>";
 		
 			return html;

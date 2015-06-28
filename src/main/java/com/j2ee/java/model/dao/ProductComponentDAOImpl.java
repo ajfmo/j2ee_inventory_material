@@ -14,7 +14,7 @@ public class ProductComponentDAOImpl implements ProductComponentDAO {
 	
 	@SuppressWarnings("unchecked")
 	@Override
-	public List<ProductComponent> getByID(int id) {
+	public List<ProductComponent> getByProductID(int id) {
 		// TODO Auto-generated method stub
 		Query query = HibernateUtil.getSessionFactory().getCurrentSession().createQuery("from ProductComponent where ProductID = :productID ");
 		query.setParameter("productID", id);
@@ -74,4 +74,19 @@ public class ProductComponentDAOImpl implements ProductComponentDAO {
 		}
 		return result;
 	}
+
+	@Override
+	public int deleteProductCompoByProductID(int id) {
+		int result = 0;
+		try {
+			Query query = HibernateUtil.getSessionFactory().getCurrentSession()
+					.createQuery("delete ProductComponent where ProductID = :productID");
+			query.setParameter("productID", id);
+			result = query.executeUpdate();
+		} catch (Exception e) {
+			logger.info("Can't delete ProductComponent");
+		}
+		return result;
+	}
+
 }

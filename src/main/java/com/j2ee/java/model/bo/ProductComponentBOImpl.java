@@ -22,7 +22,7 @@ public class ProductComponentBOImpl implements ProductComponentBO {
 	private ProductComponentDAO ProductComponentDAO;
 	
 	@Override
-	public List<ProductComponent> getByID(int id) {
+	public List<ProductComponent> getByProductID(int id) {
 		// TODO Auto-generated method stub
 		List<ProductComponent> ProductComponent = null;
 		Transaction tx = null;
@@ -30,7 +30,7 @@ public class ProductComponentBOImpl implements ProductComponentBO {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			ProductComponent = ProductComponentDAO.getByID(id);
+			ProductComponent = ProductComponentDAO.getByProductID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -123,6 +123,26 @@ public class ProductComponentBOImpl implements ProductComponentBO {
 			tx.commit();
 		} catch (Exception ex) {
 			// TODO: handle exception
+			if (tx != null) {
+				tx.rollback();
+			}
+			logger.error("Error", ex);
+		}
+		return result;
+	}
+
+	@Override
+	public int deleteProductCompoByProductID(int id) {
+		int result = 0;
+		Transaction tx = null;
+		try {
+			tx = HibernateUtil.getSessionFactory().getCurrentSession()
+					.beginTransaction();
+
+			result = ProductComponentDAO.deleteProductCompoByProductID(id);
+			
+			tx.commit();
+		} catch (Exception ex) {
 			if (tx != null) {
 				tx.rollback();
 			}

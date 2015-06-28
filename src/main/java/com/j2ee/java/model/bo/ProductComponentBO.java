@@ -6,7 +6,7 @@ import com.j2ee.java.model.dto.ProductComponent;
 
 public interface ProductComponentBO {
 
-	public List<ProductComponent> getByID(int id);
+	public List<ProductComponent> getByProductID(int id);
 	
 	public List<ProductComponent> getAllProductComponent();
 	
@@ -15,4 +15,6 @@ public interface ProductComponentBO {
 	public boolean updateProductComponent(ProductComponent productComponent);
 	
 	public boolean deleteProductComponent(ProductComponent productComponent);
+	
+	public int deleteProductCompoByProductID(int id);
 }

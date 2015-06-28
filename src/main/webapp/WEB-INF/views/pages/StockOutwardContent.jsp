@@ -4,8 +4,8 @@
 
 
 
-<div class="inwardContent">
-   <h1 class="page-header">Stock Inward</h1>
+<div class="outwardContent">
+   <h1 class="page-header">Stock Outward</h1>
    <!-- <form> -->
    <label><b>Bill Information</b> </label>
    <div class="row information">
@@ -35,7 +35,7 @@
                   <td class="td-resize">
                      <div class="input-control select info-state">
                         <select id="select_customerN" class="form-control">
-                           <c:forEach var="item" items="${listProvider}">
+                           <c:forEach var="item" items="${listCustomer}">
                               <option
                               data-id="
                               <c:out value="${item.customerID}">

@@ -42,6 +42,9 @@ public class StockOutward {
 	@Column(name = "Reason")
 	private String reason;
 
+	@Column(name = "Note")
+	private String note;
+	
     @ManyToOne
     @JoinColumn(name = "CustomerID") 
 	private Customer customerID;
@@ -74,13 +77,14 @@ public class StockOutward {
 	 * @param totalQuantity
 	 * @param totalAmount
 	 */
-	public StockOutward(int outwardID, Date date, String reason,
+	public StockOutward(int outwardID, Date date, String reason, String note,
 			Customer customerID, Staff staffID, int totalQuantity,
 			BigDecimal totalAmount) {
 		super();
 		this.outwardID = outwardID;
 		this.date = date;
 		this.reason = reason;
+		this.note = note;
 		this.customerID = customerID;
 		this.staffID = staffID;
 		this.totalQuantity = totalQuantity;
@@ -121,6 +125,13 @@ public class StockOutward {
 	 */
 	public void setReason(String reason) {
 		this.reason = reason;
+	}
+	
+	public String getNote() {
+		return note;
+	}
+	public void setNote(String note) {
+		this.note = note;
 	}
 	/**
 	 * @return the customerID

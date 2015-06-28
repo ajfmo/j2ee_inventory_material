@@ -29,6 +29,10 @@ public class StockInward {
 	private int inwardID;
 
     @ManyToOne
+    @JoinColumn(name = "ProviderID")  
+	private Provider providerID;
+	
+    @ManyToOne
     @JoinColumn(name = "StaffID")  
 	private Staff staffID;
 
@@ -67,16 +71,19 @@ public class StockInward {
 	 * @param totalAmount
 	 * @param totalNumber
 	 */
-	public StockInward(int inwardID, Provider providerID, Staff staffID, Date date,
-			String reason, BigDecimal totalAmount, int totalNumber, String note) {
+	public StockInward(int inwardID, Provider providerID, Staff staffID,
+			Date date, String reason, BigDecimal totalAmount, int totalNumber,
+			String note, Set<StockInwardDetail> stockInStockInDetail) {
 		super();
 		this.inwardID = inwardID;
+		this.providerID = providerID;
 		this.staffID = staffID;
 		this.date = date;
 		this.reason = reason;
 		this.totalAmount = totalAmount;
 		this.totalNumber = totalNumber;
 		this.note = note;
+		this.stockInStockInDetail = stockInStockInDetail;
 	}
 
 	/**
@@ -183,5 +190,13 @@ public class StockInward {
 
 	public void setNote(String note) {
 		this.note = note;
+	}
+
+	public Provider getProviderID() {
+		return providerID;
+	}
+
+	public void setProviderID(Provider providerID) {
+		this.providerID = providerID;
 	}
 }
