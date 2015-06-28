@@ -65,7 +65,7 @@ public class ProductType {
 	/**
 	 * @return the name
 	 */
-	public String getTypName() {
+	public String getTypeName() {
 		return typeName;
 	}
 	/**

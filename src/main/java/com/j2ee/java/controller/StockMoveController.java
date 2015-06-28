@@ -3,6 +3,7 @@
  */
 package com.j2ee.java.controller;
 
+import java.math.BigDecimal;
 import java.text.ParseException;
 import java.util.List;
 
@@ -67,7 +68,7 @@ public class StockMoveController {
 		List<StockTransfer> listStockTran = stockTransferBO
 				.getAllStockTransfer();
 		model.addAttribute("listStockTrans", listStockTran);
-
+		
 		return "StockMove";
 	}
 
@@ -80,9 +81,6 @@ public class StockMoveController {
 
 		// set stockTransfer to model
 		model.addAttribute("curStockTransfer", null);
-
-		// get latest stock transfer id
-		// int lastestID = stockTransferBO.getLastestBillID();
 
 		// set current stock transfer id to model attribute
 		model.addAttribute("curTransferID", stockTransferBO.getLastestBillID());
@@ -243,7 +241,23 @@ public class StockMoveController {
 				.get("fromStock").getAsString().split(":")[0]));
 		stockInventory.setStockID(fromStock);
 
-		int result = stockInventoryBO.checkAvailableOfProduct(stockInventory);
+		int rs = stockInventoryBO.getCurrentQuantity(stockInventory);
+		
+		int result = 0;
+		
+		if(rs < 0){
+			result = 0;
+		} else {
+			if(rs > 0){
+				if(rs > product.getMinStock()){
+					result = 1;
+				} else {
+					result = -1;
+				}
+			}
+		}
+		
+		
 
 		if (result == 0) {
 
@@ -311,11 +325,6 @@ public class StockMoveController {
 				JsonObject.class);
 		int latestIDFromForm = 0;
 
-		// check current status of this bill
-		// int currentStatus = stockMoveObj.get("curStatus").getAsInt();
-
-		// if (currentStatus == 1) {
-
 		// stt is new
 		// create a stockTransfer object from request,
 		// with status is New (1)
@@ -334,22 +343,30 @@ public class StockMoveController {
 		if (isEdit == 0) {// new
 			if (stockTransferBO.insertStockTransfer(stTranfer)) {
 
-				/*// set current stock transfer id to model attribute
-				model.addAttribute("curTransferID",
-						stockTransferBO.getLastestBillID());*/
-				//req.setAttribute("curTransferID", stockTransferBO.getLastestBillID());
-
 				int curTransferID = stockTransferBO.getLastestBillID();
 				
 				// check available for this bill
 				String rs = checkAvailableForProcessAll(req, curTransferID);
 				if (rs.contains("1")) {
-					// stt is available --> set stt to done
+					// stt is available 
+					//change quantity in inventory
+					if(!changeQuantityInInventory(stTranfer)){
+						return "{\"result\" : \"0\"}";
+					}
+					
+					//--> set stt to done
 					stockTransferBO.updateStockTransferStatus(curTransferID,
 							4);
+					
 					return "{\"result\" : \"success\"}";
 				} else if (rs.contains("-1")) {
-					// stt is available but lower than MinValue --> set stt to done
+					// stt is available but lower than MinValue 
+					//change quantity in inventory
+					if(!changeQuantityInInventory(stTranfer)){
+						return "{\"result\" : \"0\"}";
+					}
+					
+					//--> set stt to done
 					stockTransferBO.updateStockTransferStatus(curTransferID,
 							4);
 					return "{\"result\" : \"lower\"}";
@@ -369,13 +386,25 @@ public class StockMoveController {
 				String rs = checkAvailable(req);
 				if (rs.contains("1")) {
 
-					// stt is available --> set stt to done
+					// stt is available
+					//change quantity in inventory
+					if(!changeQuantityInInventory(stTranfer)){
+						return "{\"result\" : \"0\"}";
+					}
+					
+					//--> set stt to done
 					stockTransferBO.updateStockTransferStatus(latestIDFromForm,
 							4);
 					return "{\"result\" : \"success\"}";
 				} else if (rs.contains("-1")) {
 
-					// stt is available but lower than MinValue --> set stt to done
+					// stt is available but lower than MinValue
+					//change quantity in inventory
+					if(!changeQuantityInInventory(stTranfer)){
+						return "{\"result\" : \"0\"}";
+					}
+					
+					//--> set stt to done
 					stockTransferBO.updateStockTransferStatus(latestIDFromForm,
 							4);
 					return "{\"result\" : \"lower\"}";
@@ -388,25 +417,6 @@ public class StockMoveController {
 				}
 			}
 		}
-		/*
-		 * } else if (currentStatus == 2) {
-		 * 
-		 * // stt is waiting String rs = checkAvailable(req); if
-		 * (rs.contains("1")) {
-		 * 
-		 * // stt is available
-		 * stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
-		 * return "{\"result\" : \"success\"}"; } else if (rs.contains("-1")) {
-		 * 
-		 * // stt is available but lower than MinValue
-		 * stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
-		 * return "{\"result\" : \"lower\"}"; } else { return
-		 * "{\"result\" : \"notAvailable\"}"; } } else {
-		 * 
-		 * // stt is available // then change stt to DONE
-		 * stockTransferBO.updateStockTransferStatus(latestIDFromForm, 4);
-		 * return "{\"result\" : \"success\"}"; }
-		 */
 
 		return "{\"result\" : \"0\"}";
 	}
@@ -499,7 +509,7 @@ public class StockMoveController {
 		// set to model attribute, after increase this ID
 		model.addAttribute("lastestID", stockTransfer.getTransferID());
 
-		// set current status is "New"
+		// set current status
 		model.addAttribute("curStatus", stockTransfer.getStatusID());
 
 		// get list product
@@ -517,7 +527,7 @@ public class StockMoveController {
 		return "StockMoveNew";
 	}
 	
-	public @ResponseBody String checkAvailableForProcessAll(HttpServletRequest req, int currentID) {
+	public String checkAvailableForProcessAll(HttpServletRequest req, int currentID) {
 
 		StockInventory stockInventory = new StockInventory();
 
@@ -566,5 +576,39 @@ public class StockMoveController {
 		}
 
 		return "{\"result\" : \"" + result + "\"}";
+	}
+	
+	private boolean changeQuantityInInventory(StockTransfer stTranfer){
+		
+		boolean result = false;
+		
+		// change quantity of product in stock_inventory -- for fromStock
+		StockInventory stockInventory = new StockInventory();
+		stockInventory.setProductID(stTranfer.getProductID());
+		stockInventory.setStockID(stTranfer.getFromStock());
+		stockInventory.setQuantity(-stTranfer.getQuantity());// "-" mean decrease quantity
+		stockInventory.setPrice(stTranfer.getProductID().getOrgPrice());
+		stockInventory.setAmount(stTranfer.getProductID().getOrgPrice()
+				.multiply(new BigDecimal(stTranfer.getQuantity())));
+		stockInventory.setDate(stTranfer.getExpectedDate());
+		
+		result = stockInventoryBO.insertStockInventory(stockInventory);
+		if(!result){
+			return result;
+		}
+		
+		// change quantity of product in stock_inventory -- for toStock
+		stockInventory = new StockInventory();
+		stockInventory.setProductID(stTranfer.getProductID());
+		stockInventory.setStockID(stTranfer.getToStock());
+		stockInventory.setQuantity(stTranfer.getQuantity());// "+" mean increase quantity
+		stockInventory.setPrice(stTranfer.getProductID().getOrgPrice());
+		stockInventory.setAmount(stTranfer.getProductID().getOrgPrice()
+				.multiply(new BigDecimal(stTranfer.getQuantity())));
+		stockInventory.setDate(stTranfer.getExpectedDate());
+		
+		result = stockInventoryBO.insertStockInventory(stockInventory);
+		
+		return result;
 	}
 }

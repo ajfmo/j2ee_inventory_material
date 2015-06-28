@@ -315,7 +315,7 @@ $(function() {
 							$("#btnProcessAll").css('display', 'none');
 							$("#btnCancelMove").css('display', 'none');
 							$('#btnCreateNew').css('display', 'inline-block');
-						} else {
+						} else if(data.result == "notAvailable") {
 							
 							//notAvailable
 							$("#sttNew").removeClass("active");
@@ -323,7 +323,9 @@ $(function() {
 							$("#btnProcessLater").css('display', 'none');
 							$("#curStatus").val(2);
 							alert("Product is not enough in source stock!");
-							
+						} else {
+							alert("Process failed :( !");
+							console.log(status);
 						}
 					},
 					error : function(status) {

@@ -8,29 +8,32 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+
+
 import org.springframework.stereotype.Component;
 
 import com.j2ee.java.model.dao.HibernateUtil;
-import com.j2ee.java.model.dao.ProductTypeDAO;
-import com.j2ee.java.model.dto.ProductType;
+import com.j2ee.java.model.dao.ProductUnitDAO;
+import com.j2ee.java.model.dto.ProductUnit;
 
-@Component(value="ProductTypeBOImpl")
-public class ProductTypeBOImpl implements ProductTypeBO {
+@Component(value="ProductUnitBOImpl")
+public class ProductUnitBOImpl implements ProductUnitBO {
 
-	private static final Logger logger = LoggerFactory.getLogger(ProductTypeBOImpl.class);
+	private static final Logger logger = LoggerFactory.getLogger(ProductUnitBOImpl.class);
+	
 	@Autowired
-	@Qualifier("ProductTypeDAOImpl")
-	private ProductTypeDAO productTypeDAO;
+	@Qualifier("ProductUnitDAOImpl")
+	private ProductUnitDAO productUnitDAO;
 	
 	@Override
-	public ProductType getByID(int id) {
-		ProductType productType = null;
+	public ProductUnit getByID(int id) {
+		ProductUnit productUnit = null;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			productType = productTypeDAO.getByID(id);
+			productUnit = productUnitDAO.getByID(id);
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -40,18 +43,18 @@ public class ProductTypeBOImpl implements ProductTypeBO {
 			}
 			logger.error("Error", ex);
 		}
-		return productType;
+		return productUnit;
 	}
 
 	@Override
-	public List<ProductType> getAllProductType() {
-		List<ProductType> listProductType = new ArrayList<ProductType>();
+	public List<ProductUnit> getAllProductUnit() {
+		List<ProductUnit> listProductUnit = new ArrayList<ProductUnit>();
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			listProductType = productTypeDAO.getAllProvider();
+			listProductUnit = productUnitDAO.getProductUnit();
 
 			tx.commit();
 		} catch (Exception ex) {
@@ -61,18 +64,18 @@ public class ProductTypeBOImpl implements ProductTypeBO {
 			}
 			logger.error("Error", ex);
 		}
-		return listProductType;
+		return listProductUnit;
 	}
 
 	@Override
-	public boolean insertProductType(ProductType productType) {
+	public boolean insertProductUnit(ProductUnit productUnit) {
 		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = productTypeDAO.insertProductType(productType);
+			result = productUnitDAO.insertProductUnit(productUnit);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -86,14 +89,14 @@ public class ProductTypeBOImpl implements ProductTypeBO {
 	}
 
 	@Override
-	public boolean updateProductType(ProductType productType) {
+	public boolean updateProductUnit(ProductUnit productUnit) {
 		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = productTypeDAO.updateProductType(productType);
+			result = productUnitDAO.updateProductUnit(productUnit);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -107,14 +110,14 @@ public class ProductTypeBOImpl implements ProductTypeBO {
 	}
 
 	@Override
-	public boolean deleteProductType(ProductType productType) {
+	public boolean deleteProductUnit(ProductUnit productUnit) {
 		boolean result = false;
 		Transaction tx = null;
 		try {
 			tx = HibernateUtil.getSessionFactory().getCurrentSession()
 					.beginTransaction();
 
-			result = productTypeDAO.deleteProductType(productType);
+			result = productUnitDAO.deleteProductUnit(productUnit);
 			
 			tx.commit();
 		} catch (Exception ex) {
@@ -126,4 +129,5 @@ public class ProductTypeBOImpl implements ProductTypeBO {
 		}
 		return result;
 	}
+
 }

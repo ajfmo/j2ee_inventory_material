@@ -23,10 +23,32 @@
 		</div>
 		<div class="col-xs-6">
 				<ul class="nav nav-wizard">
-					<li class="active" id="sttNew"><a href="#">New</a></li>
-					<li class="" id="sttWaiting"><a href="#">Waiting Availability</a></li>
-					<li class="" id="sttAvailable"><a href="#">Available</a></li>
-					<li class="" id="sttDone"><a href="#">Done</a></li>
+					<c:choose>
+						<c:when test="${curStatus == 1 }">
+							<li class="active" id="sttNew"><a href="#">New</a></li>
+							<li class="" id="sttWaiting"><a href="#">Waiting Availability</a></li>
+							<li class="" id="sttAvailable"><a href="#">Available</a></li>
+							<li class="" id="sttDone"><a href="#">Done</a></li>
+						</c:when>
+						<c:when test="${curStatus == 2 }">
+							<li class="" id="sttNew"><a href="#">New</a></li>
+							<li class="active" id="sttWaiting"><a href="#">Waiting Availability</a></li>
+							<li class="" id="sttAvailable"><a href="#">Available</a></li>
+							<li class="" id="sttDone"><a href="#">Done</a></li>
+						</c:when>
+						<c:when test="${curStatus == 3 }">
+							<li class="" id="sttNew"><a href="#">New</a></li>
+							<li class="" id="sttWaiting"><a href="#">Waiting Availability</a></li>
+							<li class="active" id="sttAvailable"><a href="#">Available</a></li>
+							<li class="" id="sttDone"><a href="#">Done</a></li>
+						</c:when>
+						<c:when test="${curStatus == 4 }">
+							<li class="" id="sttNew"><a href="#">New</a></li>
+							<li class="" id="sttWaiting"><a href="#">Waiting Availability</a></li>
+							<li class="" id="sttAvailable"><a href="#">Available</a></li>
+							<li class="active" id="sttDone"><a href="#">Done</a></li>
+						</c:when>
+					</c:choose>
 				</ul>
 		</div>
 		<input value=${curTransferID } id="curTransferID" style="display: none;">

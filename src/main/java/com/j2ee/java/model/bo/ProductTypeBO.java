@@ -8,7 +8,7 @@ public interface ProductTypeBO {
 
 	public ProductType getByID(int id);
 	
-	public List<ProductType> getAllProvider();
+	public List<ProductType> getAllProductType();
 	
 	public boolean insertProductType(ProductType productType);
 	
