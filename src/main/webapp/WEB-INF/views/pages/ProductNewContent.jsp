@@ -15,9 +15,16 @@
 	</div>
 	<div class="row information">
 		<div class="col-lg-3">
-			<input type="file" id="i_file" value="">
+			<input type="file" id="input-4" value="">
 			<br>
-				<img src="" width="200" style="display:none;" id="productImage"/>
+				<c:choose>
+					<c:when test="${(!empty productPhoto) }">
+						<img src="data:image/(jpg|png);base64, ${productPhoto }" width="200" id="productImage"/>
+					</c:when>
+					<c:otherwise>
+						<img src="" width="200" id="productImage"/>
+					</c:otherwise>
+				</c:choose>
         	<br>
 			<!-- <img class="img-thumbnail" id="productPic" src="resources/images/1.jpg"
 				alt="some_text"> <input id="input-4" type="file"> -->
@@ -165,14 +172,14 @@
 								<input class="form-control input-info" id="inputMinStock"
 									onkeypress="return IsNumeric(event);" ondrop="return false;"
 									type="number"
-									value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.minStock }</c:when><c:otherwise>1</c:otherwise></c:choose>">
+									value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.minStock }</c:when><c:otherwise></c:otherwise></c:choose>">
 							</div>
 						</td>
 						<td><label>Max Stock</label></td>
 						<td><input class="form-control input-info" id="inputMaxStock" 
 							onkeypress="return IsNumeric(event);" ondrop="return false;"
 							type="number"
-							value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.maxStock }</c:when><c:otherwise>1</c:otherwise></c:choose>"></td>
+							value="<c:choose><c:when test="${(!empty productToEdit) }">${productToEdit.maxStock }</c:when><c:otherwise></c:otherwise></c:choose>"></td>
 					</tr>
 					<tr>
 						<td><label>Description</label></td>

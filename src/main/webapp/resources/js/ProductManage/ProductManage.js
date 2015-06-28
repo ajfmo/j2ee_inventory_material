@@ -1,6 +1,9 @@
 /**
  * 
  */
+//product image byte 64
+var productImage64;
+
 //It restrict the non-numbers
 var specialKeys = new Array();
 specialKeys.push(8,46); //Backspace
@@ -16,13 +19,13 @@ $(function() {
 	$('#btnEdit').css('display', 'none');
 
 	// event on page
-	$('#i_file').change( function(event) {
+	$('#input-4').change( function(event) {
 	    var tmppath = URL.createObjectURL(event.target.files[0]);
-
+	    $("#productImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
 	    //$("#disp_tmp_path").html("["+tmppath+"]");
-	    var imgBase64 = getBase64Image(URL.createObjectURL(event.target.files[0]));
+	    productImage64 = getBase64Image(URL.createObjectURL(event.target.files[0]));
 	    
-	    abf(imgBase64);
+	    //abf(imgBase64);
 	});
 	
 	$("#btnEdit").click(function() {
@@ -57,11 +60,6 @@ $(function() {
 			return;
 		}
 
-		// disable all input
-		$('#btnEdit').css('display', 'inline-block');
-		$('#btnSave').css('display', 'none');
-		$('.input-info').prop("disabled", true);
-
 		var product = {
 			"productID" : $("#productIDHidden").val(),
 			"productName" : $("#inputProduct").val(),
@@ -73,7 +71,8 @@ $(function() {
 			"minStock" : $("#inputMinStock").val(),
 			"maxStock" : $("#inputMaxStock").val(),
 			"description" : $("#inputDescription").val(),
-			"isEdit" : $("#isEdit").val()
+			"isEdit" : $("#isEdit").val(),
+			"productImg64" : productImage64
 		};
 		var data = {};
 		data[0] = JSON.stringify(product);
@@ -89,9 +88,23 @@ $(function() {
 					//set is further process is edit
 					$("#isEdit").val(1);
 					alert("Save successful!");
+					
+					// disable all input
+					$('#btnEdit').css('display', 'inline-block');
+					$('#btnSave').css('display', 'none');
+					$('.input-info').prop("disabled", true);
+					
+					//navigate to product list
 					window.location = "product";
 				} else if(data.result == "2"){
 					alert("Updated successful!");
+					
+					// disable all input
+					$('#btnEdit').css('display', 'inline-block');
+					$('#btnSave').css('display', 'none');
+					$('.input-info').prop("disabled", true);
+					
+					//navigate to product list
 					window.location = "product";
 				} else {
 					alert("Save Fail!");
@@ -108,7 +121,7 @@ $(function() {
 function getBase64Image(imgURL) {
     imgsss = new Image();
     imgsss.src = imgURL;
-    alert(imgsss);
+    //alert("Get picture successful!");
     // Create an empty canvas element
     var canvas = document.createElement("canvas");
     canvas.width = imgsss.width;

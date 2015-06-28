@@ -62,7 +62,7 @@
 							Category Management<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
 							<li><a href="product">Product</a></li>
-							<li><a href="#">Stock</a></li>
+							<li><a href="listStock">Stock</a></li>
 							<li><a href="#">Unit</a></li>
 							<li><a href="#">Provider</a></li>
 							<li><a href="#">Product Group</a></li>

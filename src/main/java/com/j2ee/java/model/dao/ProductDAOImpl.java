@@ -37,6 +37,7 @@ public class ProductDAOImpl implements ProductDAO {
 		} catch (Exception e) {
 			// TODO: handle exception
 			logger.info("Can't save Product");
+			e.printStackTrace();
 		}
 		return result;
 	}

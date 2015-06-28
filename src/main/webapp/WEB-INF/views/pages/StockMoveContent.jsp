@@ -1,27 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<script src="<c:url value="/resources/js/StockMoveTable.js" />"
-	type="text/javascript"></script>
-<%@ page import="com.j2ee.java.model.bo.StockTransferBOImpl" %>
-<!-- Customize style CSS -->
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/StockMove/StockMoveStyle.css" />"
-	type="text/css">
-<% int i = 0; 
-	StockTransferBOImpl stBO = new StockTransferBOImpl();
-%>
-
-<%-- <link rel="stylesheet"
-	href="<c:url value="/resources/css/dataTables.bootstrap.css" />"
-	type="text/css"> --%>
-	
-<%-- <script src="<c:url value="/resources/js/StockMove/StockMove.js" />"
-	type="text/javascript"></script> --%>
-<%-- <script src="<c:url value="/resources/js/jquery.dataTables.min.js" />"
-	type="text/javascript"></script>
-<script src="<c:url value="/resources/js/dataTables.bootstrap.js" />"
-	type="text/javascript"></script> --%>
 
 <div class="content-resize page-header">
 	<h1>Stock Move</h1>

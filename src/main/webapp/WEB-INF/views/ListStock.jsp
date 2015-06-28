@@ -11,7 +11,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Stock Move</title>
+<title>List Stock</title>
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
@@ -27,6 +27,10 @@
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/sb-admin-2.css" />" type="text/css">
 
+<link rel="stylesheet"
+	href="<c:url value="/resources/css/StockManage/ListStock.css" />"
+	type="text/css">
+
 <!-- Custom Fonts -->
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/font-awesome/css/font-awesome.min.css" />"
@@ -36,11 +40,6 @@
 	href="<c:url value="/resources/css/dataTables.bootstrap.css" />"
 	type="text/css">
 
-<!-- Customize style CSS -->
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/StockMove/StockMoveStyle.css" />"
-	type="text/css">
-	
 </head>
 <body>
 	<div id="wrapper">
@@ -51,7 +50,7 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<!-- Include content of this page  -->
-					<jsp:include page="pages/StockMoveContent.jsp"></jsp:include>
+					<jsp:include page="pages/ListStockContent.jsp"></jsp:include>
 					<!-- Include content of this page  -->
 				</div>
 
@@ -84,12 +83,13 @@
 	<script src="../dist/js/sb-admin-2.js"></script>
 	<script src="<c:url value="/resources/js/sb-admin-2.js" />"
 		type="text/javascript"></script>
-	<script src="<c:url value="/resources/js/StockMove/StockMove.js" />"
-		type="text/javascript"></script>
 
 	<script src="<c:url value="/resources/js/jquery.dataTables.min.js" />"
 		type="text/javascript"></script>
 	<script src="<c:url value="/resources/js/dataTables.bootstrap.js" />"
+		type="text/javascript"></script>
+
+	<script src="<c:url value="/resources/js/StockManage/ListStock.js" />"
 		type="text/javascript"></script>
 
 </body>

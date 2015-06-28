@@ -8,7 +8,7 @@
 	margin: 0px 0px 20px;
 }
 
-.my_corner {
+/* .my_corner {
     position: relative;
     margin: 10px;
     width: 110px;
@@ -32,7 +32,7 @@
     right: 0;
     border-bottom: 25px solid white; 
     border-left: 25px solid transparent;
-}
+} */
 
 .waiting {
 	width: 150px;

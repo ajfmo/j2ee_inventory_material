@@ -4,6 +4,7 @@
 package com.j2ee.java.model.dto;
 
 import java.math.BigDecimal;
+import java.sql.Blob;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
@@ -66,9 +68,10 @@ public class Product {
 	
 	@Column(name="MaxStock")
 	private int maxStock;
-	
+
 	@Column(name="Photo")
-	private String photo;
+	@Lob
+	private Blob photo;
 	
 	@OneToMany(mappedBy = "componentID")
 	private transient Set<ProductComponent> productIDProductComponent = new HashSet<ProductComponent>();
@@ -110,7 +113,7 @@ public class Product {
 	public Product(String productName, ProductType typeID,
 			Provider providerID, Manufacture manufactureID, ProductUnit unitID, BigDecimal salePrice,
 			BigDecimal orgPrice, String description, int minStock, int maxStock,
-			String photo) {
+			Blob photo) {
 		super();
 		this.productName = productName;
 		this.typeID = typeID;
@@ -257,18 +260,6 @@ public class Product {
 	public void setMaxStock(int maxStock) {
 		this.maxStock = maxStock;
 	}
-	/**
-	 * @return the photo
-	 */
-	public String getPhoto() {
-		return photo;
-	}
-	/**
-	 * @param photo the photo to set
-	 */
-	public void setPhoto(String photo) {
-		this.photo = photo;
-	}
 	
 	public Set<ProductComponent> getProductIDProductComponent() {
 		return productIDProductComponent;
@@ -326,7 +317,7 @@ public class Product {
 	public void setProductStockTransfer(Set<StockTransfer> productStockTransfer) {
 		this.productStockTransfer = productStockTransfer;
 	}
-	@Override
+	/*@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
@@ -349,8 +340,8 @@ public class Product {
 		result = prime * result + ((typeID == null) ? 0 : typeID.hashCode());
 		result = prime * result + ((unitID == null) ? 0 : unitID.hashCode());
 		return result;
-	}
-	@Override
+	}*/
+	/*@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
 			return true;
@@ -411,6 +402,12 @@ public class Product {
 		} else if (!unitID.equals(other.unitID))
 			return false;
 		return true;
+	}*/
+	public Blob getPhoto() {
+		return photo;
+	}
+	public void setPhoto(Blob photo) {
+		this.photo = photo;
 	}
 
 }

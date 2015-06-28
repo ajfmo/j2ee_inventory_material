@@ -1,6 +1,7 @@
 package com.j2ee.java.controller;
 
-import java.math.BigDecimal;
+import java.sql.Blob;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -106,6 +107,14 @@ public class ProductManageController {
 		// add product information to model
 		model.addAttribute("productToEdit", product);
 
+		// add product photo blob -> string to model
+		Blob productPhoto = product.getPhoto();
+		try {
+			model.addAttribute("productPhoto", new String(productPhoto.getBytes(1, (int)productPhoto.length())));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
 		// get list product type and set it to model
 		List<ProductType> listProductType = productTypeBO.getAllProductType();
 		model.addAttribute("listProductType", listProductType);
@@ -137,12 +146,13 @@ public class ProductManageController {
 		JsonObject productObj = new Gson().fromJson(productInfo,
 				JsonObject.class);
 
-		Product product = productBO.getByID(productObj.get("productID").getAsInt());
-		if(product == null){
+		Product product = productBO.getByID(productObj.get("productID")
+				.getAsInt());
+		if (product == null) {
 			return "{\"result\" : \"0\"}";
 		}
-		
-		if(productBO.deleteProduct(product)){
+
+		if (productBO.deleteProduct(product)) {
 			return "{\"result\" : \"1\"}";
 		}
 
@@ -158,6 +168,11 @@ public class ProductManageController {
 				JsonObject.class);
 
 		Product product = new Product();
+
+		// set product's photo
+		String img64 = productObj.get("productImg64").getAsString();
+		
+		product.setPhoto(org.hibernate.Hibernate.createBlob(img64.getBytes()));
 
 		// set product's name
 		product.setProductName(productObj.get("productName").getAsString());
