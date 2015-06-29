@@ -17,6 +17,11 @@ $(function() {
 			$('.checkTransferBill').prop('checked', false);
 		}
 	});
+	
+	$("#btnExportAllBill").click(function(e) {
+	    window.open('data:application/vnd.ms-excel,' + $('#dataStockMoveTable').html());
+	    e.preventDefault();
+	});
 
 	var table = $('#tableStockTransfer').DataTable();
 

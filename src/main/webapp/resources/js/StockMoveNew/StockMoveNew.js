@@ -14,11 +14,45 @@ $(function() {
 		$("#sandbox-container input").val(output);
 	}
 	
-	//$("#quantity").val(1);
+	$("#fromStock").change(function(){
 
-	$('#btnEdit').css('display', 'none');
-	$('#btnCreateNew').css('display', 'none');
-	$('#btnCheckAvailable').css('display', 'none');
+    	var optionID = $(this).find(':selected').data('id').trim();
+    	if(optionID == "createStock"){
+    		window.location = "createStock";
+    	}
+    	
+    });
+	
+	//check current status of bill --> to show correspond button 
+	if($("#curStatus").val() == 1){//new
+		
+		$('#btnEdit').css('display', 'none');
+		$('#btnCreateNew').css('display', 'none');
+		$('#btnCheckAvailable').css('display', 'none');
+	} else if($("#curStatus").val() == 2){//waiting
+		
+		$('.input-info').prop("disabled", true);
+		$('#btnSave').css('display', 'none');
+		$('#btnCreateNew').css('display', 'none');
+		$('#btnProcessLater').css('display', 'none');
+		$('#btnCheckAvailable').css('display', 'inline-block');
+	} else if($("#curStatus").val() == 3){//available
+		
+		$('.input-info').prop("disabled", true);
+		$('#btnSave').css('display', 'none');
+		$('#btnCreateNew').css('display', 'none');
+		$('#btnProcessLater').css('display', 'none');
+		$('#btnCheckAvailable').css('display', 'none');
+	} else if($("#curStatus").val() == 4){//done
+		
+		$('.input-info').prop("disabled", true);
+		$('#btnSave').css('display', 'none');
+		$('#btnProcessAll').css('display', 'none');
+		$('#btnProcessLater').css('display', 'none');
+		$('#btnCreateNew').css('display', 'inline-block');
+		$('#btnCheckAvailable').css('display', 'none');
+		$('#btnCancelMove').css('display', 'none');
+	}
 	
 	$("#btnEdit").click(function() {
 		
@@ -144,7 +178,8 @@ $(function() {
 				"toStock" : $("#toStock").val(),
 				"description" : $("#description").val(),
 				"curTransferID" : $("#curTransferID").val(),
-				"isEdit" : $("#isEdit").val()
+				"isEdit" : $("#isEdit").val(),
+				"curStatus" : $("#curStatus").val()
 			};
 
 			var data = {};

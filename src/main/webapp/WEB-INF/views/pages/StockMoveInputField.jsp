@@ -101,11 +101,7 @@
 				<label>Source Location</label>
 			</div>
 			<div class="col-sm-5">
-				<select class="form-control input-info" id="fromStock">
-					<%-- <c:forEach items="${listStocks}" var="stock">
-						<option>${stock.stockID}: ${stock.stockName}</option>
-					</c:forEach> --%>
-					
+				<select class="form-control input-info" id="fromStock">					
 					<c:if test="${!empty listStocks }">
 						<c:forEach items="${listStocks}" var="stock">
 							<c:choose>
@@ -119,7 +115,7 @@
 							</c:choose>
 						</c:forEach>
 					</c:if>
-					
+					<option data-id="createStock">Create new stock</option>
 				</select>
 			</div>
 		</div>
@@ -128,12 +124,7 @@
 				<label>Destination Location</label>
 			</div>
 			<div class="col-sm-5">
-
 				<select class="form-control input-info" id="toStock">
-					<%-- <c:forEach items="${listStocks}" var="stock">
-						<option>${stock.stockID}:${stock.stockName}</option>
-					</c:forEach> --%>
-					
 					<c:if test="${!empty listStocks }">
 						<c:forEach items="${listStocks}" var="stock">
 							<c:choose>
@@ -147,7 +138,6 @@
 							</c:choose>
 						</c:forEach>
 					</c:if>
-					
 				</select>
 			</div>
 		</div>

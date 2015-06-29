@@ -68,7 +68,7 @@ public class StockMoveController {
 		List<StockTransfer> listStockTran = stockTransferBO
 				.getAllStockTransfer();
 		model.addAttribute("listStockTrans", listStockTran);
-		
+
 		return "StockMove";
 	}
 
@@ -83,7 +83,7 @@ public class StockMoveController {
 		model.addAttribute("curStockTransfer", null);
 
 		// set current stock transfer id to model attribute
-		model.addAttribute("curTransferID", stockTransferBO.getLastestBillID());
+		model.addAttribute("curTransferID", stockTransferBO.getLastestBillID() + 1);
 
 		// set current status is "New"
 		model.addAttribute("curStatus", 1);
@@ -139,8 +139,8 @@ public class StockMoveController {
 		// get current stock transfer id
 		String curTransferID = req.getParameter("curTransferID");
 		if (curTransferID != null && !"".equals(curTransferID)) {
-			StockTransfer stockTransfer = stockTransferBO
-					.getByID(Integer.parseInt(curTransferID));
+			StockTransfer stockTransfer = stockTransferBO.getByID(Integer
+					.parseInt(curTransferID));
 			if (stockTransfer == null) {
 				result = 0;
 			} else {
@@ -185,9 +185,11 @@ public class StockMoveController {
 			// Waiting Available (2)
 			StockTransfer stTranfer = createStockTransferDTOObject(req, 2);
 			if (stockTransferBO.insertStockTransfer(stTranfer)) {
-				
+
 				// set current stock transfer id to model attribute
-				return "{\"result\" : \"1\", \"curTransferID\":\""+ stockTransferBO.getLastestBillID() +"\", \"isEdit\":\"1\"}";
+				return "{\"result\" : \"1\", \"curTransferID\":\""
+						+ stockTransferBO.getLastestBillID()
+						+ "\", \"isEdit\":\"1\"}";
 			} else {
 				return "{\"result\" : \"0\"}";
 			}
@@ -197,9 +199,11 @@ public class StockMoveController {
 			StockTransfer stTranfer = stockTransferBO.getByID(latestIDFromForm);
 			stTranfer.setStatusID(2); // 2 == Waiting Available
 			if (stockTransferBO.updateStockTransfer(stTranfer)) {
-				
+
 				// set current stock transfer id to model attribute
-				return "{\"result\" : \"1\", \"curTransferID\":\""+ stockTransferBO.getLastestBillID() +"\", \"isEdit\":\"1\"}";
+				return "{\"result\" : \"1\", \"curTransferID\":\""
+						+ stockTransferBO.getLastestBillID()
+						+ "\", \"isEdit\":\"1\"}";
 			} else {
 				return "{\"result\" : \"0\"}";
 			}
@@ -242,22 +246,20 @@ public class StockMoveController {
 		stockInventory.setStockID(fromStock);
 
 		int rs = stockInventoryBO.getCurrentQuantity(stockInventory);
-		
+
 		int result = 0;
-		
-		if(rs < 0){
+
+		if (rs < 0) {
 			result = 0;
 		} else {
-			if(rs > 0){
-				if(rs > product.getMinStock()){
+			if (rs > 0) {
+				if (rs > product.getMinStock()) {
 					result = 1;
 				} else {
 					result = -1;
 				}
 			}
 		}
-		
-		
 
 		if (result == 0) {
 
@@ -278,16 +280,19 @@ public class StockMoveController {
 
 	// saveNewStockMove Bill
 	@RequestMapping(value = "/saveNewStockMove")
-	public @ResponseBody String saveNewStockMove(HttpServletRequest req,
+	public @ResponseBody String saveStockMove(HttpServletRequest req,
 			Model model) {
-
-		// create a stockTransfer object from request, with status is New (1)
-		StockTransfer stTranfer = createStockTransferDTOObject(req, 1);
 
 		// get stock move
 		String stockMove = req.getParameter("0");
 		JsonObject stockMoveObj = new Gson().fromJson(stockMove,
 				JsonObject.class);
+
+		// get request process type from form
+		int curStatus = stockMoveObj.get("curStatus").getAsInt();
+
+		// create a stockTransfer object from request, with its status
+		StockTransfer stTranfer = createStockTransferDTOObject(req, curStatus);
 
 		// get latest stock transfer id from form
 		int latestIDFromForm = stockMoveObj.get("curTransferID").getAsInt();
@@ -295,14 +300,13 @@ public class StockMoveController {
 		// get request process type from form
 		int isEdit = stockMoveObj.get("isEdit").getAsInt();
 
-		// get latest stock transfer id from database
-		// int latestIDFromData = stockTransferBO.getLastestBillID();
-
 		// save data to database
 		if (isEdit == 0) {
 			if (stockTransferBO.insertStockTransfer(stTranfer)) {
 				// set current stock transfer id to model attribute
-				return "{\"result\" : \"1\", \"curTransferID\":\""+ stockTransferBO.getLastestBillID() +"\", \"isEdit\":\"1\"}";
+				return "{\"result\" : \"1\", \"curTransferID\":\""
+						+ stockTransferBO.getLastestBillID()
+						+ "\", \"isEdit\":\"1\"}";
 			}
 		} else {
 			stTranfer.setTransferID(latestIDFromForm);
@@ -344,37 +348,34 @@ public class StockMoveController {
 			if (stockTransferBO.insertStockTransfer(stTranfer)) {
 
 				int curTransferID = stockTransferBO.getLastestBillID();
-				
+
 				// check available for this bill
 				String rs = checkAvailableForProcessAll(req, curTransferID);
 				if (rs.contains("1")) {
-					// stt is available 
-					//change quantity in inventory
-					if(!changeQuantityInInventory(stTranfer)){
+					// stt is available
+					// change quantity in inventory
+					if (!changeQuantityInInventory(stTranfer)) {
 						return "{\"result\" : \"0\"}";
 					}
-					
-					//--> set stt to done
-					stockTransferBO.updateStockTransferStatus(curTransferID,
-							4);
-					
+
+					// --> set stt to done
+					stockTransferBO.updateStockTransferStatus(curTransferID, 4);
+
 					return "{\"result\" : \"success\"}";
 				} else if (rs.contains("-1")) {
-					// stt is available but lower than MinValue 
-					//change quantity in inventory
-					if(!changeQuantityInInventory(stTranfer)){
+					// stt is available but lower than MinValue
+					// change quantity in inventory
+					if (!changeQuantityInInventory(stTranfer)) {
 						return "{\"result\" : \"0\"}";
 					}
-					
-					//--> set stt to done
-					stockTransferBO.updateStockTransferStatus(curTransferID,
-							4);
+
+					// --> set stt to done
+					stockTransferBO.updateStockTransferStatus(curTransferID, 4);
 					return "{\"result\" : \"lower\"}";
 				} else {
-					
-					//stt is not available --> set stt to waiting
-					stockTransferBO.updateStockTransferStatus(curTransferID,
-							2);
+
+					// stt is not available --> set stt to waiting
+					stockTransferBO.updateStockTransferStatus(curTransferID, 2);
 					return "{\"result\" : \"notAvailable\"}";
 				}
 			}
@@ -387,30 +388,30 @@ public class StockMoveController {
 				if (rs.contains("1")) {
 
 					// stt is available
-					//change quantity in inventory
-					if(!changeQuantityInInventory(stTranfer)){
+					// change quantity in inventory
+					if (!changeQuantityInInventory(stTranfer)) {
 						return "{\"result\" : \"0\"}";
 					}
-					
-					//--> set stt to done
+
+					// --> set stt to done
 					stockTransferBO.updateStockTransferStatus(latestIDFromForm,
 							4);
 					return "{\"result\" : \"success\"}";
 				} else if (rs.contains("-1")) {
 
 					// stt is available but lower than MinValue
-					//change quantity in inventory
-					if(!changeQuantityInInventory(stTranfer)){
+					// change quantity in inventory
+					if (!changeQuantityInInventory(stTranfer)) {
 						return "{\"result\" : \"0\"}";
 					}
-					
-					//--> set stt to done
+
+					// --> set stt to done
 					stockTransferBO.updateStockTransferStatus(latestIDFromForm,
 							4);
 					return "{\"result\" : \"lower\"}";
 				} else {
-					
-					//stt is not available --> set stt to waiting
+
+					// stt is not available --> set stt to waiting
 					stockTransferBO.updateStockTransferStatus(latestIDFromForm,
 							2);
 					return "{\"result\" : \"notAvailable\"}";
@@ -449,8 +450,8 @@ public class StockMoveController {
 
 		// get expected day
 		try {
-			stTranfer.setExpectedDate(Utils.DATE_FORMATTER
-					.parse(stockMoveObj.get("expectedDay").getAsString()));
+			stTranfer.setExpectedDate(Utils.DATE_FORMATTER.parse(stockMoveObj
+					.get("expectedDay").getAsString()));
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
@@ -499,7 +500,7 @@ public class StockMoveController {
 
 		// set this process is edit
 		model.addAttribute("isEdit", 1);
-		
+
 		// set current stock transfer id to model attribute
 		model.addAttribute("curTransferID", stockTransferIDToEdit);
 
@@ -526,8 +527,9 @@ public class StockMoveController {
 
 		return "StockMoveNew";
 	}
-	
-	public String checkAvailableForProcessAll(HttpServletRequest req, int currentID) {
+
+	public String checkAvailableForProcessAll(HttpServletRequest req,
+			int currentID) {
 
 		StockInventory stockInventory = new StockInventory();
 
@@ -577,38 +579,41 @@ public class StockMoveController {
 
 		return "{\"result\" : \"" + result + "\"}";
 	}
-	
-	private boolean changeQuantityInInventory(StockTransfer stTranfer){
-		
+
+	private boolean changeQuantityInInventory(StockTransfer stTranfer) {
+
 		boolean result = false;
-		
+
 		// change quantity of product in stock_inventory -- for fromStock
 		StockInventory stockInventory = new StockInventory();
 		stockInventory.setProductID(stTranfer.getProductID());
 		stockInventory.setStockID(stTranfer.getFromStock());
-		stockInventory.setQuantity(-stTranfer.getQuantity());// "-" mean decrease quantity
+		stockInventory.setQuantity(-stTranfer.getQuantity());// "-" mean
+																// decrease
+																// quantity
 		stockInventory.setPrice(stTranfer.getProductID().getOrgPrice());
 		stockInventory.setAmount(stTranfer.getProductID().getOrgPrice()
 				.multiply(new BigDecimal(stTranfer.getQuantity())));
 		stockInventory.setDate(stTranfer.getExpectedDate());
-		
+
 		result = stockInventoryBO.insertStockInventory(stockInventory);
-		if(!result){
+		if (!result) {
 			return result;
 		}
-		
+
 		// change quantity of product in stock_inventory -- for toStock
 		stockInventory = new StockInventory();
 		stockInventory.setProductID(stTranfer.getProductID());
 		stockInventory.setStockID(stTranfer.getToStock());
-		stockInventory.setQuantity(stTranfer.getQuantity());// "+" mean increase quantity
+		stockInventory.setQuantity(stTranfer.getQuantity());// "+" mean increase
+															// quantity
 		stockInventory.setPrice(stTranfer.getProductID().getOrgPrice());
 		stockInventory.setAmount(stTranfer.getProductID().getOrgPrice()
 				.multiply(new BigDecimal(stTranfer.getQuantity())));
 		stockInventory.setDate(stTranfer.getExpectedDate());
-		
+
 		result = stockInventoryBO.insertStockInventory(stockInventory);
-		
+
 		return result;
 	}
 }

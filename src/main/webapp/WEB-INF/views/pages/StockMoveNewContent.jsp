@@ -2,19 +2,14 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!-- Customize style CSS -->
-<link rel="stylesheet"
-	href="<c:url value="/resources/css/StockMove/StockMoveStyle.css" />"
-	type="text/css">
-
 <div class="content-resize page-header">
 	<h1>Create A Stock Move</h1>
 	<div class="row">
 		<div class="col-lg-6">
 			<form action="NewStockMoveBill" method="post">
 				<a class="btn btn-primary" id="btnEdit">Edit</a> 
-				<button class="btn btn-success" id="btnCreateNew" type="submit">Create New</button>
 				<a class="btn btn-success" id="btnSave">Save</a> 
+				<button class="btn btn-success" id="btnCreateNew" type="submit">Create New</button>
 				<a class="btn btn-primary" id="btnProcessLater">Process Later</a> 
 				<a class="btn btn-primary" id="btnCheckAvailable">Check available</a> 
 				<a class="btn btn-primary" id="btnProcessAll">Process Entirely</a> 

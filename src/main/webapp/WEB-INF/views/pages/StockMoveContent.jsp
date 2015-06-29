@@ -8,7 +8,7 @@
 		<div class="col-lg-12">
 			<form action="NewStockMoveBill" method="post">
 				<button class="btn btn-success" type="submit">Create New</button>
-				<a class="btn btn-primary" href="ExportAllBill">Export</a>
+				<a class="btn btn-primary" id="btnExportAllBill">Export</a>
 			</form>
 		</div>
 	</div>
@@ -16,7 +16,7 @@
 <!-- Begin page content -->
 <div class="content-resize" id="table-stock-move">
 	<div class="row">
-		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+		<div class="col-xs-12 col-sm-12 col-md-12 col-lg-12" id="dataStockMoveTable">
 			<table id="tableStockTransfer" class="table table-bordered table-striped table-hover">
 				<thead>
 					<tr>
