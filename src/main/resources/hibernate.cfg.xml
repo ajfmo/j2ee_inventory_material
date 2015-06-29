@@ -26,6 +26,7 @@
 		<mapping class="com.j2ee.java.model.dto.AssetReport"/>
 		<mapping class="com.j2ee.java.model.dto.AssetReportDetail"/>
 		<mapping class="com.j2ee.java.model.dto.Contract"/>
+		<mapping class="com.j2ee.java.model.dto.Customer"/>
 		<mapping class="com.j2ee.java.model.dto.InventoryReport"/>
 		<mapping class="com.j2ee.java.model.dto.InventoryReportDetail"/>
 		<mapping class="com.j2ee.java.model.dto.Manufacture"/>
