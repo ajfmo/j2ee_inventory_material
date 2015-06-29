@@ -63,9 +63,7 @@
 						<ul class="nav nav-second-level collapse">
 							<li><a href="product">Product</a></li>
 							<li><a href="listStock">Stock</a></li>
-							<li><a href="#">Unit</a></li>
-							<li><a href="#">Provider</a></li>
-							<li><a href="#">Product Group</a></li>
+							<li><a href="listProvider">Provider</a></li>
 
 						</ul> <!-- /.nav-second-level --></li>
 

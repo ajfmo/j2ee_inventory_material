@@ -1,7 +1,5 @@
 package com.j2ee.java.controller;
 
-import java.sql.Blob;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,11 +18,6 @@ import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.j2ee.java.model.bo.StaffBO;
 import com.j2ee.java.model.bo.StockBO;
-import com.j2ee.java.model.dto.Manufacture;
-import com.j2ee.java.model.dto.Product;
-import com.j2ee.java.model.dto.ProductType;
-import com.j2ee.java.model.dto.ProductUnit;
-import com.j2ee.java.model.dto.Provider;
 import com.j2ee.java.model.dto.Staff;
 import com.j2ee.java.model.dto.Stock;
 

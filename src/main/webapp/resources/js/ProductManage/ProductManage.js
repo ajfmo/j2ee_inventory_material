@@ -21,11 +21,13 @@ $(function() {
 	// event on page
 	$('#input-4').change( function(event) {
 	    var tmppath = URL.createObjectURL(event.target.files[0]);
-	    $("#productImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
-	    //$("#disp_tmp_path").html("["+tmppath+"]");
-	    productImage64 = getBase64Image(URL.createObjectURL(event.target.files[0]));
-	    
-	    //abf(imgBase64);
+	    //256000
+	    if(event.target.files[0].size <= 256000){
+	    	$("#productImage").fadeIn("fast").attr('src',URL.createObjectURL(event.target.files[0]));
+	    	productImage64 = getBase64Image(URL.createObjectURL(event.target.files[0]));
+	    } else {
+	    	alert("The file's size is: " + (event.target.files[0].size)/1024 + "KB. Please choose a file not more than 250KB");
+	    }
 	});
 	
 	$("#btnEdit").click(function() {
@@ -60,6 +62,8 @@ $(function() {
 			return;
 		}
 
+		var imageDataBase64 = getBase64Image($("#productImage").attr("src"));
+		
 		var product = {
 			"productID" : $("#productIDHidden").val(),
 			"productName" : $("#inputProduct").val(),
@@ -72,15 +76,15 @@ $(function() {
 			"maxStock" : $("#inputMaxStock").val(),
 			"description" : $("#inputDescription").val(),
 			"isEdit" : $("#isEdit").val(),
-			"productImg64" : productImage64
+			"productImg64" : imageDataBase64//$("#productImage").attr("src").split(",")[1]
 		};
-		var data = {};
-		data[0] = JSON.stringify(product);
+		var productData = {};
+		productData[0] = JSON.stringify(product);
 
 		$.ajax({
 			type : "POST",
 			url : "saveProduct",
-			data : data,
+			data : productData,
 			dataType : "json",
 			success : function(data) {
 				if (data.result == "1") {
@@ -129,9 +133,10 @@ function getBase64Image(imgURL) {
     // Copy the image contents to the canvas
     var ctx = canvas.getContext("2d");
     ctx.drawImage(imgsss, 0, 0);
-    var dataURL = canvas.toDataURL("image/png");
-
-    return dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    var dataURL = canvas.toDataURL("image/(png|jpg)");
+    var result = dataURL.replace(/^data:image\/(png|jpg);base64,/, "");
+    
+    return result;
 }
 
 function abf(imgBase64) {

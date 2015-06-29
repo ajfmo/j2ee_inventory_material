@@ -65,7 +65,7 @@
 						<td class="td-resize">
 							<div class="input-control select info-state">
 								<input type="number" id="inputSize" class="form-control input-info" 
-								maxlength="10"
+								maxlength="10" onkeypress="return IsNumeric(event);" ondrop="return false;"
 								value="<c:choose><c:when test="${(!empty stockToEdit) }">${stockToEdit.size }</c:when></c:choose>">
 							</div>
 						</td>

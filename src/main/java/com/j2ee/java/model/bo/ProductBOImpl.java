@@ -126,6 +126,7 @@ public class ProductBOImpl implements ProductBO {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
+				result = false;
 			}
 			logger.error("Error", ex);
 		}

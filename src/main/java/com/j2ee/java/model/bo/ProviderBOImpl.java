@@ -125,6 +125,7 @@ public class ProviderBOImpl implements ProviderBO {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
+				result = false;
 			}
 			logger.error("Error", ex);
 		}

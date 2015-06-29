@@ -126,6 +126,7 @@ public class StockBOImpl implements StockBO {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
+				result = false;
 			}
 			logger.error("Error", ex);
 		}

@@ -1,6 +1,3 @@
-/**
- * 
- */
 //It restrict the non-numbers
 var specialKeys = new Array();
 specialKeys.push(8,46); //Backspace
@@ -24,41 +21,42 @@ $(function() {
 	});
 
 	$("#btnCancel").click(function() {
-		window.location = "listStock";
+		window.location = "listProvider";
 
 	});
 
 	$("#btnSave").click(function() {
 
 		// validate input data
-		if ($("#inputStockName").val() == "") {
-			alert("Please insert value for Stock Name field!");
+		if ($("#inputProviderName").val() == "") {
+			alert("Please insert value for Provider Name field!");
 			return;
 		}
 		if ($("#inputAddress").val() == "") {
 			alert("Please insert value for Address field!");
 			return;
 		}
-		if ($("#inputSize").val() <= 0) {
-			alert("Please insert value more than 0 for Size field!");
+		if ($("#inputTel").val() == "") {
+			alert("Please insert value for Telephone field!");
 			return;
 		}
 
-		var stock = {
-			"stockID" : $("#stockIDHidden").val(),
-			"stockName" : $("#inputStockName").val(),
-			"managerID" : $("#listStaff option:selected").attr('data-id').trim(),
+		var provider = {
+			"providerID" : $("#providerIDHidden").val(),
+			"providerName" : $("#inputProviderName").val(),
+			"tel" : $("#inputTel").val(),
+			"email" : $("#inputEmail").val(),
 			"address" : $("#inputAddress").val(),
-			"size" : $("#inputSize").val(),
+			"website" : $("#inputWebsite").val(),
 			"description" : $("#inputDescription").val(),
 			"isEdit" : $("#isEdit").val()
 		};
 		var data = {};
-		data[0] = JSON.stringify(stock);
+		data[0] = JSON.stringify(provider);
 
 		$.ajax({
 			type : "POST",
-			url : "saveStock",
+			url : "saveProvider",
 			data : data,
 			dataType : "json",
 			success : function(data) {
@@ -73,8 +71,8 @@ $(function() {
 					$('#btnSave').css('display', 'none');
 					$('.input-info').prop("disabled", true);
 					
-					//navigate to stock list
-					window.location = "listStock";
+					//navigate to provider list
+					window.location = "listProvider";
 				} else if(data.result == "2"){
 					alert("Updated successful!");
 					
@@ -83,8 +81,8 @@ $(function() {
 					$('#btnSave').css('display', 'none');
 					$('.input-info').prop("disabled", true);
 					
-					//navigate to stock list
-					window.location = "listStock";
+					//navigate to provider list
+					window.location = "listProvider";
 				} else {
 					alert("Save Fail!");
 				}
