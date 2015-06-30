@@ -1,0 +1,9 @@
+#tableInven tbody tr {
+    cursor:pointer;
+}
+.selected, .selected > td {
+    background-color:#b0bed9 !important;
+}
+.selected:hover, .selected:hover > td {
+    background-color:#b0bed9 !important;
+}

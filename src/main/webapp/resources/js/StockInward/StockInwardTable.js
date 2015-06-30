@@ -121,7 +121,7 @@ $(document).ready(function() {
 	//save stock-inward
 	$("#saveData").on('click',function(){
 		
-		var flag = false;
+		var flag = true;
 		
 		var providerID = $('#select_providerID').val();
 		var staffID = "3";
