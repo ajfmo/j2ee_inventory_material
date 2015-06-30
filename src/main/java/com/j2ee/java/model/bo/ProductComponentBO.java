@@ -2,6 +2,8 @@ package com.j2ee.java.model.bo;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.j2ee.java.model.dto.ProductComponent;
 
 public interface ProductComponentBO {
@@ -10,7 +12,7 @@ public interface ProductComponentBO {
 	
 	public List<ProductComponent> getAllProductComponent();
 	
-	public boolean insertProductComponent(ProductComponent productComponent);
+	public String insertProductComponent(HttpServletRequest request);
 	
 	public boolean updateProductComponent(ProductComponent productComponent);
 	

@@ -201,13 +201,13 @@ public class StockInwardBOImpl implements StockInwardBO {
 				sInventory.setAmount(amount);
 				stockInventoryDAO.insertStockInventory(sInventory);
 			}
-			
-			result = "{\"ID\": \"1\"}";
 			tx.commit();
+			result = "{\"ID\": \"1\"}";
 		} catch (Exception ex) {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
+				result = "{\"ID\": \"2\"}";
 			}
 			logger.error("Error", ex);
 		}

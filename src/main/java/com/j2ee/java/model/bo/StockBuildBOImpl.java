@@ -236,6 +236,7 @@ public class StockBuildBOImpl implements StockBuildBO {
 			// TODO: handle exception
 			if (tx != null) {
 				tx.rollback();
+				result = "{\"ID\": \"2\"}";
 			}
 			logger.error("Error", ex);
 		}

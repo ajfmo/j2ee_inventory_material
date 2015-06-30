@@ -8,7 +8,6 @@ import java.util.List;
 import org.apache.log4j.Logger;
 import org.springframework.stereotype.Component;
 
-import com.j2ee.java.model.dto.ProductType;
 import com.j2ee.java.model.dto.ProductUnit;
 
 /**

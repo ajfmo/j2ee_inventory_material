@@ -2,6 +2,8 @@ package com.j2ee.java.model.bo;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.j2ee.java.model.dto.StockOutward;
 
 public interface StockOutwardBO {
@@ -10,7 +12,7 @@ public interface StockOutwardBO {
 	
 	public List<StockOutward> getAllStockOutward();
 	
-	public boolean insertStockOutward(StockOutward sOutward);
+	public String insertStockOutward(HttpServletRequest request);
 	
 	public boolean updateStockOutward(StockOutward sOutward);
 	
