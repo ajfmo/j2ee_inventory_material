@@ -1,11 +1,7 @@
 package com.j2ee.java.controller;
 
 import java.lang.reflect.Type;
-import java.math.BigDecimal;
 import java.text.ParseException;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
@@ -21,25 +17,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.reflect.TypeToken;
 import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.ProviderBO;
-import com.j2ee.java.model.bo.StaffBO;
 import com.j2ee.java.model.bo.StockBO;
-import com.j2ee.java.model.bo.StockInventoryBO;
 import com.j2ee.java.model.bo.StockInwardBO;
-import com.j2ee.java.model.bo.StockInwardDetailBO;
-import com.j2ee.java.model.bo.Utils;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Provider;
-import com.j2ee.java.model.dto.Staff;
 import com.j2ee.java.model.dto.Stock;
-import com.j2ee.java.model.dto.StockInventory;
-import com.j2ee.java.model.dto.StockInward;
-import com.j2ee.java.model.dto.StockInwardDetail;
 
 @Controller
 public class StockInwardController {
@@ -59,18 +44,6 @@ public class StockInwardController {
 	@Autowired
 	@Qualifier("StockInwardBOImpl")
 	private StockInwardBO stockInwardBO;
-	
-	@Autowired
-	@Qualifier("StockInventoryBOImpl")
-	private StockInventoryBO stockInventoryBO;
-	
-	@Autowired
-	@Qualifier("StaffBOImpl")
-	private StaffBO staffBO;
-
-	@Autowired
-	@Qualifier("StockInwardDetailBOImpl")
-	private StockInwardDetailBO stockInDetailBO;
 	
 	private static final Logger logger = LoggerFactory
 			.getLogger(StockInwardController.class);
@@ -147,92 +120,12 @@ public class StockInwardController {
 			throws ParseException {
 
 		String response = "";
-		
-		// get stock inward
-		String stockInward = request.getParameter("0");
-		JsonObject stockInwardObj = new Gson().fromJson(stockInward,
-				JsonObject.class);
-
-		// Save value into database
-
-		StockInward stockIn = new StockInward();
-
-		// Get ProviderID
-		Provider provider = new Provider();
-		provider.setProviderID(stockInwardObj.get("providerID").getAsInt());
-		
-		// Get StaffID
-		Staff staff = new Staff();
-		staff = staffBO.getByID(stockInwardObj.get("staffID").getAsInt());
-
-		String dateFormat = stockInwardObj.get("date").getAsString();
-		Date date = Utils.DATE_FORMATTER.parse(dateFormat);
-
-		String reason = stockInwardObj.get("reason").getAsString();
-		String note = stockInwardObj.get("note").getAsString();
-		BigDecimal totalAmount = new BigDecimal(stockInwardObj
-				.get("totalMoney").getAsFloat());
-		int totalNumber = stockInwardObj.get("totalNumber").getAsInt();
-
-		// set value for StockInward
-		stockIn.setProviderID(provider);
-		stockIn.setStaffID(staff);
-		stockIn.setDate(date);
-		stockIn.setReason(reason);
-		stockIn.setNote(note);
-		stockIn.setTotalAmount(totalAmount);
-		stockIn.setTotalNumber(totalNumber);
-
-		// save to database
-		stockInwardBO.insertStockInward(stockIn);
-
-		String stockInwardDetail = request.getParameter("1");
-		JsonArray stockInwardDetailObj = (JsonArray) new Gson().fromJson(
-				stockInwardDetail, JsonArray.class);
-		
-		Iterator<JsonElement> it = stockInwardDetailObj.iterator();
-		List<JsonObject> listStockInwardDetail = new ArrayList<JsonObject>();
-		while (it.hasNext()) {
-			JsonObject item = it.next().getAsJsonObject();
-			if (!item.toString().equals("{}")) {
-				listStockInwardDetail.add(item);
-			}
+		logger.info("Calling StockInward Service");
+		try {
+			response = stockInwardBO.insertStockInward(request);
+		} catch (Exception e) {
+			response = "{\"ID\": \"2\"}";
 		}
-
-		// get StockInwardDetail and save to database
-
-		for (JsonObject jsonObject : listStockInwardDetail) {
-			// Save to StockInwarDetail
-			StockInwardDetail stockInDetail = new StockInwardDetail();
-
-			stockInDetail.setInwardID(stockIn);
-			Product product = new Product();
-			product = productBO.getByID(jsonObject.get("productID").getAsInt());
-			stockInDetail.setProductID(product);
-			
-			Stock stock = new Stock();
-			stock = stockBO.getByID(jsonObject.get("stockID").getAsInt());
-			stockInDetail.setStockID(stock);
-			// get Price and Amount
-			stockInDetail.setNumber(jsonObject.get("quantity").getAsInt());
-			stockInDetail.setPrice(product.getOrgPrice());
-			BigDecimal amount = BigDecimal.ZERO;
-			amount = product.getOrgPrice().multiply(
-					new BigDecimal(stockInDetail.getNumber()));
-			stockInDetail.setAmount(amount);
-			stockInDetailBO.insertStockInwardDetail(stockInDetail);
-			
-			// Save to StockInventory
-			StockInventory sInventory = new StockInventory();
-			sInventory.setDate(date);
-			sInventory.setProductID(product);
-			sInventory.setStockID(stock);
-			sInventory.setQuantity(jsonObject.get("quantity").getAsInt());
-			sInventory.setPrice(product.getOrgPrice());
-			sInventory.setAmount(amount);
-			stockInventoryBO.insertStockInventory(sInventory);
-		}
-		response = "{\"ID\": \"1\"}";
 		return response;
 	}
 }
