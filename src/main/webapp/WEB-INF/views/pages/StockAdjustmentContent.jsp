@@ -17,7 +17,7 @@
 				<select id="select_stockName" class="form-control">
 	               <c:forEach var="item" items="${listStock}">
 	                  <option
-	                  data-id="<c:out value="${item.stockID}"></c:out>">
+	                  value="<c:out value="${item.stockID}"></c:out>">
 	                  <c:out value="${item.stockName}">
 	                  </c:out>
 	                  </option>
