@@ -22,7 +22,6 @@ import com.j2ee.java.model.bo.StockInventoryBO;
 import com.j2ee.java.model.bo.Utils;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Stock;
-import com.j2ee.java.model.dto.StockInventory;
 
 @Controller
 public class StockAdjustmentController {
@@ -47,40 +46,33 @@ public class StockAdjustmentController {
 
 		Gson gson = new Gson();
 		
-		List<StockInventory> listSInven = new ArrayList<StockInventory>();
+		List<StockAdjustmentView> listSInven = new ArrayList<StockAdjustmentView>();
 
 		List<Object[]> listInventory = stockInventoryBO.getAllStockInventory();
 		Iterator<Object[]> itr = listInventory.iterator();
 		while (itr.hasNext()) {
 			Object[] obj = (Object[]) itr.next();
-			String date = String.valueOf(obj[0]);
 
 			String proID = String.valueOf(obj[1]);
 			Product product = new Product();
 			product = productBO.getByID(Integer.parseInt(proID));
 
-			String stocID = String.valueOf(obj[2]);
-			Stock stock = new Stock();
-			stock = stockBO.getByID(Integer.parseInt(stocID));
-
 			int totalQ = Integer.parseInt(obj[3].toString());
 
 			/* set value */
-			StockInventory sInven = new StockInventory();
-			sInven.setDate(Utils.DATE_FORMATTER.parse(date));
-			sInven.setProductID(product);
-			sInven.setStockID(stock);
-			sInven.setQuantity(totalQ);
-			sInven.setPrice(product.getOrgPrice());
-			BigDecimal amount = BigDecimal.ZERO;
-			amount = product.getOrgPrice().multiply(new BigDecimal(totalQ));
-			sInven.setAmount(amount);
-
+			StockAdjustmentView sAdjustment = new StockAdjustmentView();
+			sAdjustment.setProductID(product.getProductID());
+			sAdjustment.setProductName(product.getProductName());
+			sAdjustment.setRealQuantity(0);
+			sAdjustment.setDifferentQuantity(0);
+			sAdjustment.setSubTotal(new BigDecimal(0));
+			sAdjustment.setPrice(product.getOrgPrice());
+			sAdjustment.setStockQuantity(totalQ);
 			// add to list
-			listSInven.add(sInven);
+			listSInven.add(sAdjustment);
 		}
 
-		Type type = new TypeToken<List<StockInventory>>() {
+		Type type = new TypeToken<List<StockAdjustmentView>>() {
 		}.getType();
 		
 		String jsonS = gson.toJson(listSInven, type);
