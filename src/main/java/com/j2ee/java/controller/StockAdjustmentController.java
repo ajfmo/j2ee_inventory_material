@@ -7,6 +7,8 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
@@ -22,6 +24,7 @@ import com.j2ee.java.model.bo.StockInventoryBO;
 import com.j2ee.java.model.bo.Utils;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Stock;
+import com.j2ee.java.model.dto.StockInventory;
 
 @Controller
 public class StockAdjustmentController {
@@ -42,22 +45,22 @@ public class StockAdjustmentController {
 	private Utils utils;
 
 	@RequestMapping(value = "/getListStockAdjustment")
-	public @ResponseBody String stockInventory() throws ParseException {
+	public @ResponseBody String stockInventory(HttpServletRequest request) throws ParseException {
 
+		String stockID = request.getParameter("stockID");
 		Gson gson = new Gson();
 		
 		List<StockAdjustmentView> listSInven = new ArrayList<StockAdjustmentView>();
 
-		List<Object[]> listInventory = stockInventoryBO.getAllStockInventory();
+		List<Object[]> listInventory = stockInventoryBO.getListByStockID(Integer.parseInt(stockID));
 		Iterator<Object[]> itr = listInventory.iterator();
 		while (itr.hasNext()) {
 			Object[] obj = (Object[]) itr.next();
 
-			String proID = String.valueOf(obj[1]);
 			Product product = new Product();
-			product = productBO.getByID(Integer.parseInt(proID));
+			product = (Product) obj[0];
 
-			int totalQ = Integer.parseInt(obj[3].toString());
+			int totalQ = Integer.parseInt(obj[1].toString());
 
 			/* set value */
 			StockAdjustmentView sAdjustment = new StockAdjustmentView();

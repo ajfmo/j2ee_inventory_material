@@ -1,11 +1,13 @@
 package com.j2ee.java.model.dao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 import org.hibernate.Query;
 import org.springframework.stereotype.Component;
 
+import com.j2ee.java.model.dto.Stock;
 import com.j2ee.java.model.dto.StockInventory;
 
 @Component(value="StockInventoryDAOImpl")
@@ -98,6 +100,22 @@ public class StockInventoryDAOImpl implements StockInventoryDAO{
 			int productID, int stockID) {
 		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@SuppressWarnings("unchecked")
+	@Override
+	public List<Object[]> getListByStockID(int stockID) {
+		List<Object[]> results = new ArrayList<Object[]>();
+		Query query = HibernateUtil.getSessionFactory().getCurrentSession()
+				.createQuery("SELECT s.productID, SUM(s.quantity), s.price"
+						+ " FROM StockInventory s "
+						+ " WHERE s.stockID = :stockID");
+		Stock stock = new Stock();
+		stock.setStockID(stockID);
+		query.setParameter("stockID", stock);
+		results = query.list();
+		
+		return results;
 	}
 
 }

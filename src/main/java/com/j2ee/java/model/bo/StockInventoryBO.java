@@ -26,4 +26,6 @@ public interface StockInventoryBO {
 	public int checkAvailableOfProduct(StockInventory stockInventory);
 	
 	public int getCurrentQuantity(StockInventory sInventory);
+	
+	public List<Object[]> getListByStockID(int stockID);
 }

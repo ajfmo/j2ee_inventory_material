@@ -26,4 +26,6 @@ public interface StockInventoryDAO {
 	public List<StockInventory> getStockInventoryByProductAndStock(int productID, int stockID);
 	
 	public int getCurrentQuantity(StockInventory sInventory);
+	
+	public List<Object[]> getListByStockID(int stockID);
 }

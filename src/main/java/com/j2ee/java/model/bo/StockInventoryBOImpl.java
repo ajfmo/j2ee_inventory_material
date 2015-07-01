@@ -160,4 +160,25 @@ public class StockInventoryBOImpl implements StockInventoryBO {
 		return 0;
 	}
 
+	@Override
+	public List<Object[]> getListByStockID(int stockID) {
+		List<Object[]> listStockInventory = new ArrayList<Object[]>();
+		Transaction tx = null;
+		try {
+			tx = HibernateUtil.getSessionFactory().getCurrentSession()
+					.beginTransaction();
+
+			listStockInventory = stockInventoryDAO.getListByStockID(stockID);
+
+			tx.commit();
+		} catch (Exception ex) {
+			// TODO: handle exception
+			if (tx != null) {
+				tx.rollback();
+			}
+			logger.error("Error", ex);
+		}
+		return listStockInventory;
+	}
+
 }
