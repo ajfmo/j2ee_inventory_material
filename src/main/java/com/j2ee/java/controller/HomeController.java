@@ -27,13 +27,13 @@ public class HomeController {
 	public String home(HttpSession session) {
 		logger.info("Welcome home!");
 		session.setAttribute("staffIDSession", 1);
-		
+		new com.j2ee.java.report.ProductReportDAO().runReport("G:\\WORK\\j2ee_inventory_material\\trunk\\src\\main\\resources\\demo.jrxml", "G:\\C1_report.pdf");
 		return "Home";
 	}
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String homePage() {
 		logger.info("Welcome home!");
-		
+		new com.j2ee.java.report.ProductReportDAO().runReport("/demo.jrxml", "Bao cao");
 		return "Home";
 	}
 	
