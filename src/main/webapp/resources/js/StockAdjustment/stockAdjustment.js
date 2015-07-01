@@ -1,5 +1,8 @@
 var obj;
+var stockID = null;
 $(document).ready(function() {
+	
+	stockID = $( "#select_stockName" ).val();
 	
     var date = new Date();
     var month = date.getMonth()+1;
@@ -12,6 +15,7 @@ $(document).ready(function() {
 	// get list product
 	var success = function(response) {
 		if (response != "") {
+			obj = null;
 			obj = jQuery.parseJSON(response);
 			//load json to table 
 			$('#tableInven tbody').html(getTableHTML());
@@ -57,12 +61,15 @@ $(document).ready(function() {
 	
 	// dinh nghia ham error
 	var error = function() {
-		alert("Can't get list Product!");
+		alert("Can't get list Stock!");
 	};
 	
 	var ajaxObject = {
 		url : 'getListStockAdjustment',
 		type : 'POST',
+		data:{
+			"stockID": stockID
+		},
 		success : success,
 		error : error
 	};
@@ -70,6 +77,71 @@ $(document).ready(function() {
 	// calling
 	$.ajax(ajaxObject);
 
+	$("#select_stockName").change(function(){
+    	// get value of ProductID
+    	stockID = $( "#select_stockName" ).val();
+    	$('#grandTotal').html(0);
+	});
+	
+	$("#searchInven").on('click',function(){
+		// calling
+		$('table#tableInven > tbody > tr').not(':first').not(':last').remove();
+		
+		$.ajax({
+    		url: "getListStockAdjustment",
+    		data: { 
+    	        'stockID' : stockID
+    	    },
+    	    dataType: 'json',
+    	    type: 'POST',
+    	    success: function(response) {
+    	    	if (response != "") {
+    	    		obj = null;
+    				obj = response;
+    				//load json to table 
+    				$('#tableInven tbody').html(getTableHTML());
+
+    				$('.inputQuantity').change(function(){
+    					var row = $(this).parent().parent();
+    					var col = row.find('td');
+    					
+    					var stockQ_index = 2;
+    					var realQ_index = 3;
+    					var diff_index = 4;
+    					var price_index = 5;
+    					var subTotal_index = 6;
+    					
+    					// get value
+    					var stockQuantity = parseInt(col.eq(stockQ_index).html());
+    					var realQuantity = parseInt($(this).val());
+    					
+    					var diff = col.eq(diff_index);
+    					var sub = col.eq(subTotal_index);
+    					
+    					var row_index = row.index()/2;
+    					
+    					var diffQuantity = (realQuantity - stockQuantity);
+    					var subToTal = diffQuantity * (parseInt(col.eq(price_index).html()));
+    					
+    					// set value for html
+    					diff.html(diffQuantity);
+    					sub.html(subToTal);
+    					
+    					// set value for return object
+    					obj[row_index]['realQuantity'] = realQuantity;
+    					obj[row_index]['differentQuantity'] = diffQuantity;
+    					obj[row_index]['subTotal'] = subToTal;
+    				
+    					// call function calculation grandTotal
+    					setGrandTotal();
+    				});
+    			}
+    	    },
+    	    error: function(xhr, status){
+                console.log(status);
+            }
+    	});
+	});
 });
 
 function setGrandTotal() {
