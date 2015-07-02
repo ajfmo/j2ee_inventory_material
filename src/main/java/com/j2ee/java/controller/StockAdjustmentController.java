@@ -50,41 +50,44 @@ public class StockAdjustmentController {
 
 	@RequestMapping(value = "/getListStockAdjustment")
 	public @ResponseBody String stockInventory(HttpServletRequest request) throws ParseException {
+		String response = "";
+		try {
+			String stockID = request.getParameter("stockID");
+			Gson gson = new Gson();
+			
+			List<StockAdjustmentView> listSInven = new ArrayList<StockAdjustmentView>();
 
-		String stockID = request.getParameter("stockID");
-		Gson gson = new Gson();
-		
-		List<StockAdjustmentView> listSInven = new ArrayList<StockAdjustmentView>();
+			List<Object[]> listInventory = stockInventoryBO.getListByStockID(Integer.parseInt(stockID));
+			Iterator<Object[]> itr = listInventory.iterator();
+			while (itr.hasNext()) {
+				Object[] obj = (Object[]) itr.next();
 
-		List<Object[]> listInventory = stockInventoryBO.getListByStockID(Integer.parseInt(stockID));
-		Iterator<Object[]> itr = listInventory.iterator();
-		while (itr.hasNext()) {
-			Object[] obj = (Object[]) itr.next();
+				Product product = new Product();
+				product = (Product) obj[0];
 
-			Product product = new Product();
-			product = (Product) obj[0];
+				int totalQ = Integer.parseInt(obj[1].toString());
 
-			int totalQ = Integer.parseInt(obj[1].toString());
+				/* set value */
+				StockAdjustmentView sAdjustment = new StockAdjustmentView();
+				sAdjustment.setProductID(product.getProductID());
+				sAdjustment.setProductName(product.getProductName());
+				sAdjustment.setRealQuantity(0);
+				sAdjustment.setDifferentQuantity(0);
+				sAdjustment.setSubTotal(new BigDecimal(0));
+				sAdjustment.setPrice(product.getOrgPrice());
+				sAdjustment.setStockQuantity(totalQ);
+				// add to list
+				listSInven.add(sAdjustment);
+			}
 
-			/* set value */
-			StockAdjustmentView sAdjustment = new StockAdjustmentView();
-			sAdjustment.setProductID(product.getProductID());
-			sAdjustment.setProductName(product.getProductName());
-			sAdjustment.setRealQuantity(0);
-			sAdjustment.setDifferentQuantity(0);
-			sAdjustment.setSubTotal(new BigDecimal(0));
-			sAdjustment.setPrice(product.getOrgPrice());
-			sAdjustment.setStockQuantity(totalQ);
-			// add to list
-			listSInven.add(sAdjustment);
+			Type type = new TypeToken<List<StockAdjustmentView>>() {
+			}.getType();
+			
+			response = gson.toJson(listSInven, type);
+		} catch (Exception e) {
+			response = "{\"ID\": \"2\"}";
 		}
-
-		Type type = new TypeToken<List<StockAdjustmentView>>() {
-		}.getType();
-		
-		String jsonS = gson.toJson(listSInven, type);
-		
-		return jsonS;
+		return response;
 	}
 	
 	@RequestMapping(value = "/StockAdjustment")
