@@ -122,7 +122,7 @@ $(document).ready(function() {
 	$("#saveData").on('click',function(){
 		
 		var customerID = $('#select_customerID').val();
-		var staffID = "3";
+		var staffID = "1";
 		var date = $('#ngayNhap').val();
 		var reason = $('#reason').val();
 		var totalAmount = $('#totalNumber').val();

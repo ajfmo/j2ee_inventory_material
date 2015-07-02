@@ -56,15 +56,16 @@
 							<li><a href="StockOutward">Stock Outward</a></li>
 							<li><a href="StockMove">Stock Move</a></li>
 							<li><a href="StockInventory">Stock Inventory</a></li>
+							<li><a href="StockAdjustment">Inventory Adjustments</a></li>
 						</ul> <!-- /.nav-second-level --></li>
 					<!-- Category Management -->
 					<li class=""><a href="#"><i class="fa fa-edit fa-fw"></i>
 							Category Management<span class="fa arrow"></span></a>
 						<ul class="nav nav-second-level collapse">
 							<li><a href="product">Product</a></li>
+							<li><a href="build">Assembly Product</a></li>
 							<li><a href="listStock">Stock</a></li>
 							<li><a href="listProvider">Provider</a></li>
-
 						</ul> <!-- /.nav-second-level --></li>
 
 					<li><a href="#"><i class="fa fa-table fa-fw"></i> Report</a></li>

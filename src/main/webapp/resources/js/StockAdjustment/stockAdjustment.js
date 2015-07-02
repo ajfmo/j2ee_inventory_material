@@ -63,7 +63,21 @@ $(document).ready(function() {
 	
 	// dinh nghia ham error
 	var error = function() {
-		alert("Can't get list Stock!");
+		var dialogError = new BootstrapDialog({
+            type: BootstrapDialog.TYPE_DANGER,
+            title: 'Danger Message',
+            message: 'Have problem! Please try later!',
+            buttons: [{
+                id: 'btn-cancel',
+                label: 'CANCEL'
+            }]
+        });     
+		dialogError.realize();
+		var btnCancel = dialogError.getButton('btn-cancel');
+		btnCancel.click(function(event){
+			location.reload(true);
+        });
+		dialogError.open();  
 	};
 	
 	var ajaxObject = {
@@ -142,14 +156,28 @@ $(document).ready(function() {
     			}
     	    },
     	    error: function(xhr, status){
-                console.log(status);
+				var dialogError = new BootstrapDialog({
+	                type: BootstrapDialog.TYPE_DANGER,
+	                title: 'Danger Message',
+	                message: 'Have problem! Please try later!',
+	                buttons: [{
+	                    id: 'btn-cancel',
+	                    label: 'CANCEL'
+	                }]
+	            });     
+				dialogError.realize();
+				var btnCancel = dialogError.getButton('btn-cancel');
+				btnCancel.click(function(event){
+					location.reload(true);
+		        });
+				dialogError.open();  
             }
     	});
 	});
 	
 	$("#saveAdjust").on('click',function(){
 		
-		var staffID = "3";
+		var staffID = "1";
 		var date = $('#date').val();
 		var totalDiffAmount = $('#grandTotal').html();
 		var totalDiffQuantity = $('#diffQuantity').html();
@@ -176,7 +204,7 @@ $(document).ready(function() {
 					var dialog = new BootstrapDialog({
 		                type: BootstrapDialog.TYPE_SUCCESS,
 		                title: 'Successful Message',
-		                message: 'Save bill successful!',
+		                message: 'SAVE ADJUSTMENT THIS INVENTORY SUCCESSFUL!',
 		                buttons: [{
 		                    id: 'btn-ok',
 		                    label: 'OK'

@@ -11,7 +11,7 @@
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap.min.css" />"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
 	type="text/css">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/StockInward/jquery-ui.css" />"

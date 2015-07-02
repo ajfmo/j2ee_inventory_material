@@ -11,7 +11,7 @@
 
 <!-- Bootstrap Core CSS -->
 <link rel="stylesheet"
-	href="<c:url value="/resources/css/bootstrap.min.css" />"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css"
 	type="text/css">
 <link rel="stylesheet"
 	href="<c:url value="/resources/css/bootstrap-dialog.css" />" type="text/css">
@@ -47,7 +47,7 @@
 	type="text/javascript"></script>
 <script src="<c:url value="/resources/js/jquery/jquery-ui.js" />"
 	type="text/javascript"></script>
-<script src="<c:url value="/resources/js/jquery/jquery.dataTables.js" />"
+<script src="<c:url value="/resources/js/jquery/jquery.dataTables.min.js" />"
 	type="text/javascript">
 </script>
 <script src="<c:url value="/resources/js/jquery/dataTables.bootstrap.js" />"

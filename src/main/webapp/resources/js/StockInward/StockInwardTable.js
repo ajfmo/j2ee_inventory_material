@@ -124,7 +124,7 @@ $(document).ready(function() {
 		var flag = true;
 		
 		var providerID = $('#select_providerID').val();
-		var staffID = "3";
+		var staffID = "1";
 		var date = $('#ngayNhap').val();
 		var reason = $('#reason').val();
 		var totalAmount = $('#totalNumber').val();

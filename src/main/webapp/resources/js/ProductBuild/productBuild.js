@@ -112,7 +112,7 @@ $(document).ready(function() {
     $('#saveProBuild').click(function() {
     	
     	// get Stock Build data
-    	var staffID = "3";
+    	var staffID = "1";
     	var totalQuantity = $('#quantity').val(); 
     	var totalAmount = $('#subTotal').val();
     	var note = $('#note').val();
@@ -160,7 +160,7 @@ $(document).ready(function() {
 					var dialog = new BootstrapDialog({
 		                type: BootstrapDialog.TYPE_SUCCESS,
 		                title: 'Successful Message',
-		                message: 'Save Stock Build successful!',
+		                message: 'Assembly This Product Successful!',
 		                buttons: [{
 		                    id: 'btn-ok',
 		                    label: 'OK'
