@@ -7,9 +7,9 @@
 	
 	<form class="form-inline">
 		<div class="row">
-			<button id="saveInven" class="btn btn-success" type="button">Save Data</button>
-			<button id="cancelInven" class="btn btn-danger" type="button">Cancel</button>
-			<button id="printInven" class="btn btn-default" type="button">Print</button>
+			<button id="saveAdjust" class="btn btn-success" type="button">Save Data</button>
+			<button id="cancelAdjust" class="btn btn-danger" type="button">Cancel</button>
+			<button id="printAdjust" class="btn btn-default" type="button">Print</button>
 		</div>
 		
 		<div class="row" style="margin-top: 20px; margin-left: -30px">
@@ -50,7 +50,7 @@
 			   	<tr>
 			      <th colspan="3">Grand Total</th>
 			      <th></th>
-			      <th></th>
+			      <th id="diffQuantity"></th>
 			      <th></th>
 			      <th id="grandTotal"></th>
 			    </tr>
