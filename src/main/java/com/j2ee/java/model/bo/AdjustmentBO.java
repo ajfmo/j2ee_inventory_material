@@ -2,6 +2,8 @@ package com.j2ee.java.model.bo;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.j2ee.java.model.dto.Adjustment;
 
 public interface AdjustmentBO {
@@ -10,7 +12,7 @@ public interface AdjustmentBO {
 	
 	public List<Adjustment> getAllAdjustment();
 	
-	public boolean insertAdjustment(Adjustment Adjustment);
+	public String insertAdjustment(HttpServletRequest request);
 	
 	public boolean updateAdjustment(Adjustment Adjustment);
 	

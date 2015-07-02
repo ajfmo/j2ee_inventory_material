@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
+import com.j2ee.java.model.bo.AdjustmentBO;
 import com.j2ee.java.model.bo.ProductBO;
 import com.j2ee.java.model.bo.StockBO;
 import com.j2ee.java.model.bo.StockInventoryBO;
 import com.j2ee.java.model.bo.Utils;
 import com.j2ee.java.model.dto.Product;
 import com.j2ee.java.model.dto.Stock;
-import com.j2ee.java.model.dto.StockInventory;
 
 @Controller
 public class StockAdjustmentController {
@@ -32,6 +32,10 @@ public class StockAdjustmentController {
 	@Autowired
 	@Qualifier("StockInventoryBOImpl")
 	private StockInventoryBO stockInventoryBO;
+	
+	@Autowired
+	@Qualifier("AdjustmentBOImpl")
+	private AdjustmentBO adjustmentBO;
 
 	@Autowired
 	@Qualifier("ProductBOImpl")
@@ -89,5 +93,16 @@ public class StockAdjustmentController {
 		model.addAttribute("listStock", listStock);
 		
 		return "StockAdjustment";
+	}
+	
+	@RequestMapping(value = "/saveStockAdjustment")
+	public @ResponseBody String saveStockAdjustment(HttpServletRequest request) throws ParseException {
+		String response = "";
+		try {
+			response = adjustmentBO.insertAdjustment(request);
+		} catch (Exception e) {
+			response = "{\"ID\": \"2\"}";
+		}
+		return response;
 	}
 }
