@@ -12,6 +12,7 @@ $(document).ready(function() {
     $('#date').val(output);
 	// call function calculation grandTotal
 	setGrandTotal();
+	setDiffQ();
 	// get list product
 	var success = function(response) {
 		if (response != "") {
@@ -53,6 +54,7 @@ $(document).ready(function() {
 			
 				// call function calculation grandTotal
 				setGrandTotal();
+				setDiffQ();
 			});
 		} else {
 			
@@ -81,6 +83,7 @@ $(document).ready(function() {
     	// get value of ProductID
     	stockID = $( "#select_stockName" ).val();
     	$('#grandTotal').html(0);
+    	$('#diffQuantity').html(0);
 	});
 	
 	$("#searchInven").on('click',function(){
@@ -134,6 +137,7 @@ $(document).ready(function() {
     				
     					// call function calculation grandTotal
     					setGrandTotal();
+    					setDiffQ();
     				});
     			}
     	    },
@@ -142,16 +146,91 @@ $(document).ready(function() {
             }
     	});
 	});
+	
+	$("#saveAdjust").on('click',function(){
+		
+		var staffID = "3";
+		var date = $('#date').val();
+		var totalDiffAmount = $('#grandTotal').html();
+		var totalDiffQuantity = $('#diffQuantity').html();
+		
+		var adjustment = {
+				"date" : date,
+				"staffID" : staffID,
+				"stockID" : stockID,
+				"totalDiffAmount" : totalDiffAmount,
+				"totalDiffQuantity" : totalDiffQuantity
+		};
+		
+		var data = {};
+		data[0] = JSON.stringify(adjustment);
+		data[1] = JSON.stringify(obj);
+		$.ajax({
+        	type: 'POST',
+            url: './saveStockAdjustment',
+            dataType: 'json',
+            data: data,
+            success: function(response) {
+            	// Check if response is success.
+				if(response.ID == 1){
+					var dialog = new BootstrapDialog({
+		                type: BootstrapDialog.TYPE_SUCCESS,
+		                title: 'Successful Message',
+		                message: 'Save bill successful!',
+		                buttons: [{
+		                    id: 'btn-ok',
+		                    label: 'OK'
+		                }]
+		            });     
+					dialog.realize();
+					var btnOk = dialog.getButton('btn-ok');
+					btnOk.click(function(event){
+						location.reload(true);
+			        });
+					dialog.open();
+				}
+				else {
+					var dialogError = new BootstrapDialog({
+		                type: BootstrapDialog.TYPE_DANGER,
+		                title: 'Danger Message',
+		                message: 'Have problem! Please try later!',
+		                buttons: [{
+		                    id: 'btn-cancel',
+		                    label: 'CANCEL'
+		                }]
+		            });     
+					dialogError.realize();
+					var btnCancel = dialogError.getButton('btn-cancel');
+					btnCancel.click(function(event){
+						location.reload(true);
+			        });
+					dialogError.open();  
+				}
+            },
+            error : function(xhr, status){
+                console.log(status);
+            }
+            
+        });
+	});
 });
 
 function setGrandTotal() {
-	
 	var grandTotal = 0;
 	$('#tableInven .subTotal').each(function() {
 		grandTotal += parseInt( $(this).html() );
 	});
 	
 	$('#grandTotal').html(grandTotal);
+};
+
+function setDiffQ() {
+
+	var diffQ = 0;
+	$('#tableInven .diffQ').each(function() {
+		diffQ += parseInt( $(this).html() );
+	});
+	$('#diffQuantity').html(diffQ);
 };
 
 function getTableHTML() {
@@ -179,7 +258,7 @@ function getTableHTML() {
                     break;
                 // Column 4
                 case 4:
-                    html += "<td>" + obj[i]['differentQuantity'] + "</td>";
+                    html += "<td class='diffQ'>" + obj[i]['differentQuantity'] + "</td>";
                     break;
                 // Column 5
                 case 5:
