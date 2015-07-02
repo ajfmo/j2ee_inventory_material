@@ -109,7 +109,8 @@ public class StockInventoryDAOImpl implements StockInventoryDAO{
 		Query query = HibernateUtil.getSessionFactory().getCurrentSession()
 				.createQuery("SELECT s.productID, SUM(s.quantity), s.price"
 						+ " FROM StockInventory s "
-						+ " WHERE s.stockID = :stockID");
+						+ " WHERE s.stockID = :stockID"
+						+ "	GROUP BY s.productID, s.stockID");
 		Stock stock = new Stock();
 		stock.setStockID(stockID);
 		query.setParameter("stockID", stock);
